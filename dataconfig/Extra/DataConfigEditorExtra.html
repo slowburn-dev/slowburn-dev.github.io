@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>DataConfigEditorExtra - DataConfig Book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Serialization framework for Unreal Engine Property System that just works!">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="../index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item "><a href="../Examples.html"><strong aria-hidden="true">2.</strong> Examples</a></li><li class="chapter-item "><a href="../Integration.html"><strong aria-hidden="true">3.</strong> Integration</a></li><li class="chapter-item "><a href="../Design.html"><strong aria-hidden="true">4.</strong> Design</a></li><li class="chapter-item "><a href="../Programming/index.html"><strong aria-hidden="true">5.</strong> Programming</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../Programming/CoreTypes.html"><strong aria-hidden="true">5.1.</strong> Core Types</a></li><li class="chapter-item "><a href="../Programming/ErrorHandling.html"><strong aria-hidden="true">5.2.</strong> Error Handling</a></li><li class="chapter-item "><a href="../Programming/Env.html"><strong aria-hidden="true">5.3.</strong> Env</a></li><li class="chapter-item "><a href="../Programming/BuiltinReaderWriters.html"><strong aria-hidden="true">5.4.</strong> Built-in Reader and Writers</a></li><li class="chapter-item "><a href="../Programming/Deserializer.html"><strong aria-hidden="true">5.5.</strong> Deserializer</a></li></ol></li><li class="chapter-item "><a href="../Deserialize/index.html"><strong aria-hidden="true">6.</strong> Deserialize</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../Deserialize/DeserializeJSON.html"><strong aria-hidden="true">6.1.</strong> Deserialize JSON</a></li><li class="chapter-item "><a href="../Deserialize/PipeDeserialize.html"><strong aria-hidden="true">6.2.</strong> Pipe Deserialize</a></li></ol></li><li class="chapter-item expanded "><a href="../Extra/index.html"><strong aria-hidden="true">7.</strong> Extra</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../Extra/DataConfigExtra.html"><strong aria-hidden="true">7.1.</strong> DataConfigExtra</a></li><li class="chapter-item expanded "><a href="../Extra/DataConfigEditorExtra.html" class="active"><strong aria-hidden="true">7.2.</strong> DataConfigEditorExtra</a></li></ol></li><li class="chapter-item "><a href="../License.html"><strong aria-hidden="true">8.</strong> License</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">DataConfig Book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#dataconfigeditorextra" id="dataconfigeditorextra">DataConfigEditorExtra</a></h1>
+<p>Module <code>DataConfigEditorExtra</code> contains examples that need to be run in a editor context.</p>
+<h2><a class="header" href="#dceditorextramodule" id="dceditorextramodule"><code>DcEditorExtraModule</code></a></h2>
+<p>This is a good reference of integrating <code>DataConfigCore</code> in a editor module. Here's a checklist:</p>
+<ul>
+<li>Register additional diagnostics early. </li>
+<li>Call <code>DcStartUp()/DcShutDonw()</code> pair.</li>
+<li>Register custom diagnostic consumer.</li>
+</ul>
+<p><code>FDcMessageLogDiagnosticConsumer</code> is an example of redirecting diagnostics into UE Message Log window with its own category.</p>
+<h2><a class="header" href="#deserialize-blueprint-class-instances" id="deserialize-blueprint-class-instances">Deserialize Blueprint Class Instances</a></h2>
+<p>The Property System is so powerful that you can create new Blueprint Class, which is equivalent to C++ <code>UCLASS</code> to some extents, within the Blueprint Editor. In this example we implemented deserializing these.</p>
+<p>Blueprint Class can be referenced by the blueprint asset path:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/Deserialize/DcDeserializeBPClass.cpp
+FString Str = TEXT(R&quot;(
+    {
+        //...
+        &quot;ClassField3&quot; : &quot;/DataConfig/DcFixture/DcTestBlueprintClassBeta&quot;,
+    }
+)&quot;);
+
+UTEST_TRUE(&quot;...&quot;, Dest.ClassField3-&gt;GetFName() == TEXT(&quot;DcTestBlueprintClassBeta_C&quot;));
+</code></pre>
+<p>And Blueprint structs can also be deserialized from JSON. We need to rewrite the handler <code>HandlerBPDcAnyStructDeserialize</code> for looking up Blueprint Struct by path:</p>
+<pre><code class="language-C++">// DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/Deserialize/DcDeserializeBPClass.cpp
+FString Str = TEXT(R&quot;(
+    {
+        &quot;AnyStructField1&quot; : {
+            &quot;$type&quot; : &quot;/DataConfig/DcFixture/DcTestBlueprintStructWithColor&quot;,
+            &quot;NameField&quot; : &quot;Foo&quot;,
+            &quot;StrField&quot; : &quot;Bar&quot;,
+            &quot;IntField&quot; : 123,
+            &quot;ColorField&quot; : &quot;#FF0000FF&quot;
+        }
+    }
+)&quot;);
+</code></pre>
+<p>There's a quirk that Blueprint Struct actually mangle its field names. The struct above dumps to something like this:</p>
+<pre><code>-----------------------------------------
+# Datum: 'UserDefinedStruct', 'DcTestBlueprintStructWithColor'
+&lt;StructRoot&gt; 'DcTestBlueprintStructWithColor'
+|---&lt;Name&gt; 'NameField_5_97BFF114405C1934C2F33E8668BF1652'
+|---&lt;Name&gt; 'Foo'
+|---&lt;Name&gt; 'StrField_9_FAA71EFE4896F4E6B1478B9C13B2CE52'
+|---&lt;String&gt; 'Bar'
+|---&lt;Name&gt; 'IntField_11_3BC7CB0F42439CE2196F7AA82A1AC374'
+|---&lt;Int32&gt; '123'
+|---&lt;Name&gt; 'ColorField_14_F676BCF245B2977B678B65A8216E94EB'
+|---&lt;StructRoot&gt; 'Color'
+|   |---&lt;Name&gt; 'B'
+|   |---&lt;UInt8&gt; '0'
+|   |---&lt;Name&gt; 'G'
+|   |---&lt;UInt8&gt; '0'
+|   |---&lt;Name&gt; 'R'
+|   |---&lt;UInt8&gt; '255'
+|   |---&lt;Name&gt; 'A'
+|   |---&lt;UInt8&gt; '255'
+|---&lt;StructEnd&gt; 'Color'
+&lt;StructEnd&gt; 'DcTestBlueprintStructWithColor'
+-----------------------------------------
+</code></pre>
+<p>The good news is that DataConfig already got this covered. </p>
+<h2><a class="header" href="#deserialize-gameplaytags" id="deserialize-gameplaytags">Deserialize GameplayTags</a></h2>
+<p><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Tags/index.html" title="Gameplay Tags">GameplayTags</a> is a built-in runtime module that implements hierarchical tags. In this example we implemented deserializing into <code>FGameplayTag</code> from a string.</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayTags.cpp
+FString Str = TEXT(R&quot;(
+    {
+        &quot;TagField1&quot; : null,
+        &quot;TagField2&quot; : &quot;DataConfig.Foo.Bar&quot;
+    }
+)&quot;);
+
+UTEST_FALSE(&quot;...&quot;, Dest.TagField1.IsValid());
+UTEST_TRUE(&quot;...&quot;, Dest.TagField2.IsValid());
+UTEST_TRUE(&quot;...&quot;, Dest.TagField2 == UGameplayTagsManager::Get().RequestGameplayTag(TEXT(&quot;DataConfig.Foo.Bar&quot;)));
+</code></pre>
+<p>We also implemented deserializing <code>FGameplayTagContainer</code> from a list of strings:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayTags.cpp
+FString Str = TEXT(R&quot;(
+    {
+        &quot;TagContainerField1&quot; : [],
+        &quot;TagContainerField2&quot; : [
+            &quot;DataConfig.Foo.Bar&quot;,
+            &quot;DataConfig.Foo.Bar.Baz&quot;,
+            &quot;DataConfig.Tar.Taz&quot;,
+        ]
+    }
+)&quot;);
+
+UTEST_TRUE(&quot;...&quot;, Dest.TagContainerField1.Num() == 0);
+UTEST_TRUE(&quot;...&quot;, Dest.TagContainerField2.Num() == 3);
+UTEST_TRUE(&quot;...&quot;, Dest.TagContainerField2.HasTagExact(
+    UGameplayTagsManager::Get().RequestGameplayTag(TEXT(&quot;DataConfig.Foo.Bar&quot;))
+));
+UTEST_TRUE(&quot;...&quot;, Dest.TagContainerField2.HasTagExact(
+    UGameplayTagsManager::Get().RequestGameplayTag(TEXT(&quot;DataConfig.Foo.Bar.Baz&quot;))
+));
+UTEST_TRUE(&quot;...&quot;, Dest.TagContainerField2.HasTagExact(
+    UGameplayTagsManager::Get().RequestGameplayTag(TEXT(&quot;DataConfig.Tar.Taz&quot;))
+));
+
+</code></pre>
+<p>Note that gameplay tag parsing has error reporting built-in. In this case we can pipe it into our diagnostic:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayTags.cpp
+static FDcResult _StringToGameplayTag(FDcDeserializeContext&amp; Ctx, const FString&amp; Str, FGameplayTag* OutTagPtr)
+{
+    FString FixedString;
+    FText Err;
+    if (!FGameplayTag::IsValidGameplayTagString(Str, &amp;Err, &amp;FixedString))
+    {
+        return DC_FAIL(DcDEditorExtra, InvalidGameplayTagStringFixErr)
+            &lt;&lt; Str &lt;&lt; FixedString &lt;&lt; Err;
+    }
+    //...
+}
+</code></pre>
+<p>In case of a invalid tag it would report the reason and fixed string:</p>
+<pre><code># DataConfig Error: Invalid Gameplay Tag String, Actual: 'DataConfig.Invalid.Tag.', Fixed: 'DataConfig.Invalid.Tag', Error: 'Tag ends with .'
+- [JsonReader] --&gt; &lt;in-memory&gt;5:4
+   3 |        { 
+   4 |            &quot;TagField1&quot; : null, 
+   5 |            &quot;TagField2&quot; : &quot;DataConfig.Invalid.Tag.&quot; 
+     |                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+   6 |        } 
+   7 |    
+- [PropertyWriter] Writing property: (FDcEditorExtraTestStructWithGameplayTag1)$root.(FGameplayTag)TagField2
+ [C:\DevUE\UnrealEngine\Engine\Source\Developer\MessageLog\Private\Model\MessageLogListingModel.cpp(73)]
+</code></pre>
+<h2><a class="header" href="#deserialize-gameplay-abilities" id="deserialize-gameplay-abilities">Deserialize Gameplay Abilities</a></h2>
+<p>We'll conclude examples with a concrete user story: populating <code>GameplayAbility</code> and <code>GameplayEffect</code> blueprint from JSON file.</p>
+<p><a href="https://docs.unrealengine.com/en-US/InteractiveExperiences/GameplayAbilitySystem/index.html" title="Gameplay Ability System">Gameplay Ability System</a> is a built-in plugin for building data driven abilities. Users are expected to derived and modify <code>GameplayAbility</code> and <code>GameplayEffect</code> blueprint for custom logic. </p>
+<p>Given a JSON like this:</p>
+<pre><code class="language-c++">// DataConfig/Tests/Fixture_AbilityAlpha.json
+{
+    /// Tags
+    &quot;AbilityTags&quot; : [
+        &quot;DataConfig.Foo.Bar&quot;,
+        &quot;DataConfig.Foo.Bar.Baz&quot;,
+    ],
+    &quot;CancelAbilitiesWithTag&quot; : [
+        &quot;DataConfig.Foo.Bar.Baz&quot;,
+        &quot;DataConfig.Tar.Taz&quot;,
+    ],
+    /// Costs
+    &quot;CostGameplayEffectClass&quot; : &quot;/DataConfig/DcFixture/DcTestGameplayEffectAlpha&quot;,
+    /// Advanced
+    &quot;ReplicationPolicy&quot; : &quot;ReplicateYes&quot;,
+    &quot;InstancingPolicy&quot; : &quot;NonInstanced&quot;,
+}
+</code></pre>
+<p>Right click on a <code>GameplayAbility</code> blueprint asset and select <code>Load From JSON</code>， then select this file and confirm. It would correctly populate the fields with the values in JSON, as seen in the pic below:</p>
+<p><img src="Images/DataConfigEditorExtra-LoadJsonIntoAbility.png" alt="DataConfigEditorExtra-LoadJsonIntoAbility" /></p>
+<p>Most of the logic is in <code>DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayAbility.cpp</code>:</p>
+<ul>
+<li>The context menu is added from <code>GameplayAbilityEffectExtender</code>. There's another handy item named <code>Dump To Log</code> which dumps any blueprint CDO into the log.</li>
+<li>DataConfig deserializer is setup in <code>LazyInitializeDeserializer()</code>. We added custom logic for deserializing <code>FGameplayAttribute</code> from a string like <code>DcTestAttributeSet.Mana</code>.</li>
+<li>We also reused many methods from previous examples to support <code>FGameplayTag</code> deserialization and Blueprint class look up by path.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../Extra/DataConfigExtra.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../License.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../Extra/DataConfigExtra.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../License.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

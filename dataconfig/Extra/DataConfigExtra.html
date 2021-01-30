@@ -1,0 +1,419 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>DataConfigExtra - DataConfig Book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Serialization framework for Unreal Engine Property System that just works!">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="../index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item "><a href="../Examples.html"><strong aria-hidden="true">2.</strong> Examples</a></li><li class="chapter-item "><a href="../Integration.html"><strong aria-hidden="true">3.</strong> Integration</a></li><li class="chapter-item "><a href="../Design.html"><strong aria-hidden="true">4.</strong> Design</a></li><li class="chapter-item "><a href="../Programming/index.html"><strong aria-hidden="true">5.</strong> Programming</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../Programming/CoreTypes.html"><strong aria-hidden="true">5.1.</strong> Core Types</a></li><li class="chapter-item "><a href="../Programming/ErrorHandling.html"><strong aria-hidden="true">5.2.</strong> Error Handling</a></li><li class="chapter-item "><a href="../Programming/Env.html"><strong aria-hidden="true">5.3.</strong> Env</a></li><li class="chapter-item "><a href="../Programming/BuiltinReaderWriters.html"><strong aria-hidden="true">5.4.</strong> Built-in Reader and Writers</a></li><li class="chapter-item "><a href="../Programming/Deserializer.html"><strong aria-hidden="true">5.5.</strong> Deserializer</a></li></ol></li><li class="chapter-item "><a href="../Deserialize/index.html"><strong aria-hidden="true">6.</strong> Deserialize</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../Deserialize/DeserializeJSON.html"><strong aria-hidden="true">6.1.</strong> Deserialize JSON</a></li><li class="chapter-item "><a href="../Deserialize/PipeDeserialize.html"><strong aria-hidden="true">6.2.</strong> Pipe Deserialize</a></li></ol></li><li class="chapter-item expanded "><a href="../Extra/index.html"><strong aria-hidden="true">7.</strong> Extra</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Extra/DataConfigExtra.html" class="active"><strong aria-hidden="true">7.1.</strong> DataConfigExtra</a></li><li class="chapter-item "><a href="../Extra/DataConfigEditorExtra.html"><strong aria-hidden="true">7.2.</strong> DataConfigEditorExtra</a></li></ol></li><li class="chapter-item "><a href="../License.html"><strong aria-hidden="true">8.</strong> License</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">DataConfig Book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#dataconfigextra" id="dataconfigextra">DataConfigExtra</a></h1>
+<p>Module <code>DataConfigExtra</code> contains examples that doesn't dependent on <code>Engine/UnrealEd</code>.</p>
+<h2><a class="header" href="#deserialize-json-into-struct" id="deserialize-json-into-struct">Deserialize JSON into Struct</a></h2>
+<p>There's a built-in method in <code>JsonUtilities</code> module that simply deserialize a JSON string into a struct. In this example we implemented a similar method with almost identical API:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Types/DcJsonConverter.cpp
+FString Str = TEXT(R&quot;(
+    {
+        &quot;StrField&quot; : &quot;Foo&quot;,
+        &quot;IntField&quot; : 253,
+        &quot;BoolField&quot; : true
+    }
+)&quot;);
+
+FDcTestJsonConverter1 Lhs;
+bool LhsOk = DcExtra::JsonObjectStringToUStruct(Str, &amp;Lhs);
+
+FDcTestJsonConverter1 Rhs;
+bool RhsOk = FJsonObjectConverter::JsonObjectStringToUStruct(Str, &amp;Rhs, 0, 0);
+</code></pre>
+<p>Comparing to the stock method <code>DcExtra::JsonObjectStringToUStruct</code> allows relaxed JSON with comments and trailing comma. It would also provide better diagnostics on parse error.</p>
+<h2><a class="header" href="#deserialize-fcolor" id="deserialize-fcolor">Deserialize <code>FColor</code></a></h2>
+<p>This has been shown multiple times in previous chapters. It's also a benchmark use case for our custom deserialization logic:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcDeserializeColor.cpp
+FString Str = TEXT(R&quot;(
+    {
+        &quot;ColorField1&quot; : &quot;#0000FFFF&quot;,
+        &quot;ColorField2&quot; : &quot;#FF0000FF&quot;,
+    }
+)&quot;);
+
+// deserialized equivelent
+FDcExtraTestStructWithColor1 Expect;
+
+Expect.ColorField1 = FColor::Blue;
+Expect.ColorField2 = FColor::Red;
+</code></pre>
+<h2><a class="header" href="#deserialize-base64-string-as-blob" id="deserialize-base64-string-as-blob">Deserialize Base64 string as Blob</a></h2>
+<p>In this example we deserialize <code>TArray&lt;uint8&gt;</code> from Base64 strings in JSON:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcDeserializeBase64.cpp
+FString Str = TEXT(R&quot;(
+    {
+        &quot;BlobField1&quot; : &quot;dGhlc2UgYXJlIG15IHR3aXN0ZWQgd29yZHM=&quot;,
+        &quot;BlobField2&quot; : &quot;&quot;,
+    }
+)&quot;);
+
+// deserialized equivelent
+FDcExtraTestStructWithBase64 Expect;
+
+const char* Literal = &quot;these are my twisted words&quot;;
+Expect.BlobField1 = TArray&lt;uint8&gt;((uint8*)Literal, FCStringAnsi::Strlen(Literal));
+Expect.BlobField2 = TArray&lt;uint8&gt;();
+</code></pre>
+<p>In the predicate we are checking for <code>Array</code>s with custom meta data <code>DcExtraBlob</code>:</p>
+<pre><code class="language-c++">// DataConfig\Source\DataConfigExtra\Public\DataConfig\Extra\Deserialize\DcDeserializeBase64.h
+USTRUCT()
+struct FDcExtraTestStructWithBase64
+{
+    GENERATED_BODY()
+
+    UPROPERTY(meta = (DcExtraBase64)) TArray&lt;uint8&gt; BlobField1;
+    UPROPERTY(meta = (DcExtraBase64)) TArray&lt;uint8&gt; BlobField2;
+};
+</code></pre>
+<p>UE support arbitrary meta data in the <code>meta = ()</code> segment. But beware that the meta data is only available when <code>WITH_EDITORDATA</code> flag is defined.</p>
+<h2><a class="header" href="#deserialize-fdcanystruct" id="deserialize-fdcanystruct">Deserialize <code>FDcAnyStruct</code></a></h2>
+<p>we've implemented <code>FDcAnyStruct</code> that can be used to store a heap allocated <code>USTRUCT</code> of any type while keep proper value sematic on itself:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcDeserializeAnyStruct.cpp
+//  instantiate from heap allocated structs
+FDcAnyStruct Any1 = new FDcExtraTestSimpleStruct1();
+Any1.GetChecked&lt;FDcExtraTestSimpleStruct1&gt;()-&gt;NameField = TEXT(&quot;Foo&quot;);
+
+//  supports moving
+FDcAnyStruct Any2 = MoveTemp(Any1);
+check(!Any1.IsValid());
+check(Any2.GetChecked&lt;FDcExtraTestSimpleStruct1&gt;()-&gt;NameField == TEXT(&quot;Foo&quot;));
+Any2.Reset();
+
+//  supports shared referencing
+Any2 = new FDcExtraTestSimpleStruct2();
+Any2.GetChecked&lt;FDcExtraTestSimpleStruct2&gt;()-&gt;StrField = TEXT(&quot;Bar&quot;);
+
+Any1 = Any2;
+
+check(Any1.DataPtr == Any2.DataPtr);
+check(Any1.StructClass == Any2.StructClass);
+</code></pre>
+<p>In this example we implemented predicate and handler to support deserializing <code>FDcAnyStruct</code> from a JSON object with a <code>$type</code> field, or a <code>null</code>.</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcDeserializeAnyStruct.cpp
+FString Str = TEXT(R&quot;(
+    {
+        &quot;AnyStructField1&quot; : {
+            &quot;$type&quot; : &quot;DcExtraTestSimpleStruct1&quot;,
+            &quot;NameField&quot; : &quot;Foo&quot;
+        },
+        &quot;AnyStructField2&quot; : {
+            &quot;$type&quot; : &quot;DcExtraTestStructWithColor1&quot;,
+            &quot;ColorField1&quot; : &quot;#0000FFFF&quot;,
+            &quot;ColorField2&quot; : &quot;#FF0000FF&quot;
+        },
+        &quot;AnyStructField3&quot; : null
+    }
+)&quot;);
+
+//...
+
+UTEST_TRUE(&quot;...&quot;, Dest.AnyStructField1.GetChecked&lt;FDcExtraTestSimpleStruct1&gt;()-&gt;NameField == TEXT(&quot;Foo&quot;));
+UTEST_TRUE(&quot;...&quot;, Dest.AnyStructField2.GetChecked&lt;FDcExtraTestStructWithColor1&gt;()-&gt;ColorField1 == FColor::Blue);
+UTEST_TRUE(&quot;...&quot;, Dest.AnyStructField2.GetChecked&lt;FDcExtraTestStructWithColor1&gt;()-&gt;ColorField2 == FColor::Red);
+UTEST_TRUE(&quot;...&quot;, !Dest.AnyStructField3.IsValid());
+</code></pre>
+<p>Note how custom <code>FColor</code> deserializing works inside a <code>FDcAnyStruct</code>.</p>
+<h2><a class="header" href="#copying-struct-while-renaming-field-names" id="copying-struct-while-renaming-field-names">Copying struct while renaming field names</a></h2>
+<p>This is an example of using <code>FDcDeserializer</code> with non <code>FDcJsonReader</code>. It uses <code>FDcPropertyReader</code> with the <code>DcPropertyPipeHandlers</code> to do renaming:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcDeserializeRenameStructFieldNames.cpp
+//  struct equivelent to this:
+FString Str = TEXT(R&quot;(
+    {
+        &quot;FromName1&quot; : &quot;Foo&quot;,
+        &quot;FromStructSet1&quot; : 
+        [
+            {
+                &quot;FromStr1&quot; : &quot;One&quot;,
+                &quot;FromInt1&quot; : 1,
+            },
+            {
+                &quot;FromStr1&quot; : &quot;Two&quot;,
+                &quot;FromInt1&quot; : 2,
+            }
+        ]
+    }
+)&quot;);
+
+// ... deserialize with a functor renaming `FromXXX` to `ToXXX`:
+UTEST_OK(&quot;...&quot;, DcExtra::DeserializeStructRenaming(FromDatum, ToDatum, FDcExtraRenamer::CreateLambda([](const FName&amp; FromName){
+    FString FromStr = FromName.ToString();
+    if (FromStr.StartsWith(TEXT(&quot;From&quot;)))
+        return FName(TEXT(&quot;To&quot;) + FromStr.Mid(4));
+    else
+        return FromName;
+})));
+
+// ... results into a struct equivelent to this: 
+FString Str = TEXT(R&quot;(
+    {
+        &quot;ToName1&quot; : &quot;Foo&quot;,
+        &quot;ToStructSet1&quot; : 
+        [
+            {
+                &quot;ToStr1&quot; : &quot;One&quot;,
+                &quot;ToInt1&quot; : 1,
+            },
+            {
+                &quot;ToStr1&quot; : &quot;Two&quot;,
+                &quot;ToInt1&quot; : 2,
+            }
+        ]
+    }
+)&quot;);
+</code></pre>
+<h2><a class="header" href="#access-property-by-path" id="access-property-by-path">Access property by path</a></h2>
+<p>UE built-in module <code>PropertyPath</code> allow accessing nested object properties by a path like <code>Foo.Bar.Baz</code>:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Types/DcPropertyPathAccess.cpp
+FString Str;
+UTEST_TRUE(&quot;...&quot;, PropertyPathHelpers::GetPropertyValue(Outer, TEXT(&quot;StructRoot.Middle.InnerMost.StrField&quot;), Str));
+UTEST_TRUE(&quot;...&quot;, Str == TEXT(&quot;Foo&quot;));
+
+UTEST_TRUE(&quot;...&quot;, PropertyPathHelpers::SetPropertyValue(Outer, TEXT(&quot;StructRoot.Middle.InnerMost.StrField&quot;), FString(TEXT(&quot;Bar&quot;))));
+UTEST_TRUE(&quot;...&quot;, Outer-&gt;StructRoot.Middle.InnerMost.StrField == TEXT(&quot;Bar&quot;));
+</code></pre>
+<p>We implemented a pair of methods <code>GetDatumPropertyByPath/SetDatumPropertyByPath</code> with <code>FDcPropertyReader</code>:</p>
+<pre><code class="language-c++">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Types/DcPropertyPathAccess.cpp
+UTEST_TRUE(&quot;...&quot;, CheckStrPtr(GetDatumPropertyByPath&lt;FString&gt;(FDcPropertyDatum(Outer), &quot;StructRoot.Middle.InnerMost.StrField&quot;), TEXT(&quot;Foo&quot;)));
+UTEST_TRUE(&quot;...&quot;, CheckStrPtr(GetDatumPropertyByPath&lt;FString&gt;(FDcPropertyDatum(Outer), &quot;StructRoot.Arr.0.StrField&quot;), TEXT(&quot;Bar0&quot;)));
+UTEST_TRUE(&quot;...&quot;, CheckStrPtr(GetDatumPropertyByPath&lt;FString&gt;(FDcPropertyDatum(Outer), &quot;StructRoot.Arr.1.StrField&quot;), TEXT(&quot;Bar1&quot;)));
+UTEST_TRUE(&quot;...&quot;, CheckStrPtr(GetDatumPropertyByPath&lt;FString&gt;(FDcPropertyDatum(Outer), &quot;StructRoot.NameMap.FooKey.StrField&quot;), TEXT(&quot;FooValue&quot;)));
+
+UTEST_TRUE(&quot;...&quot;, SetDatumPropertyByPath&lt;FString&gt;(FDcPropertyDatum(Outer), &quot;StructRoot.Middle.InnerMost.StrField&quot;, TEXT(&quot;AltFoo&quot;)));
+UTEST_TRUE(&quot;...&quot;, SetDatumPropertyByPath&lt;FString&gt;(FDcPropertyDatum(Outer), &quot;StructRoot.Arr.0.StrField&quot;, TEXT(&quot;AltBar0&quot;)));
+UTEST_TRUE(&quot;...&quot;, SetDatumPropertyByPath&lt;FString&gt;(FDcPropertyDatum(Outer), &quot;StructRoot.Arr.1.StrField&quot;, TEXT(&quot;AltBar1&quot;)));
+UTEST_TRUE(&quot;...&quot;, SetDatumPropertyByPath&lt;FString&gt;(FDcPropertyDatum(Outer), &quot;StructRoot.NameMap.FooKey.StrField&quot;, TEXT(&quot;AltFooValue&quot;)));
+</code></pre>
+<p>Comparing to <code>PropertyPathHelpers</code> these new ones support <code>Array</code> and <code>Map</code>, and support <code>USTRUCT</code> roots. We're also missing some features like expanding weak/lazy object references but it should be easy to implement.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../Extra/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../Extra/DataConfigEditorExtra.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../Extra/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../Extra/DataConfigEditorExtra.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

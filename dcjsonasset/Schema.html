@@ -1,0 +1,406 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Schema - DataConfig Json Asset Book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="DataConfig JSON backed DataAsset Plugin">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Schema.html" class="active"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">DataConfig Json Asset Book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#schema" id="schema">Schema</a></h1>
+<p>This page documents the JSON schema that DataConfig JSON Asset supports.</p>
+<h2><a class="header" href="#root-type" id="root-type">Root <code>$type</code></a></h2>
+<p>The first thing when importing a JSON asset is to determine which class to deserialize into. It's specified by the <code>$type</code> field in the JSON source:</p>
+<pre><code class="language-json">// DcJsonAsset/Tests/DcJsonFixture_Simple.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestPrimaryDataAsset1&quot;,
+    &quot;AlphaName&quot; : &quot;Foo&quot;,
+    &quot;AlphaBool&quot; : true, 
+    &quot;AlphaStr&quot; : &quot;Bar&quot;
+}
+</code></pre>
+<p>We call all object keys with <code>$</code> prefix <strong>meta fields</strong>. <code>$type</code> is one that's used a lot. Under the hood this <code>$type</code> field is handled separately from other fields:</p>
+<ul>
+<li><code>$type</code> must be the first field in the object. In fact all meta fields are order significant and needs to start as the beginning keys of a object.</li>
+<li><code>$type</code> values must refers to a <code>UDcImportedDataAsset</code> or <code>UDcPrimaryImportedDataAsset</code> children:
+<ul>
+<li>If it's a native C++ class, refer to it by the class name without the <code>U</code> prefix. 
+For example: <code>DcJsonAssetTestPrimaryDataAsset1</code></li>
+<li>If it's a Blueprint Class, refer to it by the Blueprint asset path.
+For example: <code>/DcJsonAsset/DcFixture/DcTestBPDataAsset</code></li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#scalar-types" id="scalar-types">Scalar Types</a></h2>
+<p>Most UE primitive types has pretty straight forward mappings to JSON data types:</p>
+<table><thead><tr><th>UE Type</th><th>JSON Type</th><th>Example</th></tr></thead><tbody>
+<tr><td>bool</td><td>Boolean</td><td>true, false</td></tr>
+<tr><td>String, Name, Text</td><td>String</td><td>&quot;Foo&quot;</td></tr>
+<tr><td>int, uint, float, double</td><td>Number</td><td>123, 234.5</td></tr>
+</tbody></table>
+<p>We additionally support a few scalar like data types:</p>
+<h3><a class="header" href="#enums" id="enums">Enums</a></h3>
+<p>Enum can be deserialized from a string. Enum flags needs to be deserialized from a list of string:</p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h
+UCLASS()
+class UDcJsonAssetTestDataAsset1_Enum : public UDcImportedDataAsset {
+	// ...
+	UPROPERTY(EditAnywhere) EDcJsonAssetTestEnum_Simple EnumField;
+	UPROPERTY(EditAnywhere) EDcJsonAssetTestEnum_Flag EnumFlagField;
+};
+
+// DcJsonAsset/Tests/DcJsonFixture_Enum.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestDataAsset1_Enum&quot;,
+    &quot;EnumField&quot; : &quot;Baz&quot;,
+    &quot;EnumFlagField&quot; : [&quot;Alpha&quot;, &quot;Gamma&quot;], 
+}
+</code></pre>
+<h3><a class="header" href="#gameplaytags" id="gameplaytags">GameplayTags</a></h3>
+<p><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Tags/index.html" title="Gameplay Tags">Gameplay Tag</a> structs <code>FGameplayTag</code> and <code>FGameplayTagContainer</code> are both supported:</p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h 
+UCLASS()
+class UDcJsonAssetTestDataAsset2_GameplayTag : public UDcImportedDataAsset {
+	// ...
+	UPROPERTY(EditAnywhere) FGameplayTag GameplayTagField1;
+	UPROPERTY(EditAnywhere) FGameplayTag GameplayTagField2;
+	UPROPERTY(EditAnywhere) FGameplayTagContainer GameplayTagContainer;
+};
+
+// DcJsonAsset/Tests/DcJsonFixture_GameplayTag.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestDataAsset2_GameplayTag&quot;,
+    &quot;GameplayTagField1&quot; : &quot;DcJsonAsset.Foo.Bar.Baz&quot;,
+    &quot;GameplayTagField2&quot; : null,
+    &quot;GameplayTagContainer&quot; : [
+        &quot;DcJsonAsset.Foo.Bar&quot;,
+        &quot;DcJsonAsset.Tar.Taz&quot;
+    ]
+}
+</code></pre>
+<h2><a class="header" href="#containers-and-aggregates" id="containers-and-aggregates">Containers and Aggregates</a></h2>
+<p>UE containers mapping to JSON is also pretty unsurprising:</p>
+<table><thead><tr><th>UE Type</th><th>JSON Type</th><th>Example</th></tr></thead><tbody>
+<tr><td>Array, Set</td><td>Array</td><td>[&quot;foo&quot;, &quot;bar&quot;]</td></tr>
+<tr><td>Map, Struct, Class Root</td><td>Object</td><td>{&quot;foo&quot;: &quot;bar&quot;}</td></tr>
+</tbody></table>
+<h2><a class="header" href="#object-references" id="object-references">Object References</a></h2>
+<p>UE provides a few options when referencing <code>UObject</code> instances:</p>
+<table><thead><tr><th>Type</th><th>Example</th></tr></thead><tbody>
+<tr><td><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/ProgrammingWithCPP/Assets/ReferencingAssets/index.html#directpropertyreference" title="Direct Property Reference">Direct object reference</a></td><td><code>UObject*</code>, <code>AActor*</code></td></tr>
+<tr><td><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/ProgrammingWithCPP/Assets/ReferencingAssets/index.html#directpropertyreference" title="Direct Property Reference">Soft object reference</a></td><td><code>TSoftObjectPtr&lt;UObject&gt;</code>, <code>TSoftClassPtr&lt;UClass&gt;</code></td></tr>
+<tr><td>Lazy object reference</td><td><code>TLazyObjectPtr&lt;UObject&gt;</code></td></tr>
+<tr><td><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/ProgrammingWithCPP/Assets/ReferencingAssets/index.html#indirectpropertyreference" title="Indirect Property Reference">Weak Object Reference</a></td><td><code>TWeakObjectPtr&lt;UObject&gt;</code></td></tr>
+</tbody></table>
+<p>All of these are supported for completeness sake. The recommendation is:</p>
+<ul>
+<li>Use direct or soft object reference for common object references.
+It's the usual way to referencing objects.</li>
+<li>Use soft object reference when pointing to <code>UDcImportedDataAsset/UDcPrimaryImportedDataAsset</code> derived classes.
+It's specially handled that it won't load the object to deserialize. This means we can batch import a set of JSON assets that references each other, without the need to resolve the mutual dependencies among them. The downside is that we don't check that the object actually exist at import time.</li>
+</ul>
+<p>We allow a few options when referencing an object. Below is a example of object references: </p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h
+UCLASS()
+class UDcJsonAssetTestDataAsset3_References : public UDcImportedDataAsset {
+	// ...	
+	UPROPERTY(EditAnywhere) UObject* DirectRef1;
+	UPROPERTY(EditAnywhere) UObject* DirectRef2;
+	UPROPERTY(EditAnywhere) UObject* DirectRef3;
+	UPROPERTY(EditAnywhere) TSoftObjectPtr&lt;UDcPrimaryImportedDataAsset&gt; DcSoftImported1;
+	UPROPERTY(EditAnywhere) TSoftObjectPtr&lt;UDcPrimaryImportedDataAsset&gt; DcSoftImported2;
+};
+
+// DcJsonAsset/Tests/DcJsonFixture_Refs.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestDataAsset3_References&quot;,
+    &quot;DirectRef1&quot; : &quot;Blueprint'/DcJsonAsset/DcFixture/DcTestBPDataAsset.DcTestBPDataAsset'&quot;,
+    &quot;DirectRef2&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAsset&quot;,
+    &quot;DirectRef3&quot; : {
+        &quot;$type&quot; : &quot;Blueprint&quot;,
+        &quot;$path&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAsset&quot;
+    },
+    &quot;DcSoftImported1&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAssetInstance&quot;,
+    &quot;DcSoftImported2&quot; : null
+}
+</code></pre>
+<p>Note that:</p>
+<ol>
+<li><code>DirectRef1/2/3</code> are deserialized into identical references to the same object.</li>
+<li><code>DcSoftImported1/2</code> are specially handled and <code>/Path/To/Content</code> are the only format that's supported.</li>
+</ol>
+<h2><a class="header" href="#inline-sub-objects" id="inline-sub-objects">Inline Sub Objects</a></h2>
+<p>UE already supports &quot;Inline Sub Objects&quot;, that is UCLASS marked with <a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/GameplayArchitecture/Classes/Specifiers/index.html" title="Class Specifiers"><code>DefaultToInstanced</code> specifier</a>. Editor would try to create new sub objects inline for these classes' references, rather than points to a existing one. It's also a way of doing data polymorphism in UE.</p>
+<p>Given a simple class hierarchy like this:</p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h
+UCLASS(BlueprintType, EditInlineNew, DefaultToInstanced)
+class UDcJsonAsset_BaseShape : public UObject 
+	// ...
+    UPROPERTY(EditAnywhere) FName ShapeName;
+};
+
+UCLASS()
+class UDcJsonAsset_ShapeBox : public UDcJsonAsset_BaseShape 
+	// ...
+    UPROPERTY(EditAnywhere) float Height;
+	UPROPERTY(EditAnywhere) float Width;
+};
+
+UCLASS()
+class UDcJsonAsset_ShapeSquare : public UDcJsonAsset_BaseShape 
+    // ...
+	UPROPERTY(EditAnywhere) float Radius;
+};
+</code></pre>
+<p>An asset can be loaded from a JSON like this:</p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h
+UCLASS()
+class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
+	UPROPERTY(EditAnywhere) UDcJsonAsset_BaseShape* ShapeField1;
+	UPROPERTY(EditAnywhere) UDcJsonAsset_BaseShape* ShapeField2;
+	UPROPERTY(EditAnywhere) UDcJsonAsset_BaseShape* ShapeField3;
+};
+
+// DcJsonAsset/Tests/DcJsonFixture_SubObjects.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestDataAsset4_SubObjects&quot;,
+    &quot;ShapeField1&quot; : {
+        &quot;$type&quot; : &quot;DcJsonAsset_ShapeBox&quot;,
+        &quot;ShapeName&quot; : &quot;MyBox&quot;,
+        &quot;Height&quot; : 43,
+        &quot;Width&quot; : 25
+    },
+    &quot;ShapeField2&quot; : {
+        &quot;$type&quot; : &quot;DcJsonAsset_ShapeSquare&quot;,
+        &quot;Radius&quot; : 16
+    },
+    &quot;ShapeField3&quot; : null
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="Tutorial.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="Tooling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="Tutorial.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="Tooling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
