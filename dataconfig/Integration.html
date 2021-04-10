@@ -178,6 +178,9 @@
 <p>Get a copy of <a href="https://github.com/slowburn-dev/DataConfig" title="slowburn-dev/DataConfig">the repository</a>. Then copy  <code>./DataConfig</code> (where <code>DataConfig.uplugin</code> is located) into your project's <code>Plugins</code> directory.</p>
 </li>
 <li>
+<p><strong>Delete <code>DataConfig\Source\DataConfigHeadless</code></strong> folder. It has a <code>DataConfigHeadless.Target.cs</code> file which is a hack to build a headless binary during development. <strong>This step is crucial or you your project won't build</strong>.</p>
+</li>
+<li>
 <p>Restart your project. There should be a prompt to compile plugin sources. Confirm and wait until your project launches. Then open <code>Settings -&gt; Plugins</code> you should see <strong>Data Config</strong> listed under Project Editor category.</p>
 <p><img src="Images/Integration-DataConfigPlugin.png" alt="Integration-DataConfigPlugin" /></p>
 </li>
