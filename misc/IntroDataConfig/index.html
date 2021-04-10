@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>DataConfig Introduction</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/night.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+### Introducing DataConfig
+
+* https://slowburn.dev/dataconfig
+* Serialization framework for Unreal Engine that just works!
+
+<aside class="notes"><p>Hi. In this presentation I&#39;ll introduce you DataConfig. It&#39;s an open source serialization framework for UnrealEngine which I&#39;ve
+been working on for a while now.</p>
+<p>You can find links to these slides and github repository in the video descriptions below.</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+### What is DataConfig
+
+* C++ Library
+* Deals with `UCLASS/USTRUCT/UPROPERTY`
+* Abstraction over `FProperty` API
+
+<aside class="notes"><p>So now what is DataConfig?</p>
+<p>Technically it&#39;s a C++ library that built on top of Unreal Engine codebase. </p>
+<p>Unreal Engine programmers deals with macros like <code>UCLASS/USTRUCT/UPROPERTY</code> on a daily basis.</p>
+<p>These macros belongs to &quot;Unreal Property System&quot; which is
+C++ runtime reflection implementation. Many core engine features like serialization, editor UI and garbage collection are taking advantage of the property system. </p>
+<p>Programmers needs to use a set of C++ classes to access the property system data. A dominant one is the <code>FProperty</code> class.
+which was <code>UProperty</code> in older releases</p>
+<p>With these info in mind it&#39;s now easier to explain what DataConfig is. It&#39;s an abstraction built on top of the Property System C++ API.</p>
+<p>You can choose to use DataConfig when dealing with the property system.</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Demo - Basic
+
+<aside class="notes"><p>Now we&#39;re going to do a simple demo.</p>
+<p><strong>--Switch to Project--</strong></p>
+<p>Here we have a project open with a official build of Unreal Engine 4.26. In the project I&#39;ve already get the DataConfig plugin installed.</p>
+<p>To verify that select &quot;Settings -&gt; Plugins&quot; and search for &quot;DataConfig&quot;. You should be able to find it in the &quot;Project -&gt; Editor&quot; section.</p>
+<p><strong>--Open &quot;Plugins&quot;--</strong></p>
+<p>We also shipped a ton of automation tests along with the plugin. Go to &quot;Window -&gt; Developer Tools -&gt; Session Frontend&quot; and find the &quot;Automation&quot; tab.</p>
+<p><strong>--Open &quot;Frontend Sessions&quot;--</strong></p>
+<p>Tick the &quot;DataConfig&quot; checkbox, which would select all DataConfig tests. Hit the &quot;Start Tests&quot; button to run them to verify DataConfig is integrated properly.</p>
+<p><strong>--Tick &quot;DataConfig&quot; checkbox and click &quot;Start Tests&quot;--</strong></p>
+<p>Here we can see all the tests passed.</p>
+<p>Now we&#39;ll focus on this one test called &quot;Blurb.FrontPage&quot;, it&#39;s the example we&#39;re using in our readme file.</p>
+<p><strong>--Select the &quot;Blurb.FrontPage&quot;--</strong></p>
+<p>In this test we deserialize a JSON string into a struct instance.</p>
+<p><strong>--Open Code &quot;DcTestBlurbs.cpp&quot;--</strong></p>
+<p>Here&#39;s the code of this test.</p>
+<p>At the top we have a JSON string literal, which contains three fields:</p>
+<ul>
+<li>One is String</li>
+<li>One is Enum</li>
+<li>And the last one is a array of hex color strings.</li>
+</ul>
+<p><strong>--Open Code &quot;DcTestBlurbs.h&quot;--</strong></p>
+<p>The struct we&#39;re deserializing into is also pretty straightforward. Struct property names match with JSON keys.</p>
+<p><strong>--Open Code &quot;DcTestBlurbs.cpp&quot;--</strong></p>
+<p>The rest of the code is creating a deserializer instance and context, and then kick off the deserialization.</p>
+<p>Note that DataConfig API is struct based and all instances are allocated on the stack.</p>
+<p>At the end we validate the results are correct.</p>
+<p>Note that the enums are correctly loaded from string, and the <code>FColor</code> array are loaded from hex color strings.</p>
+<p>To demonstrate the error handling capability, I&#39;ll now change the <code>EnumField</code> value to a incorrect one. </p>
+<p><strong>-- Change &quot;Bar&quot; to &quot;Far&quot; --</strong></p>
+<p>We have LiveCoding enabled for this project, so I&#39;ll recompile now.</p>
+<p><strong>-- Ctrl+Alt+F11 to Recompile --</strong></p>
+<p>Now that the compilation is done, I&#39;ll run this test again.</p>
+<p><strong>-- Select &quot;Blurb.Frontpage&quot; and Hit &quot;Start Tests&quot; --</strong></p>
+<p>Note that the error message points out this exact token and reported that &#39;Far&#39; is not a valid enum option.</p>
+<p><strong>-- Switch Back TO SLIDES !!! --</strong></p>
+</aside></script></section><section  data-markdown><script type="text/template">
+It's `FJsonObjectConverter` !
+
+- Trivia to implement with DataConfig: `DcJsonConverter`
+- Extendable with custom deserialization logic
+- Better diagnostics 
+
+<aside class="notes"><p>Proficient Unreal Engine programmers would notice that this example is very similar to the built-in class <code>FJsonObjectConverter</code> functionality. It provide a set of methods that convert between JSON and UStruct instances back and forth.</p>
+<p>We actually shipped an example named <code>DcJsonConverter</code> that implements similar APIs. It&#39;s relatively easy to implement in around 20 lines of code. On top of that we allow adding custom deserialization logic, like loading <code>FColor</code> from hex strings; and we provide better error messages, as we&#39;ve seen in the last example.</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+### Why
+
+- Friendly utility for the Property System
+- Shipped with a relaxed JSON Parser
+- Good test and doc coverage
+
+
+<aside class="notes"><p>This bring us to the reasons that why we&#39;re doing this and why DataConfig might be useful to you.</p>
+<p>First DataConfig aims to be a friendly utility around the property system API. As we&#39;ve seen in the examples above you can write custom deserialization logic with DataConfig, and it would report pretty good error messages. </p>
+<p>It&#39;s also possible to support additional textual formats. All you have to do is to write a new parser and plug it into the deserializer. Most existing deserialization logic can be reused and you can easily add or remove ones as you need.</p>
+<p>DataConfig is bundled with a relaxed JSON parser. It support a super set of JSON that allows C++ style comments and trailing comma. It&#39;s common quality-of-life improvements for users that authors JSON files manually.</p>
+<p>Finally we&#39;re developing DataConfig as a opportunity to explore maintaining an out of tree C++ module for unreal engine. We have pretty good test and documentation coverage already. We have plan to try out other C++ tooling like sanitizers and static analysis over the DataConfig code base, just to see if it works in this setup.</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+#### Demo - Load GameplayAbility from JSON
+
+<aside class="notes"><p>Before we end this presentation I&#39;ll quickly show another demo of loading a gameplay abillity instance from JSON.</p>
+<p><strong>--Switch to UE Project--</strong></p>
+<p>In the content browser we can find some assets under &quot;DataConfig Content&quot;. Here we&#39;re openning the &quot;DcTestGameplayAbilityAlpha&quot; blueprint. </p>
+<p><strong>--Open &quot;DataConfig Content&quot; -&gt; DcTestGameplayAbility.uasset --</strong></p>
+<p>GameplayAbility is an optional module in Unreal Engine that implements data driven ability and attributes system. GameplayAbility blueprint is a specialized blueprint that represents a single ability setup.</p>
+<p>This blueprint is mostly empty. We&#39;ll fill the contents from an external JSON file.</p>
+<p><strong>--Open &quot;Fixture_AbilityAlpha.json&quot;--</strong></p>
+<p>In this JSON file the key field names matches the Blueprint property names.</p>
+<p><code>AbilityTags</code> and <code>CancelAbilityWithTags</code> each are a list of strings of gameplay tag literals. The underlying C++ property is a <code>FGameplayTagContainer</code>.</p>
+<p>The <code>CostGameplayEffectClass</code> field matches a class reference property.</p>
+<p>The two policy fields are enums.</p>
+<p><strong>--Switch to UE Project--</strong></p>
+<p>Now we right click on the asset, in the context menu, select &quot;Load From JSON&quot; and select this JSON File.</p>
+<p><strong>--Right click on asset, Select &quot;Load From JSON&quot;, Select &quot;Fixutre_AbilityAlpha.json&quot;--</strong></p>
+<p>You can see that the blueprint values are correctly populated from the JSON. </p>
+<p><strong>--Click &quot;Show Only Modified&quot;--</strong></p>
+<p>Note how we are doing custom deserialization logic for UnrealEngine built-in classes. The class references is also correctly loaded.</p>
+<p>Now we right click blueprint asset and select &quot;Dump To Log&quot;:</p>
+<p><strong>--Right click asset and &quot;Dump To Log&quot;--</strong></p>
+<p>It would pretty print the asset to Output Log. This feature is also done with DataConfig.</p>
+<p><strong>--Switch Back TO SLIDES--</strong></p>
+</aside></script></section><section  data-markdown><script type="text/template">
+- Repo: <https://github.com/slowburn-dev/dataconfig>
+- Doc: <https://slowburn.dev/dataconfig/>
+- Email: hislowburn@gmail.com
+- Twitter: <https://twitter.com/slowburndev>
+
+
+<aside class="notes"><p>And that&#39;s it.</p>
+<p>Checkout DataConfig repository and docs. You can reach us with the links here.</p>
+<p>Thank you for your attention and have a nice day!</p>
+</aside></script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"none"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
