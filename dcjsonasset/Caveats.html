@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Tutorial - DataConfig Json Asset Book</title>
+        <title>Caveats - DataConfig Json Asset Book</title>
         
         
 
@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html" class="active"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item "><a href="Schema.html"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li><li class="chapter-item "><a href="Caveats.html"><strong aria-hidden="true">5.</strong> Caveats</a></li><li class="chapter-item "><a href="Changes.html"><strong aria-hidden="true">6.</strong> Changes</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item "><a href="Schema.html"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html" class="active"><strong aria-hidden="true">5.</strong> Caveats</a></li><li class="chapter-item "><a href="Changes.html"><strong aria-hidden="true">6.</strong> Changes</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -165,66 +165,30 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#tutorial" id="tutorial">Tutorial</a></h1>
-<p>This page shows a quick demo of how to use <code>DcJsonAsset</code>.</p>
-<ol>
-<li>
-<p>First ensure that the plugin is properly integrated in your project. Open <code>Settings -&gt; Plugins</code> and search for <strong>DataConfig JSON Asset</strong>:</p>
-<p><img src="Tutorial.assets/DataConfigJsonAssetPlugin.png" alt="DataConfig JsonAsset Plugin" /></p>
-</li>
-<li>
-<p>We have bundled a simple Blueprint class <code>DcTestBPDataAsset</code>:</p>
-<p><img src="Tutorial.assets/DcTestBPDataAsset.png" alt="DcTestBPDataAsset" /></p>
-<p>It's almost equivalent to a C++ UCLASS like this:</p>
-<pre><code class="language-c++">UCLASS()
-class UDcTestBPDataAsset : public UDcPrimaryImportedDataAsset {
-GENERATED_BODY()
-public:
-    UPROPERTY(EditAnywhere) FString StrField;
-    UPROPERTY(EditAnywhere) int IntField;
-    UPROPERTY(EditAnywhere) FName NameField;
-};
-</code></pre>
-</li>
-<li>
-<p>Prepare a JSON file on disk with the content below:</p>
-<pre><code class="language-json">{
-    &quot;$type&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAsset&quot;,
-    &quot;StrField&quot; : &quot;Hello DataConfig Json Asset&quot;,
-    &quot;IntField&quot; : 43,
-}
-</code></pre>
-</li>
-<li>
-<p>Then drop the file from the explorer into &quot;Content Browser&quot; and it's done.</p>
-<p><img src="Tutorial.assets/ImportExampleJson.png" alt="ImportExampleJson" /></p>
-</li>
-<li>
-<p>Say we made a mistake when editing the JSON file:</p>
-<pre><code class="language-json">{
-    &quot;$type&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAsset&quot;,
-    &quot;StrField&quot; : &quot;Hello DataConfig Json Asset&quot;,
-    &quot;IntField&quot; : 43,
-    &quot;NoField&quot; : &quot;Does not exist&quot;, // &lt;- field doesn't exist in class
-}
-</code></pre>
-<p>Right click on the <code>Example</code> asset and select reimport. DcJsonAsset would report this error in the &quot;Message Log&quot; window:</p>
-<p><img src="Tutorial.assets/MessageLogDiagnostics.png" alt="MessageLogDiagnostics" /></p>
-</li>
-</ol>
+                        <h1><a class="header" href="#caveats" id="caveats">Caveats</a></h1>
+<p>This page put together miscellaneous topics.</p>
+<h2><a class="header" href="#unicode-handling" id="unicode-handling">Unicode Handling</a></h2>
+<p>We decided to use <code>FFileHelper::LoadFileToString</code> to load files into <code>FString</code> instances, which handles the following encodings:</p>
+<ul>
+<li>UTF8 without BOM</li>
+<li>UTF8 with BOM</li>
+<li>UTF16 LE with BOM</li>
+<li>UTF16 BE with BOM</li>
+</ul>
+<p>If you can choose an encoding we recommend use UTF8 without BOM across the board. You can setup an <a href="https://editorconfig.org/" title="EditorConfig"><code>.editorconfig</code></a>to enforce it.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="Tooling.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="Schema.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="Changes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -236,13 +200,13 @@ public:
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="Tooling.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="Schema.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="Changes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
