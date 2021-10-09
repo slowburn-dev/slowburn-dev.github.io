@@ -99,7 +99,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item "><a href="Schema.html"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item "><a href="Schema.html"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li><li class="chapter-item "><a href="Caveats.html"><strong aria-hidden="true">5.</strong> Caveats</a></li><li class="chapter-item "><a href="Changes.html"><strong aria-hidden="true">6.</strong> Changes</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -183,6 +183,7 @@
 <li>Checkout our <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">UE Marketplace</a> page.</li>
 <li>See <a href="Tutorial.html">Tutorial</a> for a quick guided tour.</li>
 <li>See <a href="Schema.html">Schema</a> for supported JSON spec.</li>
+<li>See <a href="Changes.html">Changes</a> for versioning history.</li>
 </ul>
 <h1><a class="header" href="#tutorial" id="tutorial">Tutorial</a></h1>
 <p>This page shows a quick demo of how to use <code>DcJsonAsset</code>.</p>
@@ -418,6 +419,25 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
 <h2><a class="header" href="#tool-ui" id="tool-ui">Tool UI</a></h2>
 <p>Finally we wrapped the commands above into a tooling panel, which can be found at &quot;Windows -&gt; JsonAsset Tool&quot; menu:</p>
 <p><img src="Tooling.assets/JsonAssetUI.png" alt="JsonAssetUI" /></p>
+<h1><a class="header" href="#caveats" id="caveats">Caveats</a></h1>
+<p>This page put together miscellaneous topics.</p>
+<h2><a class="header" href="#unicode-handling" id="unicode-handling">Unicode Handling</a></h2>
+<p>We decided to use <code>FFileHelper::LoadFileToString</code> to load files into <code>FString</code> instances, which handles the following encodings:</p>
+<ul>
+<li>UTF8 without BOM</li>
+<li>UTF8 with BOM</li>
+<li>UTF16 LE with BOM</li>
+<li>UTF16 BE with BOM</li>
+</ul>
+<p>If you can choose an encoding we recommend use UTF8 without BOM across the board. You can setup an <a href="https://editorconfig.org/" title="EditorConfig"><code>.editorconfig</code></a>to enforce it.</p>
+<h1><a class="header" href="#changes" id="changes">Changes</a></h1>
+<p>All notable changes to this project will be documented in this file.</p>
+<p>Version listed here should match with <code>VersionName</code> field in <code>DcJsonAsset.uplugin</code></p>
+<h2><a class="header" href="#11---2021-4-24" id="11---2021-4-24">1.1 - 2021-4-24</a></h2>
+<ul>
+<li>Integrate <a href="https://slowburn.dev/dataconfig/Changes.html#110---2021-4-24">DataConfig Core 1.1.0</a></li>
+<li>Fix UTF8 / UTF16 JSON file importing. Previously non ASCII characters are loaded as <code>?</code></li>
+</ul>
 
                     </main>
 
