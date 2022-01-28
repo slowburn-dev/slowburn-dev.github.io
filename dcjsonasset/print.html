@@ -99,7 +99,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item "><a href="Schema.html"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li><li class="chapter-item "><a href="Caveats.html"><strong aria-hidden="true">5.</strong> Caveats</a></li><li class="chapter-item "><a href="Changes.html"><strong aria-hidden="true">6.</strong> Changes</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Schema.html"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">5.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html"><strong aria-hidden="true">6.</strong> Changes</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -402,6 +402,34 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
     &quot;ShapeField3&quot; : null
 }
 </code></pre>
+<h2><a class="header" href="#other-root-meta-fields" id="other-root-meta-fields">Other Root Meta Fields</a></h2>
+<p>In the root JSON object we now check for some other <code>$meta</code> fields.</p>
+<h3><a class="header" href="#reimport-keep-instance" id="reimport-keep-instance"><code>$reimport-keep-instance</code></a></h3>
+<p>By default imported <code>UDcImportedDataAsset</code> object is destroyed and recreated on every import. Now <code>$reimport-keep-instance</code> changes the behavior and it would reuse the existing object. This is mostly for more advanced setups.</p>
+<p>The main reason we create a new object on every import is that one can hardly reset the values of the dirty object. Consider the example below:</p>
+<pre><code class="language-json">// DcJsonAsset/Tests/DcJsonFixture_Simple.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestPrimaryDataAsset1&quot;,
+    &quot;AlphaName&quot; : &quot;Foo&quot;,
+    &quot;AlphaBool&quot; : true, 
+    &quot;AlphaStr&quot; : &quot;Bar&quot;
+}
+
+// reimport with the new content below
+// DcJsonAsset/Tests/DcJsonFixture_Simple_ReimportKeepInstance.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestPrimaryDataAsset1&quot;,
+    &quot;$reimport-keep-instance&quot; : true,
+    &quot;AlphaStr&quot; : &quot;Changed&quot;
+}
+</code></pre>
+<p>After reimport the resulting object would be like this:</p>
+<pre><code class="language-json">{
+    &quot;AlphaName&quot; : &quot;Foo&quot;,    // dirty value from last time
+    &quot;AlphaBool&quot; : true,     // dirty value from last time
+    &quot;AlphaStr&quot; : &quot;Changed&quot;  // new value in reimport
+}
+</code></pre>
 <h1><a class="header" href="#tooling" id="tooling">Tooling</a></h1>
 <p>The plugin also comes with a few supporting tooling and settings.</p>
 <h2><a class="header" href="#settings" id="settings">Settings</a></h2>
@@ -433,7 +461,14 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
 <h1><a class="header" href="#changes" id="changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>Version listed here should match with <code>VersionName</code> field in <code>DcJsonAsset.uplugin</code></p>
-<h2><a class="header" href="#111---2021109" id="111---2021109">1.1.1 - 2021.10.9</a></h2>
+<h2><a class="header" href="#120---2022-1-26" id="120---2022-1-26">1.2.0 - 2022-1-26</a></h2>
+<ul>
+<li>Integrate DataConfig 1.2.0</li>
+<li>Allow <code>/path/to/Blueprint</code> in <code>UClass</code> field positions</li>
+<li>Added <code>$reimport-keep-instance</code> meta field.</li>
+<li>Support Blueprint Enum.</li>
+</ul>
+<h2><a class="header" href="#111---2021-10-9" id="111---2021-10-9">1.1.1 - 2021-10-9</a></h2>
 <ul>
 <li>Support UE 4.27</li>
 <li>Integrate <a href="https://slowburn.dev/dataconfig/Changes.html#111---2021106">DataConfig Core 1.1.1</a></li>
