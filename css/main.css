@@ -19,6 +19,7 @@
 }
 
 body {
+  font-size: 1.6em;
   font-family: "Open Sans";
 }
 
@@ -68,3 +69,53 @@ h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
   top: -2em;
   position: relative;
 }
+
+
+.footer {
+  font-size: 0.85em;
+  margin-bottom: 1em;
+}
+
+/* code */
+code {
+    font-family: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace !important;
+}
+
+/* page layouts  */
+h2:before {
+  content: "# ";
+}
+
+ol, ul {
+  padding-left: 1em;
+}
+
+li {
+  margin-bottom: 0em;
+  list-style: disc;
+}
+
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin: 0rem 0 1.5rem 1.5rem;
+}
+
+.zola-anchor {
+  margin-left: 2px;
+  display: none;
+}
+
+h2:hover .zola-anchor {
+  display: inline-block;
+}
+
+.page {
+  max-width: 800px;
+}
+
+.page h2 {
+  font-weight: bold;
+}
+

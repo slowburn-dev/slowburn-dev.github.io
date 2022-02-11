@@ -4,37 +4,25 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>JSON - DataConfig Book</title>
-        
-        
 
 
         <!-- Custom HTML head -->
         
-
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Serialization framework for Unreal Engine Property System that just works!">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="../favicon.svg">
-        
-        
         <link rel="shortcut icon" href="../favicon.png">
-        
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
-        
         <link rel="stylesheet" href="../css/print.css" media="print">
-        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="../fonts/fonts.css">
-        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -42,11 +30,8 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="../custom.css">
-        
 
-        
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -105,8 +90,7 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -122,29 +106,27 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">DataConfig Book</h1>
 
                     <div class="right-buttons">
-                        
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
-                        
+                        <a href="https://github.com/slowburn-dev/DataConfig" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -152,7 +134,6 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
@@ -165,9 +146,9 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#json" id="json">JSON</a></h1>
-<p><a href="https://www.json.org/json-en.html" title="Introducing JSON">JSON</a> is likly the most popular data interchange format. Unreal Engine already support it with the <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/JsonUtilities/" title="JsonUtilities"><code>JsonUtilities</code></a> and some related modules. We provide an alternative implementation along with DataConfig.</p>
-<h2><a class="header" href="#json-reader" id="json-reader">JSON Reader</a></h2>
+                        <h1 id="json"><a class="header" href="#json">JSON</a></h1>
+<p><a href="https://www.json.org/json-en.html" title="Introducing JSON">JSON</a> is likely the most popular data interchange format. Unreal Engine already supports it with <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/JsonUtilities/" title="JsonUtilities"><code>JsonUtilities</code></a> and some related modules. We provide an alternative implementation along with DataConfig.</p>
+<h2 id="json-reader"><a class="header" href="#json-reader">JSON Reader</a></h2>
 <p><code>FDcJsonReader</code> is the DataConfig JSON reader:</p>
 <pre><code class="language-c++">// DataConfig/DataConfig/Source/DataConfigTests/Private/DcTestBlurb.cpp
 FString Str = TEXT(R&quot;(
@@ -204,18 +185,18 @@ check(GotStr == TEXT(&quot;Fooo&quot;));
 check(GotNumber == 1.875);
 check(GotBool == true);
 </code></pre>
-<p>In the example above we deserialized a <code>JSON</code> object from string. The first and the last call is <code>ReadMapRoot</code> and <code>ReadMapEnd</code>, which is also used to read Unreal's <code>TMap</code> properties. The difference is that UE's <code>TMap</code> is strictly typed but JSON object values can have arbitrary type. This means that if you use <code>FDcPipeVisitor</code> to pipe a <code>FDcJsonReader</code> into a <code>FDcPropertyWriter</code> it won't work.</p>
+<p>In the example above we deserialized a <code>JSON</code> object from string. The first and last calls are <code>ReadMapRoot</code> and <code>ReadMapEnd</code>, which are also used to read Unreal's <code>TMap</code> properties. The difference is that UE's <code>TMap</code> is strictly typed while JSON object values can have arbitrary type. This means that if you use <code>FDcPipeVisitor</code> to pipe a <code>FDcJsonReader</code> into a <code>FDcPropertyWriter</code> it won't work.</p>
 <p>Remember that DataConfig data model is designed to support conversion between subsets within the data model. As long as you can use <code>FDcReader/FDcWriter</code> API to describe the format you want to serialize you're good to go. Mapping and conversion between these different shapes of reader/writers are handled by <a href="../Programming/SerializerDeserializer.html">deserializers</a>.</p>
 <p>Some additional caveats:</p>
 <ul>
 <li>Similar to stock <code>TJsonReader</code>, we provide <code>TDcJsonReader</code> with 2 specializations:
 <ul>
-<li>Usually you just juse <code>FDcJsonReader</code> that reads from <code>FString, TCHAR*</code>.</li>
+<li>Usually you just use <code>FDcJsonReader</code> that reads from <code>FString, TCHAR*</code>.</li>
 <li>Under the hood there're <code>FDcAnsiJsonReader</code> that reads ANSICHAR string
 and <code>FDcWideJsonReader</code> that reads WIDECHAR string.</li>
 </ul>
 </li>
-<li>We're supporting a relaxed superset of JSON:
+<li>We support a relaxed superset of JSON:
 <ul>
 <li>Allow C Style comments, i.e <code>/* block */</code> and <code>// line</code> .</li>
 <li>Allow trailing comma, i.e <code>[1,2,3,],</code> .</li>
@@ -228,7 +209,7 @@ and <code>FDcWideJsonReader</code> that reads WIDECHAR string.</li>
 </ul>
 </li>
 </ul>
-<h2><a class="header" href="#json-writer" id="json-writer">JSON Writer</a></h2>
+<h2 id="json-writer"><a class="header" href="#json-writer">JSON Writer</a></h2>
 <p><code>FDcJsonWriter</code> is the DataConfig JSON writer:</p>
 <pre><code class="language-c++">// DataConfig/Source/DataConfigTests/Private/DcTestBlurb.cpp
 FDcJsonWriter Writer;
@@ -262,25 +243,25 @@ return DcOk();
 <ul>
 <li>Similar to stock <code>TJsonWriter</code>, we provide <code>TDcJsonWriter</code> with 2 specializations:
 <ul>
-<li>Usually you just juse <code>FDcJsonWriter</code> that writes <code>FString, TCHAR*</code>.</li>
+<li>Usually you just use <code>FDcJsonWriter</code> that writes <code>FString, TCHAR*</code>.</li>
 <li>Under the hood there're <code>FDcAnsiJsonWriter</code> that writes ANSICHAR string
 and <code>FDcWideJsonWriter</code> that writes WIDECHAR string.</li>
 </ul>
 </li>
-<li>It takes a <code>Config</code> object that specifiy formatting settings like indentation size and new lines.
+<li>It takes a <code>Config</code> object that specify formatting settings like indentation size and new lines.
 <ul>
-<li><code>FDcPrettyJsonWriter</code> is a type alias that formats idented JSON.</li>
+<li><code>FDcPrettyJsonWriter</code> is a type alias that formats indented JSON.</li>
 <li><code>FDcCondensedJsonWriter</code> is a type alias that format single line, condensed output. </li>
 </ul>
 </li>
 <li><code>FDcJsonWriter</code> owns the output string buffer, in <code>FDcJsonWriter::Sb</code>.
 <ul>
-<li>By writing to a single writer and append new line after each serialization, we can output <a href="http://ndjson.org/" title="ndjson">NDJSON</a>. </li>
-<li>Our JSON reader is also flexible enough to directly load NDJSON. See <a href="../TODO">corpus benchmark</a>. </li>
+<li>By writing to a single writer and appending a new line after each serialization, we can output <a href="http://ndjson.org/" title="ndjson">NDJSON</a>. </li>
+<li>Our JSON reader is also flexible enough to directly load NDJSON. See <a href="../Advanced/Benchmark.html">corpus benchmark</a>. </li>
 </ul>
 </li>
 </ul>
-<h2><a class="header" href="#json-serializedeserialize" id="json-serializedeserialize">JSON Serialize/Deserialize</a></h2>
+<h2 id="json-serializedeserialize"><a class="header" href="#json-serializedeserialize">JSON Serialize/Deserialize</a></h2>
 <p>DataConfig bundles a set of JSON serialize and deserialize handlers, which are all roundtrip-able:</p>
 <pre><code class="language-c++">// DataConfig/Source/DataConfigTests/Private/DcTestBlurb.cpp
 #include &quot;DataConfig/Deserialize/DcDeserializerSetup.h&quot;
@@ -294,15 +275,15 @@ DcSetupJsonDeserializeHandlers(Deserializer);
 FDcSerializer Serializer;
 DcSetupJsonSerializeHandlers(Serializer);
 </code></pre>
-<h3><a class="header" href="#schema" id="schema">Schema</a></h3>
+<h3 id="schema"><a class="header" href="#schema">Schema</a></h3>
 <p>JSON types get mapped into DataConfig data model in a very unsurprising way.</p>
-<table><thead><tr><th align="left">JSON Type</th><th>DcDataEntry</th></tr></thead><tbody>
-<tr><td align="left">Boolean</td><td>Bool</td></tr>
-<tr><td align="left">Null</td><td>Nil</td></tr>
-<tr><td align="left">String</td><td>String, Name, Text, Enum</td></tr>
-<tr><td align="left">Number</td><td>(All numerics)</td></tr>
-<tr><td align="left">Array</td><td>Array, Set</td></tr>
-<tr><td align="left">Object</td><td>Class, Struct, Map</td></tr>
+<table><thead><tr><th style="text-align: left">JSON Type</th><th>DcDataEntry</th></tr></thead><tbody>
+<tr><td style="text-align: left">Boolean</td><td>Bool</td></tr>
+<tr><td style="text-align: left">Null</td><td>Nil</td></tr>
+<tr><td style="text-align: left">String</td><td>String, Name, Text, Enum</td></tr>
+<tr><td style="text-align: left">Number</td><td>(All numerics)</td></tr>
+<tr><td style="text-align: left">Array</td><td>Array, Set</td></tr>
+<tr><td style="text-align: left">Object</td><td>Class, Struct, Map</td></tr>
 </tbody></table>
 <p>Here's an example:</p>
 <pre><code class="language-c++">// DataConfig/Source/DataConfigTests/Private/DcTestDeserialize.cpp
@@ -351,7 +332,7 @@ Expect.UInt16Field = 2243,
 Expect.UInt32Field = 23415;
 Expect.UInt64Field = 1524523;
 </code></pre>
-<h3><a class="header" href="#enum-flags" id="enum-flags">Enum Flags</a></h3>
+<h3 id="enum-flags"><a class="header" href="#enum-flags">Enum Flags</a></h3>
 <p><code>UENUM</code> that get marked with <code>Bitflags</code> meta are deserialized from a list of strings:</p>
 <pre><code class="language-c++">// DataConfig/Source/DataConfigTests/Public/DcTestDeserialize.h
 UENUM(meta = (Bitflags))
@@ -377,8 +358,8 @@ FDcTestStructEnumFlag1 Expect;
 Expect.EnumFlagField1 = EDcTestEnumFlag::None;
 Expect.EnumFlagField2 = EDcTestEnumFlag::One | EDcTestEnumFlag::Three | EDcTestEnumFlag::Five;
 </code></pre>
-<h3><a class="header" href="#sub-objects" id="sub-objects">Sub Objects</a></h3>
-<p>By default We treat <code>UOBJECT</code> marked with <code>DefaultToInstanced, EditInlineNew</code> and <code>UPROPERTY</code> marked with <code>Instanced</code> as sub object. In this case we'll actually instantiate new object during deserialization, using <code>Ctx.TopObject()</code> as parent:</p>
+<h3 id="sub-objects"><a class="header" href="#sub-objects">Sub Objects</a></h3>
+<p>By default we treat <code>UOBJECT</code> marked with <code>DefaultToInstanced, EditInlineNew</code> and <code>UPROPERTY</code> marked with <code>Instanced</code> as sub object. In this case we'll actually instantiate new object during deserialization, using <code>Ctx.TopObject()</code> as parent:</p>
 <pre><code class="language-c++">// DataConfig/Source/DataConfigTests/Public/DcTestProperty.h
 UCLASS(BlueprintType, EditInlineNew, DefaultToInstanced)
 class UDcBaseShape : public UObject
@@ -454,8 +435,8 @@ Expect.ShapeField2 = Shape2;
 
 Expect.ShapeField3 = nullptr;
 </code></pre>
-<p>Note that the sub object criteria can be easily overridden with a new deserialize predicate or alternative <code>FDcPropertyConfig</code> when constructing the reader.</p>
-<h3><a class="header" href="#object-and-class-reference" id="object-and-class-reference">Object and Class Reference</a></h3>
+<p>Note that criteria for sub object selection can be easily overridden with a new deserialize predicate or alternative <code>FDcPropertyConfig</code> when constructing the reader.</p>
+<h3 id="object-and-class-reference"><a class="header" href="#object-and-class-reference">Object and Class Reference</a></h3>
 <p>We support multiple ways of referencing a <code>UObject</code> in memory or serialized on disk:</p>
 <pre><code class="language-c++">// DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/Tests/DcTestDeserializeEditor.h
 USTRUCT()
@@ -496,9 +477,9 @@ Expect.ObjField2 = DataAsset;
 Expect.ObjField3 = DataAsset;
 Expect.ObjField4 = nullptr;
 </code></pre>
-<p>In the example above, <code>ObjField1</code> is using the reference string that can be retrieved in editor context menu:</p>
+<p>In the example above, <code>ObjField1</code> uses the reference string that can be retrieved in editor context menu:</p>
 <p><img src="Images/Deserialize-CopyReference.png" alt="Deserialize-CopyReference" /></p>
-<p>For <code>ObjField2/ObjField3</code> it's using a relative path to the <code>uasset</code> but without file name suffix.</p>
+<p>For <code>ObjField2/ObjField3</code>  relative path to the <code>uasset</code> is used, but without file name suffix.</p>
 <p>We also support class reference fields of <code>TSubclassOf&lt;&gt;</code>s:</p>
 <pre><code class="language-c++">// DataConfig/Source/DataConfigTests/Private/DcTestDeserialize.h
 USTRUCT()
@@ -528,7 +509,7 @@ Expect.StructSubClassField3 = UDynamicClass::StaticClass();
 </code></pre>
 <p>Note that these do not support Blueprint classes. The direct reason is that Blueprint depends on <code>Engine</code> module and we'd like not to take dependency on in <code>DataConfigCore</code>. </p>
 <p>We do have an example that supports Blueprint classes, see <code>DataConfigEditorExtra -  DcDeserializeBPClass.h/cpp</code></p>
-<h2><a class="header" href="#soft-lazy-as-string" id="soft-lazy-as-string">Soft Lazy as String</a></h2>
+<h2 id="soft-lazy-as-string"><a class="header" href="#soft-lazy-as-string">Soft Lazy as String</a></h2>
 <p><code>DcSetupJsonSerializeHandlers()/DcSetupJsonDeserializeHandlers()</code> accepts an enum to setup alternative handlers. For now <code>StringSoftLazy</code> branch would setup special <code>FSoftObjectProperty/FLazyObjectProperty</code> handlers that directly serialize these into string. Comparing to this the default setup would always resolve the indirect reference into memory, which maybe isn't always desirable. </p>
 <pre><code class="language-c++">// DataConfig/DataConfig/Source/DataConfigTests/Private/DcTestBlurb.cpp
 FDcTestStructRefs1 Source{};
@@ -552,11 +533,11 @@ DC_TRY(DcAutomationUtils::SerializeInto(&amp;Writer, FDcPropertyDatum(&amp;Sourc
     &quot;LazyField2&quot; : &quot;00000000-00000000-00000000-00000000&quot;
 }
 </code></pre>
-<h2><a class="header" href="#caveats" id="caveats">Caveats</a></h2>
+<h2 id="caveats"><a class="header" href="#caveats">Caveats</a></h2>
 <p>Here're some closing notes:</p>
 <ul>
 <li>
-<p>For meta fields like <code>$type</code> we require it to be the first member, meaning object fields are order dependent. This means that the JSON we're supporting is a super set of standard JSON spec (again).</p>
+<p>For meta fields like <code>$type</code> it must be the first member, meaning object fields are order dependent. This means that the JSON we're supporting is a super set of standard JSON spec (again).</p>
 </li>
 <li>
 <p>Bundled serializers and deserializers are designed to be roundtrip-able. For example in test <code>DataConfig.Core.RoundTrip.JsonRoundtrip1_Default</code>:</p>
@@ -565,10 +546,10 @@ DC_TRY(DcAutomationUtils::SerializeInto(&amp;Writer, FDcPropertyDatum(&amp;Sourc
 <li>Then deserialize JSON above into instance <code>Dest</code>.</li>
 <li>Deep-compare <code>Source</code> and <code>Dest</code>. If they're equal them we say it's a roundtrip.</li>
 </ol>
-<p>Note that we carefully picked float and doubles in the test case, as it's tricky to support floating point roundtrip. We might consider support this with alternative float parse and format routines.</p>
+<p>Note that we carefully picked float and doubles in the test case, as it's tricky to support floating point roundtrip. We might consider supporting this with alternative float parse and format routines.</p>
 </li>
 <li>
-<p>There're many data types that can not be deserialized from JSON, for example <code>Delegate/WeakObjectReference</code>. Remember that you always have the option to override or selectively enable the handlers to support additional property that makes sense in your context. See <code>DcSetupJsonDeserializeHandlers()</code> body how handlers are registered. You can skip this method and select the ones you want and provide additional handlers.</p>
+<p>There're many data types that can not be deserialized from JSON, for example <code>Delegate/WeakObjectReference</code>. Remember that you always have the option to override or selectively enable handlers to support additional properties that make sense in your context. See <code>DcSetupJsonDeserializeHandlers()</code> body on how handlers are registered. You can skip this method and select the ones you want and provide additional handlers.</p>
 </li>
 <li>
 <p>The JSON handlers are designed to <em>NOT</em> read anything during the deserialization. This is crucial since <code>USTRUCT</code> can contain uninitialized fields. For example:</p>
@@ -608,17 +589,13 @@ DcAutomationUtils::DumpToLog(DestDatum);
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="../Formats/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
                             <a rel="next" href="../Formats/MsgPack.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -626,49 +603,35 @@ DcAutomationUtils::DumpToLog(DestDatum);
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
                     <a rel="prev" href="../Formats/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
                     <a rel="next" href="../Formats/MsgPack.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
         <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        
 
         <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
 
     </body>
 </html>
