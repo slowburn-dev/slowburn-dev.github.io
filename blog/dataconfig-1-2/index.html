@@ -36,13 +36,13 @@
 <div class="container page">
 
 <h1>Introducing DataConfig 1.2</h1>
-<span class="date after-h1">2022-02-10</span>
+<span class="date after-h1">2022-02-12</span>
 
-<p>We've released <a href="https://github.com/slowburn-dev/DataConfig/releases/tag/1.2.0" title="Release 1.2.0 · slowburn-dev/DataConfig">DataConfig 1.2</a> two week ago. It's a serialization framework for <a href="https://www.unrealengine.com/" title="Unreal Engine">UnrealEngine 4 and 5</a>. It's been 9 months since our initial release and with this release DataConfig is considered feature complete. It now comes with:</p>
+<p>We've released <a href="https://github.com/slowburn-dev/DataConfig/releases/tag/1.2.0" title="Release 1.2.0 · slowburn-dev/DataConfig">DataConfig 1.2</a> two weeks ago. It's a serialization framework for <a href="https://www.unrealengine.com/" title="Unreal Engine">UnrealEngine 4 and 5</a>. It's been 9 months since 1.0 and with this release DataConfig is considered feature complete. It now comes with:</p>
 <ul>
-<li><a href="/dataconfig/Formats/JSON" title="JSON">JSON</a> and <a href="/dataconfig/Formats/MsgPack" title="MsgPack">MsgPack</a> read write.</li>
+<li><a href="/dataconfig/Formats/JSON" title="JSON">JSON</a> and <a href="/dataconfig/Formats/MsgPack" title="MsgPack">MsgPack</a> read-write.</li>
 <li>Flexible and roundtrip-able <a href="/dataconfig/Programming/SerializerDeserializer" title="Serializer Deserializer">serialization and deserialization</a> for UE property system.</li>
-<li><a href="/dataconfig" title="DataConfig Book">DataConfig Book</a>.</li>
+<li>Extensive documentation with <a href="/dataconfig" title="DataConfig Book">DataConfig Book</a>.</li>
 <li>Tons of <a href="/dataconfig/Extra" title="Extra">extra samples</a> and <a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigTests/Private" title="DataConfigTests">~100 unit tests</a>.</li>
 </ul>
 <p>We try to cover most programming and usage topics in <a href="/dataconfig" title="DataConfig Book">our documentation</a>, however there wasn't really a chance to explain why we're developing DataConfig in the first place. We briefly documented our motivation <a href="/dataconfig/Design" title="Design">here</a> and there's <a href="https://youtu.be/1cGsKpeO8i8" title="Introducing DataConfig">a short video</a> recorded on initial release.</p>
@@ -50,9 +50,9 @@
 <h2 id="origins">Origins<a class="zola-anchor" href="#origins">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
-<p>I started dabbling into Unreal Engine a few years ago coming from a strong Unity3D background. Nowadays many developers shares this experience there's even an <a href="https://docs.unrealengine.com/4.27/en-US/Basics/UnrealEngineForUnityDevs/" title="Unreal Engine 4 For Unity Developers">&quot;Unreal Engine for Unity Developers&quot;</a> page in official docs. One really cool thing about Unity3D is the huge pool of ready-to-use plugins and assets readily available. Unity developers each have his/her own list of &quot;must have&quot; plugins and libs that one tend to carry to every project one works on. It's very common that we start a project with nothing but a set of personal favorite packages and grow from there.</p>
-<p>My #1 pick was always <a href="https://github.com/jacobdufault/fullserializer" title="jacobdufault/fullserializer">FullSerializer</a> and <a href="http://jacobdufault.github.io/fullinspector/guide/" title="Full Inspector">FullInspector</a> pair. They're discontinued as the author moved on to other fields then later get superseded by <a href="https://odininspector.com/" title="Odin Inspector and Serializer">Odin Inspector and Serializer</a>. If you already know what these libraries do and also proficient with UnrealEngine then DataConfig easy to explain: <strong>DataConfig is FullSerializer/OdinSerializer implemented for UnrealEngine Property System</strong>. <a href="https://github.com/slowburn-dev/DataConfig" title="Serialization framework for Unreal Engine Property System that just works!">Grab a copy on github and try it out now!</a> Otherwise read on ;)</p>
-<p>Prior to these people use a patched version of <a href="https://www.newtonsoft.com/json" title="Json.NET">Json.NET</a> that's compatible with earlier Unity3D versions. At the core these libraries all does one thing: convert between C# objects and JSON, or some other binary formats. The proper term describing these process are <strong>serialization</strong>(<code>C# -&gt; JSON</code>) and <strong>deserialization</strong>(<code>JSON -&gt; C#</code>). </p>
+<p>I started dabbling into Unreal Engine a few years ago coming from a strong Unity3D background. Nowadays many developers share this experience there's even an <a href="https://docs.unrealengine.com/4.27/en-US/Basics/UnrealEngineForUnityDevs/" title="Unreal Engine 4 For Unity Developers">&quot;Unreal Engine for Unity Developers&quot;</a> page in official docs. One cool thing about Unity3D is the huge pool of ready-to-use plugins and assets readily available. Unity developers each have their own list of &quot;must-have&quot; plugins and libs that one tends to carry to every project. It's very common for us to start a project with nothing but a set of personal favorite packages and grow from there.</p>
+<p>My #1 pick was always <a href="https://github.com/jacobdufault/fullserializer" title="jacobdufault/fullserializer">FullSerializer</a> and <a href="http://jacobdufault.github.io/fullinspector/guide/" title="Full Inspector">FullInspector</a>. They're discontinued as the author moved on to other fields, and later get superseded by <a href="https://odininspector.com/" title="Odin Inspector and Serializer">Odin Inspector and Serializer</a>. If you already know what these libraries do and are also proficient with UnrealEngine then DataConfig easy to explain: <strong>DataConfig is FullSerializer/OdinSerializer implemented for Unreal Engine</strong>. <a href="https://github.com/slowburn-dev/DataConfig" title="Serialization framework for Unreal Engine Property System that just works!">Grab a copy on Github and try it out now!</a> Otherwise read on ;)</p>
+<p>Prior to these people use a patched version of <a href="https://www.newtonsoft.com/json" title="Json.NET">Json.NET</a> that's compatible with earlier Unity3D versions. At the core these libraries all do one thing: convert between C# objects and JSON, or some other binary formats. The proper term describing these process are <strong>serialization</strong>(<code>C# -&gt; JSON</code>) and <strong>deserialization</strong>(<code>JSON -&gt; C#</code>). </p>
 <p>Here's a snippet taken from Json.NET frontpage:</p>
 <pre data-lang="c#" style="background-color:#ffffff;color:#4d4d4c;" class="language-c# "><code class="language-c#" data-lang="c#"><span style="color:#999999;">// Deserialize JSON in C#</span><span>
 </span><span style="color:#8959a8;">string </span><span style="color:#c82829;">json </span><span style="color:#3e999f;">= </span><span style="color:#718c00;">@&quot;{</span><span style="color:#718c00;">
@@ -68,11 +68,11 @@
 </span><span style="color:#8959a8;">string </span><span style="color:#c82829;">name </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">m</span><span>.</span><span style="color:#c82829;">Name</span><span>;</span><span>
 </span><span style="color:#999999;">// Bad Boys</span><span>
 </span></code></pre>
-<p>Under the hood it's using of C# runtime reflection to figure out the structure of <code>Movie class</code> and access and assign each fields by string. Now back in the land of C++ serialization isn't that simple since C++ don't have builtin runtime reflection. Classic approach can be <a href="https://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/" title="A Flexible Reflection System in C++: Part 1">manual markup with macro</a>, while <a href="https://twitter.com/supahvee1234/status/1455965666385833984" title="C++20 pretty printer">modern C++ magic</a> also works (but it's hard to understand).</p>
+<p>Under the hood it's using of C# runtime reflection to figure out the structure of <code>Movie class</code> and access and assign each field by string. Now back in the land of C++ serialization isn't that simple since C++ doesn't have built-in runtime reflection. Classic approach can be <a href="https://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/" title="A Flexible Reflection System in C++: Part 1">manual markup with macro</a>, while <a href="https://twitter.com/supahvee1234/status/1455965666385833984" title="C++20 pretty printer">modern C++ magic</a> also works (but it's hard to understand).</p>
 <h2 id="json-converter">JSON Converter<a class="zola-anchor" href="#json-converter">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
-<p>Unreal Engine choose an alternative approach that is to mark up structs with macros then consume them in a pre-pass with a separated tool called <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/BuildTools/UnrealHeaderTool/" title="UnrealHeaderTool">Unreal Header Tool</a>. It understands a subset of C++ header syntax and get executed <em>before</em> actual compilation happens. This tool would generated tons of supporting code which get compiled along with the actual engine/game code. The end result is a runtime reflection system called the <a href="https://www.unrealengine.com/en-US/blog/unreal-property-system-reflection" title="Unreal Property System (Reflection)">&quot;Property System&quot;</a>, which is almost feature parity with C# runtime reflection.</p>
+<p>Unreal Engine uses an alternative approach that is to mark up structs with macros then consume them in a pre-pass with a separated tool called <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/BuildTools/UnrealHeaderTool/" title="UnrealHeaderTool">Unreal Header Tool</a>. It understands a subset of C++ header syntax and gets executed <em>before</em> actual compilation happens. This tool would generate tons of supporting code which get compiled along with the actual engine/game code. The end result is a runtime reflection system called the <a href="https://www.unrealengine.com/en-US/blog/unreal-property-system-reflection" title="Unreal Property System (Reflection)">&quot;Property System&quot;</a>, which is almost feature parity with C# runtime reflection.</p>
 <p>With the property system one can write similar deserializing code as the C# example:</p>
 <pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// Deserialize JSON in UE Property System</span><span style="color:#999999;">
 </span><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
@@ -103,7 +103,7 @@
 </span><span style="color:#999999;">// Bad Boys</span><span style="color:#999999;">
 </span></code></pre>
 <p>Here I want to stress that <strong>the example works in stock Unreal Engine</strong>. <code>FJsonObjectConverter</code> is a class in builtin module <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/JsonUtilities/" title="JsonUtilities"><code>JsonUtilities</code></a>.
-Comparing to conventional C++ deserialization it's already a huge step forward. If you look at the code huge trunk of the logic is in <a href="https://github.com/EpicGames/UnrealEngine/blob/99b6e203a15d04fc7bbbf554c421a985c1ccb8f1/Engine/Source/Runtime/JsonUtilities/Private/JsonObjectConverter.cpp#L395"><code>ConvertScalarJsonValueToFPropertyWithContainer()</code></a> method. It looks at the current <code>FProperty</code>, which points to a <code>UPROPERTY()</code> marked field, and
+Compared to conventional C++ deserialization it's already a huge step forward. If you look at the code huge trunk of the logic is in <a href="https://github.com/EpicGames/UnrealEngine/blob/99b6e203a15d04fc7bbbf554c421a985c1ccb8f1/Engine/Source/Runtime/JsonUtilities/Private/JsonObjectConverter.cpp#L395"><code>ConvertScalarJsonValueToFPropertyWithContainer()</code></a> method. It looks at the current <code>FProperty</code>, which points to a <code>UPROPERTY()</code> marked field, and
 decide how should it be converted from the <code>JsonObject</code>.</p>
 <p>DataConfig takes this idea further by implementing a set of API on top of the Property System and trying to make it easier to use. As an example we have <code>JsonObjectStringToUStruct</code> <a href="/dataconfig/Extra/JsonConverter" title="JsonConverter in DataConfig">implemented with DataConfig</a> with the snippet below:</p>
 <pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Types/DcJsonConverter.cpp</span><span style="color:#999999;">
@@ -145,10 +145,10 @@ decide how should it be converted from the <code>JsonObject</code>.</p>
 <li>Allow trailing comma, i.e <code>[1,2,3,],</code> .</li>
 <li>Allow non object root. It can be a list, a string, a number or even <a href="http://ndjson.org/" title="Newline Delimited JSON">NDJSON</a>.</li>
 </ul>
-<p>We see these as essential QOL improvements for people manually writes JSON.</p>
+<p>We see these as essential QOL improvements for people who manually write JSON.</p>
 </li>
 <li>
-<p>We took special care to provide diagnostics for quickly tracking down error.</p>
+<p>We took special care to provide diagnostics for quickly tracking down errors.</p>
 <p>Let's say we made a mistake that we forgot to close a string literal:</p>
 <pre data-lang="JSON" style="background-color:#ffffff;color:#4d4d4c;" class="language-JSON "><code class="language-JSON" data-lang="JSON"><span>{</span><span>
 </span><span>  </span><span style="color:#718c00;">&quot;Name&quot;</span><span>: </span><span style="color:#718c00;">&quot;Bad Boys&quot;</span><span>,</span><span>
@@ -159,7 +159,7 @@ decide how should it be converted from the <code>JsonObject</code>.</p>
 </span><span>  ]</span><span>
 </span><span>}</span><span>
 </span></code></pre>
-<p>DataConfig would fail and points out the point of failure.</p>
+<p>DataConfig would fail and highlight the point of failure.</p>
 <pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>* # DataConfig Error: Unclosed string literal</span><span>
 </span><span>* - [WideCharDcJsonReader] --&gt; &lt;in-memory&gt;6:15</span><span>
 </span><span>   4 |          &quot;ReleaseDate&quot;: &quot;1995-4-7T00:00:00&quot;,</span><span>
@@ -171,22 +171,22 @@ decide how should it be converted from the <code>JsonObject</code>.</p>
 </span><span>* - [DcPropertyWriter] Writing property: (FMovie)$root.(TArray&lt;FString&gt;)Genres[0]</span><span>
 </span></code></pre>
 <p>If you look closely the diagnostic also points out the property we're writing at the point of failure,
-which is <code>(FMovie)$root.(TArray&lt;FString&gt;)Genres[0]</code>. These efforts are made to help you to quickly track
-down the error and fix it quick.</p>
+which is <code>(FMovie)$root.(TArray&lt;FString&gt;)Genres[0]</code>. These efforts are made to help you quickly track
+down the error and fix it fast.</p>
 </li>
 <li>
 <p>Custom deserialize logic.</p>
-<p>Actually in the C# example <code>1995-4-7T00:00:00</code> string would be parsed into <a href="https://www.newtonsoft.com/json/help/html/DatesInJSON.htm#DateTimeJsonConverters" title="Serializing Dates in JSON">a <code>DateTime</code> struct</a>. This
-can be implemented within DataConfig. DataConfig has a uniform interface for implementing deserialization
+<p>In the C# example <code>1995-4-7T00:00:00</code> string would be parsed into <a href="https://www.newtonsoft.com/json/help/html/DatesInJSON.htm#DateTimeJsonConverters" title="Serializing Dates in JSON">a <code>DateTime</code> struct</a>. This
+can be done within DataConfig. We has a uniform interface for implementing serialization
 logic.</p>
 </li>
 </ul>
 <h2 id="custom-serialization">Custom Serialization<a class="zola-anchor" href="#custom-serialization">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
-<p>Many types in JSON and Property System has a direct one to one mapping. For example JSON bool maps to C++ <code>bool</code>,
+<p>Many types in JSON and Property System have a direct one-to-one mapping. For example JSON bool maps to C++ <code>bool</code>,
 JSON string maps to UE <code>FString</code>, and <code>[1,2,3]</code> in JSON should be converted to a <code>TArray&lt;int&gt;</code> instance. However
-for some data types the mapping isn't so clear, or maybe we have very specific thing in mind:</p>
+for some data types the mapping isn't so clear, or maybe we have a very specific thing in mind:</p>
 <ul>
 <li>What should be <code>UObject*</code> referenced deserialized from?</li>
 <li>I want to read a <code>FDateTime</code> from a timestamp string like <code>1995-4-7T00:00:00</code>.</li>
@@ -218,21 +218,21 @@ for some data types the mapping isn't so clear, or maybe we have very specific t
 </li>
 <li>
 <p>Serialization and deserialization logic are separated but roundtrip-able.</p>
-<p>Even though serialization and deserialization process shares a lot in common, we decided we want them to be two totally separated code path in DataConfig.
+<p>Even though the serialization and deserialization process shares a lot in common, we decided we want them to be two totally separated code path in DataConfig.
 For example UnrealEngine <code>FArchive</code> uses <code>Serialize(FArchive&amp; Ar)</code> for both saving and loading. In the context DataConfig we think there're cases that one
 only wants serialization or deserialization but not both. In fact DataConfig 1.0 ships with <em>only</em> deserializer. Serialize APIs are added in this release.</p>
-<p>Still we take special care to make sure builtin serialization and deserialization are <em>roundtrip-able</em>, that is if we serialize struct <code>A</code> to JSON then
-deserialize it back to instance <code>B</code>, <code>A</code> and <code>B</code> remains structurally equal.</p>
+<p>Still, we take special care to make sure builtin serialization and deserialization are <em>roundtrip-able</em>, that is if we serialize struct <code>A</code> to JSON then
+deserialize it back to instance <code>B</code>, <code>A</code> and <code>B</code> remain structurally equal.</p>
 </li>
 </ul>
 <p>We aim to provide flexible customization that allows our users to do whatever they want. Let's see some examples:</p>
 <ul>
 <li>
 <p><a href="/dataconfig/Formats/JSON#sub-objects" title="JSON - SubObjects">Polymorphism Inline Objects</a>.</p>
-<p>The <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Classes/Specifiers/" title="Class Specifiers"><code>DefaultToInstanced</code> Class Specifier</a> can be used to mark instances of this class are considered inline objects.
+<p>The <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Classes/Specifiers/" title="Class Specifiers"><code>DefaultToInstanced</code> Class Specifier</a> means that instances of this class are considered inline objects.
 This allows you to attach an arbitrary derived object inside a parent object. DataConfig allows you to mark nested objects
-with a <code>$type</code> field to explicit select its type. This is often called <strong>polymorphism serialization</strong>.</p>
-<p>Given this toy &quot;Object Oriented&quot; hierarchy of classes:</p>
+with a <code>$type</code> field to explicitly select its type. This is often called <strong>polymorphism serialization</strong>.</p>
+<p>Given this toy &quot;Object Oriented&quot; class hierarchy:</p>
 <pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigTests/Public/DcTestProperty.h</span><span style="color:#999999;">
 </span><span style="color:#c82829;">UCLASS</span><span>(BlueprintType, EditInlineNew, DefaultToInstanced)</span><span>
 </span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcBaseShape </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UObject</span><span>
@@ -299,7 +299,7 @@ Here we mark <code>TArray&lt;uint8&gt;</code> fields with <code>DcExtraBase64</c
 </li>
 <li>
 <p><a href="/dataconfig/Extra/AnyStruct" title="AnyStruct">AnyStruct</a></p>
-<p>In this example we implemented a variant type <code>FDcAnyStruct</code> that embedding an heap allocated struct of any type.
+<p>In this example, we implemented a variant type <code>FDcAnyStruct</code> that embeds a heap allocated struct of any type.
 It can also be deserialized of a JSON object with <code>$type</code> field:</p>
 <pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/SerDe/DcSerDeAnyStruct.h</span><span style="color:#999999;">
 </span><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
@@ -332,7 +332,7 @@ It can also be deserialized of a JSON object with <code>$type</code> field:</p>
 <li>
 <p><a href="/dataconfig/Extra/GameplayTag" title="GameplayTag">GameplayTag</a></p>
 <p><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Tags/index.html" title="Gameplay Tags">GameplayTags</a> is a built-in runtime module that implements hierarchical tags.
-We maps <code>FGameplayTag</code> to a string like <code>Foo.Bar</code> or <code>null</code> when it's empty. During deserialization we also make sure the tag exists.</p>
+We map <code>FGameplayTag</code> to a string like <code>Foo.Bar</code> or <code>null</code> when it's empty. During deserialization we also make sure the tag exists.</p>
 <pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigEditorExtra/Public/DataConfig/EditorExtra/SerDe/DcSerDeGameplayTags.h</span><span style="color:#999999;">
 </span><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
 </span><span style="color:#8959a8;">struct </span><span>FDcEditorExtraTestStructWithGameplayTag1</span><span>
@@ -360,11 +360,11 @@ We maps <code>FGameplayTag</code> to a string like <code>Foo.Bar</code> or <code
 <p>Now that you know DataConfig comes with JSON and MsgPack support, it allows fancy serialization and deserialization.
 But what should you do with it? When working on the project we have a user story in mind that is to support alternative data pipeline in Unreal Engine.</p>
 <p>If you're not familiar with the concept of data pipeline or &quot;Data Driven Design&quot; here's a <a href="https://benui.ca/unreal/data-driven-design/" title="Data-driven Design in Unreal">very good post on this topic</a>.
-In short UnrealEngine supports <a href="https://docs.unrealengine.com/4.26/en-US/BlueprintAPI/DataTable/" title="DataTable">DataTable</a> and <a href="https://www.youtube.com/watch?v=gLWXZ3FXhO8" title="WTF Is? Data Asset in Unreal Engine 4 ( UE4 )">DataAsset</a>. A common gripe is that UnrealEngine saves binary assets to disk, which makes diff
-almost impossible. Data driven practice in modern games can easily scale to mega bytes of just data. There's plan to support <a href="https://youtu.be/p4RcDpGQ_tI?t=1853" title="Workflow on Fortnite | Unreal Fest Europe 2019 | Unreal Engine">text based assets</a> but
-even with that I believe the textual files are not meant to be edited by human.</p>
-<p><a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/GameplayAbilitySystem/" title="Gameplay Ability System">Gameplay Ability</a> is a built-in plugin for building data driven abilities. It's also a good example of how to do data driven in the engine.
-You'll need to derived some blueprint classes for custom logic also store configuration within class defaults.</p>
+In short UnrealEngine supports <a href="https://docs.unrealengine.com/4.26/en-US/BlueprintAPI/DataTable/" title="DataTable">DataTable</a> and <a href="https://www.youtube.com/watch?v=gLWXZ3FXhO8" title="WTF Is? Data Asset in Unreal Engine 4 ( UE4 )">DataAsset</a> that allows users to configure gameplay values within the editor. A common gripe is that UnrealEngine saves data to disk as <code>uasset</code> files, which are binary blobs. Binary format make meaningful diff almost impossible. It also suffers when things go wrong, notorious dilemma is &quot;editor is crashing due to a bad file but you need the editor running to fix the file&quot;.</p>
+<p>We favor textual formats as the fact that one can easily grep through them and peek its content with any text editor brings us peace of mind. Here we want to clarify that many successful titles ships with binary formats. It works but it takes effort and especially disciplines to manage. There's plan to support <a href="https://youtu.be/p4RcDpGQ_tI?t=1853" title="Workflow on Fortnite | Unreal Fest Europe 2019 | Unreal Engine">text based assets</a> but
+even with that the textual files are not meant to be edited by human.</p>
+<p><a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/GameplayAbilitySystem/" title="Gameplay Ability System">Gameplay Ability</a> is a built-in plugin for building data driven abilities. It's canon example of how to do data driven with Unreal.
+You can derive some blueprint classes for custom logic then store configuration within class defaults.</p>
 <p>We have <a href="/dataconfig/Extra/GameplayAbility" title="Deserialize Gameplay Abilities">an example</a> that populate <code>GameplayAbility</code> and <code>GameplayEffect</code> from a JSON file. Given a JSON like this:</p>
 <pre data-lang="json" style="background-color:#ffffff;color:#4d4d4c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#999999;">// DataConfig/Tests/Fixture_AbilityAlpha.json</span><span>
 </span><span>{</span><span>
@@ -384,10 +384,10 @@ You'll need to derived some blueprint classes for custom logic also store config
 </span><span>    </span><span style="color:#718c00;">&quot;InstancingPolicy&quot; </span><span>: </span><span style="color:#718c00;">&quot;NonInstanced&quot;</span><span>,</span><span>
 </span><span>}</span><span>
 </span></code></pre>
-<p>Right click on a <code>GameplayAbility</code> blueprint asset and select <code>Load From JSON</code>， then select this file and confirm. It would correctly populate the fields with the values in JSON, as seen in the gif below:</p>
+<p>Right-click on a <code>GameplayAbility</code> blueprint asset and select <code>Load From JSON</code>， then select this file and confirm. It would correctly populate the fields with the values in JSON, as seen in the gif below:</p>
 <p><img src="/dataconfig/Extra/Images/DataConfigEditorExtra-LoadJsonIntoAbility.png" alt="DataConfigEditorExtra-LoadJsonIntoAbility" /></p>
-<p>This example demonstrates the idea of using a set of external JSON files as authority data source. In this vein we have a premium plugin called <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a> on the UE market place. </p>
-<p>To start write a data asset class that inherits <code>UDcPrimaryImportedDataAsset</code>, which is a common base class provided by the plugin for <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/AssetManagement/" title="Asset Management">asset management</a>:</p>
+<p>This example demonstrates the idea of using a set of external JSON files as the authoritative data source. In this vein we have a premium plugin called <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a> on the UE marketplace. </p>
+<p>Write a data asset class that inherits <code>UDcPrimaryImportedDataAsset</code>, which is a common base class provided by the plugin for <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/AssetManagement/" title="Asset Management">asset management</a>:</p>
 <pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UCLASS</span><span>()</span><span>
 </span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcJsonAssetTestPrimaryDataAsset1 </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcPrimaryImportedDataAsset</span><span>
 </span><span>{</span><span>
@@ -409,22 +409,22 @@ You'll need to derived some blueprint classes for custom logic also store config
 <p>Then just drop the file into the content explorer:</p>
 <p><img src="/dcjsonasset/Tutorial.assets/ImportExampleJson.png" alt="ImportExampleJson" /></p>
 <p>The engine supports <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/DataDriven/" title="Data Driven Gameplay Elements">importing CSV as DataTable</a> out of the box. DataConfig JSON Asset is following the same practices 
-of importing external files into the engine as <code>uasset</code>. By going through this standard importing process we get many cool features
-like <a href="https://docs.unrealengine.com/4.27/en-US/Basics/AssetsAndPackages/AutoReImport/" title="Auto Reimport">auto reimport of file change</a>. The plugin also has handy tooling for <a href="/dcjsonasset/Tooling" title="Tooling">batch import/reimport</a>. </p>
-<p>DataConfig JSON Asset is an example of alternative data pipeline. Users should author and modify JSON files manually
-and the plugin would parse, validate and import them as binary assets. In this setup JSON files are considered authority source of truth
-while the imported <code>uasset</code> files are considered transient: they can wiped and recreated easily.</p>
-<p>Now in reality it's very tempting to just tweak the data assets and eventually you forgot to sync it back to JSON. The point I want to 
+of importing external files into the engine as <code>uasset</code>. By going through this standard importing procedures we get many cool features
+like <a href="https://docs.unrealengine.com/4.27/en-US/Basics/AssetsAndPackages/AutoReImport/" title="Auto Reimport">auto reimport of file change</a>. We also provide handy tools for <a href="/dcjsonasset/Tooling" title="Tooling">batch import/reimport</a>. </p>
+<p>DataConfig JSON Asset is an example of an alternative data pipeline. Users should author and modify JSON files manually
+and the plugin would parse, validate and import them into the engine. In this setup JSON files are considered authority source of truth
+while the imported <code>uasset</code> files are considered <em>transient</em>: they can be wiped and recreated easily.</p>
+<p>Now in reality it's very tempting to tweak the data assets in the editor then forgot to sync it back to JSON. The point I want to 
 make here is that DataConfig makes alternative data pipelines relatively easy to implement. We decided to ship no tooling nor editor code with DataConfig 
-core module as we realized that there simply isn't a one-size-fit-all option in this space. It offers is a set of tools and you'll need to spend engineering
-efforts to build with.</p>
+core module as we realized that there simply isn't a one-size-fits-all option in this space. It offers is a set of tools that you'll need to spend engineering
+efforts to build on.</p>
 <h2 id="closing-notes">Closing notes<a class="zola-anchor" href="#closing-notes">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
-<p>DataConfig is something that we really wanted and hopefully it would be helpful to you. <a href="https://github.com/slowburn-dev/DataConfig" title="Serialization framework for Unreal Engine Property System that just works!">Grab it here</a> and give it a try! It <a href="/dataconfig/Integration" title="Integration">supports 4.25 and onward</a>.</p>
-<p>Here're some random notes that doesn't really fit into the article but still:</p>
+<p>DataConfig is something that we really wanted and hopefully it would be helpful to you. <a href="https://github.com/slowburn-dev/DataConfig" title="Serialization framework for Unreal Engine Property System that just works!">Grab it here</a> and give it a try! It works on <a href="/dataconfig/Integration" title="Integration">UE 4.25 and onward</a>.</p>
+<p>Here're some random note that doesn't really fit into this post but still:</p>
 <ul>
-<li>We spend quite some time on how the API should look like and eventually settled with <a href="https://serde.rs/" title="serde.rs">serde.rs</a> especially <a href="https://www.joshmcguigan.com/blog/understanding-serde/" title="Understanding Serde">it's data model</a>.</li>
+<li>We spend quite some time on figuring out the API and eventually settled to something similar to <a href="https://serde.rs/" title="serde.rs">serde.rs</a> especially <a href="https://www.joshmcguigan.com/blog/understanding-serde/" title="Understanding Serde">its data model</a>.</li>
 <li>DataConfig benchmark <a href="/dataconfig/Advanced/Benchmark" title="Benchmark">stats are here</a>. It's around 50mb/s for both read and write. We <a href="/dataconfig/Design" title="Design">favor other metrics</a> other than runtime performance.</li>
 </ul>
 
