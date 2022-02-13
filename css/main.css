@@ -78,8 +78,23 @@ h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
 
 /* code */
 code {
-    font-family: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace !important;
+  font-family: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace !important;
+  background: #F6F8FA;
 }
+pre {
+  overflow: auto;
+  width: 100%;
+  background: #F6F8FA;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px;
+}
+pre > code {
+  background: transparent;
+  border-style: none;
+  margin: 0;
+}
+
+
 
 /* page layouts  */
 h2:before {
@@ -125,3 +140,9 @@ p img {
   display: block;
   max-width: 100%;
 }
+
+/*hack to fix mobile safari horizontal scroll*/
+.container {
+  overflow-x: clip;
+}
+
