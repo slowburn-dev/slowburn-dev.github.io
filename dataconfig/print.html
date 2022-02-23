@@ -380,7 +380,8 @@ extern FDcDebug gDcDebug;
 <li>UE 4.25</li>
 <li>UE 4.26</li>
 <li>UE 4.27</li>
-<li>UE 5 (tested on commit <code>e0fb0cfce32d</code> on <code>ue5-main</code> branch)</li>
+<li>UE 5 Preview 1</li>
+<li>UE 5 main branch (tested on commit <code>a321c3431499</code> on <code>ue5-main</code> branch)</li>
 </ul>
 <h2 id="integrate-dataconfig-plugin"><a class="header" href="#integrate-dataconfig-plugin">Integrate <code>DataConfig</code> Plugin</a></h2>
 <p>The easiest way to try out DataConfig is to add it as a plugin into your C++ project.  In this section we'll walk through the steps of integrating DataConfig plugin into a empty UE C++ Project.</p>
@@ -2268,6 +2269,17 @@ DC_TRY(Ctx.Deserializer-&gt;Deserialize(Ctx));
 <p>Beware that <code>Putback</code> only support a limited subset of data types.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="121---2022-2-23"><a class="header" href="#121---2022-2-23">1.2.1 - 2022-2-23</a></h2>
+<ul>
+<li>Support for <a href="https://www.unrealengine.com/en-US/blog/unreal-engine-5-is-now-available-in-preview">UE5 Preview 1</a>.</li>
+<li><strong>FIX</strong> Compile fixes for examples on UE 4.25.</li>
+<li><strong>FIX</strong> UE 4.25/4.26 editor extra BP serde automation test fixes.</li>
+<li><strong>FIX</strong> <code>FDcAnsiJsonWriter</code> writes non ascii char to <code>?</code> when string contains escaping characters.
+<ul>
+<li><code>FDcJsonWriter</code> was unaffected. This only happens to the ansi char writer and only when input has escapes like <code>\t</code>.</li>
+</ul>
+</li>
+</ul>
 <h2 id="120---2022-1-26"><a class="header" href="#120---2022-1-26">1.2.0 - 2022-1-26</a></h2>
 <p>Checkout blog post <a href="/blog/dataconfig-1-2/">&quot;Introducing DataConfig 1.2&quot;</a>.</p>
 <ul>
@@ -2360,8 +2372,8 @@ DC_TRY(Ctx.Deserializer-&gt;Deserialize(Ctx));
 </ul>
 <h2 id="111---2021-10-6"><a class="header" href="#111---2021-10-6">1.1.1 - 2021-10-6</a></h2>
 <ul>
-<li>Support for UE 4.27</li>
-<li>Support for UE 5</li>
+<li>Support for UE 4.27.</li>
+<li>Support for UE 5.</li>
 </ul>
 <h2 id="110---2021-4-24"><a class="header" href="#110---2021-4-24">1.1.0 - 2021-4-24</a></h2>
 <ul>
