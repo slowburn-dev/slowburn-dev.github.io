@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+
+  
+<title>Headless Fun With Unreal Engine - slowburn.dev </title>
+<meta property="og:title" content="Headless Fun With Unreal Engine - slowburn.dev" />
+
+
+<meta name="description" content="How to setup command line work flow with Unreal Engine and setup a headless program target">
+<meta property="og:description" content="How to setup command line work flow with Unreal Engine and setup a headless program target" />
+
+
+
+
+  <meta charset="utf-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@slowburndev" />
+  <meta name="twitter:creator" content="@slowburndev" />
+
+  <meta property="og:url" content="https://slowburn.dev/blog/headless-fun-unreal-engine/" />
+
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+</head>
+<body>
+    
+<div class="container page">
+
+<h1>Headless Fun With Unreal Engine</h1>
+<span class="date after-h1">2022-03-29</span>
+
+<h2 id="intro">Intro<a class="zola-anchor" href="#intro">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>One major challenge we're facing when maintaining <a href="https://slowburn.dev/dataconfig/" title="DataConfig">DataConfig</a> is that we'll need to support it across multiple Unreal Engine versions. Up until now, DataConfig is working <a href="https://slowburn.dev/dataconfig/Integration" title="DataConfig Integration">from UE4.25-4.27 and UE5 Preview 2</a>. We need some strategy to quickly build and test against these growing number of versions.</p>
+<p>Fortunately, we found that UE has excellent &quot;headless&quot; support: you can do tons of stuff with the engine from the command line, without opening an editor. It speeds up our workflow a lot and ultimately makes targetting multiple UE versions viable. </p>
+<p>In the following sections we'll demonstrate that:</p>
+<ul>
+<li>How to compile and launch a UE project from command line.</li>
+<li>How to compile and run a headless target inside a UE plugin <em>without a project</em>.</li>
+<li>How to cross-compile the headless target to Linux and run it in WSL(Windows Subsystem for Linux).</li>
+<li>Finally we'll look at how DataConfig is setting up tests and automation.</li>
+</ul>
+<h2 id="compile-and-launch-ue-project-from-command-line">Compile and Launch UE Project From Command Line<a class="zola-anchor" href="#compile-and-launch-ue-project-from-command-line">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>We've set up a sample project named <a href="https://github.com/slowburn-dev/site-gists/tree/main/DcProject" title="DcProject">DcProject</a> that you can download and play with. It's a minimal C++ Unreal Engine project that can be built and launched.
+The directory hierarchy is pretty simple:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>DcProject.uproject</span><span>
+</span><span>README.md</span><span>
+</span><span>Source</span><span>
+</span><span>|-- DcProject.Target.cs</span><span>
+</span><span>|-- DcProjectEditor</span><span>
+</span><span>|   |-- DcProjectEditor.Build.cs</span><span>
+</span><span>|   |-- Private</span><span>
+</span><span>|   |   `-- DcProjectEditor.cpp</span><span>
+</span><span>|   `-- Public</span><span>
+</span><span>|       `-- DcProjectEditor.h</span><span>
+</span><span>|-- DcProjectEditor.Target.cs</span><span>
+</span><span>`-- DcProjectGame</span><span>
+</span><span>    |-- DcProjectGame.Build.cs</span><span>
+</span><span>    |-- Private</span><span>
+</span><span>    |   `-- DcProjectGame.cpp</span><span>
+</span><span>    `-- Public</span><span>
+</span><span>        `-- DcProjectGame.h</span><span>
+</span></code></pre>
+<p>Open up your terminal and cd into <code>DcProject</code> root. Suppose you have a UE copy at <code>C:\UnrealEngine</code>, you can build the project with the command line below:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool DcProjectEditor Win64 Development &quot;%CD%/DcProject.uproject&quot; -Rocket -NoHotReload</span><span>
+</span></code></pre>
+<p>When compilation is done launch the project from command line:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\Win64\UE4Editor &quot;%CD%/DcProject.uproject&quot;</span><span>
+</span></code></pre>
+<p>When the editor shows up look for &quot;module starting up&quot; lines in the log. These are printed from the project modules:</p>
+<p><img src="dcproject-launch.png" alt="dcproject-launch" /></p>
+<p>Some caveats:</p>
+<ol start="0">
+<li>
+<p>The project has one runtime module <code>DcProjectGame</code> which contains game code. 
+<code>DcProjectEditor</code> is the editor-only module. This resembles the setup of a typical UE game project.</p>
+</li>
+<li>
+<p>There's no version associated with &quot;DcProject.uproject&quot; file.</p>
+<p>This means you can compile and launch the project across multiple Unreal Engine installations. As long as you get the <code>UnrealBuildTool</code> and editor binary path correct it's just gonna work. If you build the same project using version A and then version B, the build tool would correctly detect that and rewrite all the binaries.</p>
+</li>
+<li>
+<p>Be careful when dealing with source builds.</p>
+<p>If you're using a <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/DevelopmentSetup/BuildingUnrealEngine/" title="Building Unreal Engine from Source">source build</a>, pay extra attention to the <code>Win64 Development</code> flags in the command line. It should be identical to your source build or this command would start a new Unreal Engine build, which takes a lot of time and usually is not what you desire.</p>
+</li>
+<li>
+<p>DcProject's minimal setup took inspiration from this awesome talk: <a href="https://www.youtube.com/watch?v=94FvzO1HVzY" title="Unreal Engine C++ Project Setup, From Scratch -  Alex Forsythe">Unreal Engine C++ Project Setup, From Scratch</a>. I wish this guy do a video on every computer thing. Be sure to check it out.</p>
+</li>
+</ol>
+<h2 id="compile-a-headless-target-inside-a-ue-plugin">Compile a Headless Target Inside a UE Plugin<a class="zola-anchor" href="#compile-a-headless-target-inside-a-ue-plugin">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>Similar to <a href="https://github.com/slowburn-dev/site-gists/tree/main/DcProject" title="DcProject">DcProject</a> we've also set up a minimal UE plugin <a href="https://github.com/slowburn-dev/site-gists/tree/main/DcPlugin" title="DcPlugin">DcPlugin</a>:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>DcPlugin.uplugin</span><span>
+</span><span>Source</span><span>
+</span><span>|-- DcPluginCore</span><span>
+</span><span>|   |-- DcPluginCore.Build.cs</span><span>
+</span><span>|   |-- Private</span><span>
+</span><span>|   |   `-- DcFoo.cpp</span><span>
+</span><span>|   `-- Public</span><span>
+</span><span>|       `-- DcFoo.h</span><span>
+</span><span>|-- DcPluginEditor</span><span>
+</span><span>|   |-- DcPluginEditor.Build.cs</span><span>
+</span><span>|   `-- Private</span><span>
+</span><span>|       `-- DcPluginEditorModule.cpp</span><span>
+</span><span>|-- DcPluginHeadless</span><span>
+</span><span>|   |-- DcPluginHeadless.Build.cs</span><span>
+</span><span>|   |-- DcPluginHeadless.Target.cs</span><span>
+</span><span>|   `-- DcPluginHeadlessMain.cpp</span><span>
+</span><span>`-- DcPluginRuntime</span><span>
+</span><span>    |-- DcPluginRuntime.Build.cs</span><span>
+</span><span>    `-- Private</span><span>
+</span><span>        `-- DcPluginRuntimeModule.cpp</span><span>
+</span></code></pre>
+<p>It has 4 modules:</p>
+<ul>
+<li>
+<p>DcPluginCore: This is the core library module. We put a simple struct <code>FFoo</code> and a method <code>HelloFoo</code> inside <code>FFoo.h/cpp</code>, and it would be referenced in other modules. </p>
+<p>One key thing to note is that we keep its dependencies minimal to only <code>Core</code> and <code>CoreUObject</code>, which is defined in <code>DcPluginCore.Build.cs</code>. This is crucial for our headless target to work.</p>
+</li>
+<li>
+<p>DcPluginRuntime / DcPluginEditor: These are the conventional runtime and editor modules and implements the <code>IModuleInterface</code>. These also need to be registered in <code>DcPlugin.uplugin</code> where <code>Type/LoadingPhase</code> can be configured.</p>
+</li>
+<li>
+<p>DcPluginHeadless: Under the plugin folder we have both <code>Build.cs</code> and <code>Target.cs</code> so that we can build this module as a standalone binary! We'll explain in detail below.</p>
+</li>
+</ul>
+<p>DcPlugin itself can be dropped into a UE project's <code>Plugins/</code> folder and it should build and work just fine. But the headless target only works with a <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/DevelopmentSetup/BuildingUnrealEngine/" title="Building Unreal Engine from Source">source build</a>. Be sure you have a locally built Unreal Engine with full sources and continue on the steps below.</p>
+<p>Open up a shell and cd into <code>DcPlugin</code> root. Suppose your UE source build is located at <code>C:\UnrealEngine</code>, run the command below to build headless.</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool -project=&quot;%CD%/DcPlugin.uplugin&quot; DcPluginHeadless Win64 Debug</span><span>
+</span></code></pre>
+<p>It would produce a binary named <code>DcPluginHeadless-Win64-Debug.exe</code> which you can run from the command line:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\DcPlugin&gt;.\Binaries\Win64\DcPluginHeadless-Win64-Debug.exe</span><span>
+</span><span>LogInit: Display: Loading text-based GConfig....</span><span>
+</span><span>LogTemp: Display: Hello DcPluginHeadless</span><span>
+</span></code></pre>
+<p>This doesn't look very exciting at first. But this workflow does bring up many benefits: </p>
+<ul>
+<li>
+<p>Compilation is magnitudes faster than building the whole engine.</p>
+<p>On my box doing a clean <code>DcPluginHeadless</code> build takes under 1 minute, while building the editor with all plugins takes multiple hours.</p>
+<p>This is especially useful when you want to test something against a fresh copy UnrealEngine code. The common steps are you do <code>GenerateProjectFiles.bat</code>
+then do the hours-long compilation for <code>UE4Editor</code> binaries, then test it with your plugin. Now with the headless target you can build it right after <code>GenerateProjectFiles.bat</code>
+, in which gets the <code>UnrealBuildTool</code> ready.</p>
+</li>
+<li>
+<p>You can now use <code>Debug</code> configuration.</p>
+<p>We usually use <code>Development</code> configuration to build the editor. The <code>Debug</code> build makes it painfully slow to use.
+With the headless target <code>Debug</code> is okay as it doesn't make that much difference on a simple console application.</p>
+</li>
+</ul>
+<p>There are also downsides here: you can not use most engine and editor features. To be more specific you can't reference <code>Engine</code> and <code>UnrealEd</code> modules in the headless target. These modules are the key modules to the &quot;Engine&quot; part of the code. If your plugin depends on the gameplay framework or editor system you can do very little thing
+in the headless target.</p>
+<p>The built-in <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Physics/ChaosPhysics/Overview/" title="Chaos Physics Overview">Chaos physics</a> module features a headless program target to host its unit tests. You can build it with the commands below:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool HeadlessChaos Win64 Development</span><span>
+</span></code></pre>
+<p>Run the resulting <code>HeadlessChaos</code> binary to start the googletest runner:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>.\Binaries\Win64\NotForLicensees\HeadlessChaos.exe</span><span>
+</span></code></pre>
+<p>Note that this also works with source build only.</p>
+<h2 id="cross-compile-the-headless-target-and-run-it-with-wsl">Cross Compile the Headless Target and Run It With WSL<a class="zola-anchor" href="#cross-compile-the-headless-target-and-run-it-with-wsl">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>We did most of <a href="https://slowburn.dev/dataconfig/" title="DataConfig">DataConfig</a> development using Visual Studio on Windows. At one point we decided to try Linux build and we're pretty confident that 
+it should build just fine with clang. Turns out we can't be more wrong on this. Now I can say with confidence that a codebase that's only built and 
+tested with MSVC is guaranteed <em>not</em> to work with clang/gcc on the first try, no matter how careful you are. There're so many subtle little differences that would surface
+when you actually build it with another compiler. The good news is that UE build system makes it trivia to cross-compile and target WSL for testing.</p>
+<p>UE <a href="https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/GettingStarted/" title="Cross-Compiling for Linux">officially supports cross compiling</a> and distributes toolchains on its website. Download and install the toolchain according to your UE version <a href="https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/GettingStarted/#gettingthetoolchain" title="Getting the Toolchain">here</a>.
+Then remember to restart your terminal to let new environment var kick in, namely <code>LINUX_MULTIARCH_ROOT</code> which points to the installation path.</p>
+<p>Then invoke the commands below at DcPlugin root:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool HeadlessChaos Linux Development</span><span>
+</span></code></pre>
+<p>Note that <code>Win64</code> is changed to <code>Linux</code> and the console output should hint that it's using clang. When it finishes you should've gotten a Linux binary at
+<code>.\Binaries\Linux\DcPluginHeadless-Linux-Debug</code>.</p>
+<p>Now what's cooler is that you can execute the binary under WSL! Setting up WSL is a complex process that involves checking your Windows 10 version
+and downloading a ton of stuff. The <a href="https://docs.microsoft.com/en-us/windows/wsl/install" title="Install WSL">official guide here</a> is the best resource I knew. I've setup WSL2 with a recent Ubuntu LTS on my box:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\DcPlugin&gt;wsl lsb_release -ir</span><span>
+</span><span>Distributor ID: Ubuntu</span><span>
+</span><span>Release:        20.04</span><span>
+</span></code></pre>
+<p>After you get WSL working, running the headless target is trivia:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>wsl ./Binaries/Linux/DcPluginHeadless-Linux-Debug</span><span>
+</span></code></pre>
+<p>Note that you have to use <code>/</code> instead of <code>\</code> in the path or it won't work in Linux. I personally find it pretty neat that this is even possible.
+Years ago we have to resort to heavier solutions like VirtualBox. Now it runs just like another command line utility.</p>
+<p>The downside is that seems WSL taxes quite a lot on performance. I also failed to run the editor under WSL, at least with UE 4.27.</p>
+<h2 id="dataconfig-headless-setup">DataConfig Headless Setup<a class="zola-anchor" href="#dataconfig-headless-setup">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>In DataConfig we have a more complex setup:</p>
+<ul>
+<li>
+<p>We write tests confirming to UE's <a href="https://docs.unrealengine.com/4.27/en-US/TestingAndOptimization/Automation/TechnicalGuide/" title="Automation Technical Guide">Automation Testing</a> framework. Tests are wrapped inside the <code>DC_TEST()</code> macro and core tests all reside in <a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigTests" title="DataConfigTests"><code>DataConfigTests</code></a> module.</p>
+</li>
+<li>
+<p><code>DataConfigTests</code> module is loaded inside <a href="https://github.com/slowburn-dev/DataConfig/blob/release/DataConfig/DataConfig.uplugin" title="DataConfig.uplugin"><code>DataConfig.uplugin</code></a> as a editor module. In this way, the tests would be auto-discovered and shown in the editor &quot;Automation&quot; tab.</p>
+</li>
+<li>
+<p><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigHeadless" title="DataConfigHeadless"><code>DataConfigHeadless</code></a> module is our headless target. We've implemented a simple test runner to do filtering and result reporting. When running from the command line it looks like this:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>E:\DevUE\projects\DataConfig\DataConfig\DataConfig&gt;.\Binaries\Win64\DataConfigHeadless-Win64-Debug.exe</span><span>
+</span><span>LogDataConfigCore: Display: DataConfigCore Version: 1.2.1, 10201</span><span>
+</span><span>LogDataConfigCore: Display: Filters: DataConfig.</span><span>
+</span><span>-   OK | DataConfig.Extra.PathAccess.PropertyPathHelpers</span><span>
+</span><span>...</span><span>
+</span><span>-   OK | DataConfig.Core.Serialize.InlineSubObject</span><span>
+</span><span>Run:   95, Success:   95, Fail:    0</span><span>
+</span></code></pre>
+</li>
+<li>
+<p>DataConfig is designed in a way that the <code>DataConfigCore</code> depends only on <code>Core/CoreUObject</code> so it can be used in headless target.
+We put example code that takes extra dependencies in <a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra" title="DataConfigExtra"><code>DataConfigExtra</code></a> and <a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigEditorExtra" title="DataConfigEditorExtra"><code>DataConfigEditorExtra</code></a>. Each on its own can also contain <code>DC_TEST</code>s and would be auto-discovered by the editor.</p>
+</li>
+</ul>
+<h2 id="closing-notes">Closing Notes<a class="zola-anchor" href="#closing-notes">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>If you do nontrivial C++ development with Unreal Engin, We highly suggest you try setting up one or even multiple headless program targets for your project. For me iterating on a simple command line binary feels so pleasant that it results in higher productivity. </p>
+<p>Also we're noticing a trend in gamedev that is the comeback of unit testing. UE headless targets are a perfect place to store them. Testing game code can <a href="https://github.com/EmbarkStudios/physx-rs#usage" title="EmbarkStudios/physx">lead to creative solutions</a>.</p>
+<p><img src="example-ball.png" alt="physx-rs example ball" /></p>
+
+
+<div class="footer">
+  <a href="/">slowburn.dev</a>
+</div>
+
+</div>
+
+
+    
+    
+</body>
+
+</html>
