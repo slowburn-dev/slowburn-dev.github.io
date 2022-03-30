@@ -180,7 +180,7 @@ when you actually build it with another compiler. The good news is that UE build
 <p>UE <a href="https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/GettingStarted/" title="Cross-Compiling for Linux">officially supports cross compiling</a> and distributes toolchains on its website. Download and install the toolchain according to your UE version <a href="https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/GettingStarted/#gettingthetoolchain" title="Getting the Toolchain">here</a>.
 Then remember to restart your terminal to let new environment var kick in, namely <code>LINUX_MULTIARCH_ROOT</code> which points to the installation path.</p>
 <p>Then invoke the commands below at DcPlugin root:</p>
-<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool HeadlessChaos Linux Development</span><span>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool -project=&quot;%CD%/DcPlugin.uplugin&quot; DcPluginHeadless Linux Debug</span><span>
 </span></code></pre>
 <p>Note that <code>Win64</code> is changed to <code>Linux</code> and the console output should hint that it's using clang. When it finishes you should've gotten a Linux binary at
 <code>.\Binaries\Linux\DcPluginHeadless-Linux-Debug</code>.</p>
