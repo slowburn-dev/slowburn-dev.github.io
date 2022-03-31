@@ -208,8 +208,8 @@ Years ago we have to resort to heavier solutions like VirtualBox. Now it runs ju
 <p><code>DataConfigTests</code> module is loaded inside <a href="https://github.com/slowburn-dev/DataConfig/blob/release/DataConfig/DataConfig.uplugin" title="DataConfig.uplugin"><code>DataConfig.uplugin</code></a> as a editor module. In this way, the tests would be auto-discovered and shown in the editor &quot;Automation&quot; tab.</p>
 </li>
 <li>
-<p><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigHeadless" title="DataConfigHeadless"><code>DataConfigHeadless</code></a> module is our headless target. We've implemented a simple test runner to do filtering and result reporting. When running from the command line it looks like this:</p>
-<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>E:\DevUE\projects\DataConfig\DataConfig\DataConfig&gt;.\Binaries\Win64\DataConfigHeadless-Win64-Debug.exe</span><span>
+<p><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigHeadless" title="DataConfigHeadless"><code>DataConfigHeadless</code></a> module is our headless target. It <a href="https://github.com/slowburn-dev/DataConfig/blob/release/DataConfig/Source/DataConfigHeadless/DataConfigHeadless.Build.cs#L19">references <code>DataConfigTests</code> in module rules</a> so that the tests are built into the binary. We've implemented a simple test runner to do filtering and result reporting. When running from the command line it looks like this:</p>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\DataConfig&gt;.\Binaries\Win64\DataConfigHeadless-Win64-Debug.exe</span><span>
 </span><span>LogDataConfigCore: Display: DataConfigCore Version: 1.2.1, 10201</span><span>
 </span><span>LogDataConfigCore: Display: Filters: DataConfig.</span><span>
 </span><span>-   OK | DataConfig.Extra.PathAccess.PropertyPathHelpers</span><span>
@@ -226,7 +226,7 @@ We put example code that takes extra dependencies in <a href="https://github.com
 <h2 id="closing-notes">Closing Notes<a class="zola-anchor" href="#closing-notes">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
-<p>If you do nontrivial C++ development with Unreal Engin, We highly suggest you try setting up one or even multiple headless program targets for your project. For me iterating on a simple command line binary feels so pleasant that it results in higher productivity. </p>
+<p>If you do non-trivial C++ development with Unreal Engine, We highly recommend you try setting up a headless program targets for your project. For me iterating on a simple command line binary feels so pleasant that it results in higher productivity. </p>
 <p>Also we're noticing a trend in gamedev that is the comeback of unit testing. UE headless targets are a perfect place to store them. Testing game code can <a href="https://github.com/EmbarkStudios/physx-rs#usage" title="EmbarkStudios/physx">lead to creative solutions</a>.</p>
 <p><img src="example-ball.png" alt="physx-rs example ball" /></p>
 
