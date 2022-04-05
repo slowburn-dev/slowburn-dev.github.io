@@ -4,37 +4,25 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Schema - DataConfig Json Asset Book</title>
-        
-        
 
 
         <!-- Custom HTML head -->
         
-
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="DataConfig JSON backed DataAsset Plugin">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="favicon.svg">
-        
-        
         <link rel="shortcut icon" href="favicon.png">
-        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
-        
         <link rel="stylesheet" href="css/print.css" media="print">
-        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="fonts/fonts.css">
-        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -42,11 +30,8 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="custom.css">
-        
 
-        
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -105,8 +90,7 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -122,29 +106,24 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">DataConfig Json Asset Book</h1>
 
                     <div class="right-buttons">
-                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
-                        
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -152,7 +131,6 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
@@ -165,9 +143,9 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#schema" id="schema">Schema</a></h1>
+                        <h1 id="schema"><a class="header" href="#schema">Schema</a></h1>
 <p>This page documents the JSON schema that DataConfig JSON Asset supports.</p>
-<h2><a class="header" href="#root-type" id="root-type">Root <code>$type</code></a></h2>
+<h2 id="root-type"><a class="header" href="#root-type">Root <code>$type</code></a></h2>
 <p>The first thing when importing a JSON asset is to determine which class to deserialize into. It's specified by the <code>$type</code> field in the JSON source:</p>
 <pre><code class="language-json">// DcJsonAsset/Tests/DcJsonFixture_Simple.json
 {
@@ -189,7 +167,7 @@ For example: <code>/DcJsonAsset/DcFixture/DcTestBPDataAsset</code></li>
 </ul>
 </li>
 </ul>
-<h2><a class="header" href="#scalar-types" id="scalar-types">Scalar Types</a></h2>
+<h2 id="scalar-types"><a class="header" href="#scalar-types">Scalar Types</a></h2>
 <p>Most UE primitive types has pretty straight forward mappings to JSON data types:</p>
 <table><thead><tr><th>UE Type</th><th>JSON Type</th><th>Example</th></tr></thead><tbody>
 <tr><td>bool</td><td>Boolean</td><td>true, false</td></tr>
@@ -197,7 +175,7 @@ For example: <code>/DcJsonAsset/DcFixture/DcTestBPDataAsset</code></li>
 <tr><td>int, uint, float, double</td><td>Number</td><td>123, 234.5</td></tr>
 </tbody></table>
 <p>We additionally support a few scalar like data types:</p>
-<h3><a class="header" href="#enums" id="enums">Enums</a></h3>
+<h3 id="enums"><a class="header" href="#enums">Enums</a></h3>
 <p>Enum can be deserialized from a string. Enum flags needs to be deserialized from a list of string:</p>
 <pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h
 UCLASS()
@@ -214,7 +192,7 @@ class UDcJsonAssetTestDataAsset1_Enum : public UDcImportedDataAsset {
     &quot;EnumFlagField&quot; : [&quot;Alpha&quot;, &quot;Gamma&quot;], 
 }
 </code></pre>
-<h3><a class="header" href="#gameplaytags" id="gameplaytags">GameplayTags</a></h3>
+<h3 id="gameplaytags"><a class="header" href="#gameplaytags">GameplayTags</a></h3>
 <p><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Tags/index.html" title="Gameplay Tags">Gameplay Tag</a> structs <code>FGameplayTag</code> and <code>FGameplayTagContainer</code> are both supported:</p>
 <pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h 
 UCLASS()
@@ -236,13 +214,13 @@ class UDcJsonAssetTestDataAsset2_GameplayTag : public UDcImportedDataAsset {
     ]
 }
 </code></pre>
-<h2><a class="header" href="#containers-and-aggregates" id="containers-and-aggregates">Containers and Aggregates</a></h2>
+<h2 id="containers-and-aggregates"><a class="header" href="#containers-and-aggregates">Containers and Aggregates</a></h2>
 <p>UE containers mapping to JSON is also pretty unsurprising:</p>
 <table><thead><tr><th>UE Type</th><th>JSON Type</th><th>Example</th></tr></thead><tbody>
 <tr><td>Array, Set</td><td>Array</td><td>[&quot;foo&quot;, &quot;bar&quot;]</td></tr>
 <tr><td>Map, Struct, Class Root</td><td>Object</td><td>{&quot;foo&quot;: &quot;bar&quot;}</td></tr>
 </tbody></table>
-<h2><a class="header" href="#object-references" id="object-references">Object References</a></h2>
+<h2 id="object-references"><a class="header" href="#object-references">Object References</a></h2>
 <p>UE provides a few options when referencing <code>UObject</code> instances:</p>
 <table><thead><tr><th>Type</th><th>Example</th></tr></thead><tbody>
 <tr><td><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/ProgrammingWithCPP/Assets/ReferencingAssets/index.html#directpropertyreference" title="Direct Property Reference">Direct object reference</a></td><td><code>UObject*</code>, <code>AActor*</code></td></tr>
@@ -287,7 +265,7 @@ class UDcJsonAssetTestDataAsset3_References : public UDcImportedDataAsset {
 <li><code>DirectRef1/2/3</code> are deserialized into identical references to the same object.</li>
 <li><code>DcSoftImported1/2</code> are specially handled and <code>/Path/To/Content</code> are the only format that's supported.</li>
 </ol>
-<h2><a class="header" href="#inline-sub-objects" id="inline-sub-objects">Inline Sub Objects</a></h2>
+<h2 id="inline-sub-objects"><a class="header" href="#inline-sub-objects">Inline Sub Objects</a></h2>
 <p>UE already supports &quot;Inline Sub Objects&quot;, that is UCLASS marked with <a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/GameplayArchitecture/Classes/Specifiers/index.html" title="Class Specifiers"><code>DefaultToInstanced</code> specifier</a>. Editor would try to create new sub objects inline for these classes' references, rather than points to a existing one. It's also a way of doing data polymorphism in UE.</p>
 <p>Given a simple class hierarchy like this:</p>
 <pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h
@@ -335,9 +313,9 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
     &quot;ShapeField3&quot; : null
 }
 </code></pre>
-<h2><a class="header" href="#other-root-meta-fields" id="other-root-meta-fields">Other Root Meta Fields</a></h2>
+<h2 id="other-root-meta-fields"><a class="header" href="#other-root-meta-fields">Other Root Meta Fields</a></h2>
 <p>In the root JSON object we now check for some other <code>$meta</code> fields.</p>
-<h3><a class="header" href="#reimport-keep-instance" id="reimport-keep-instance"><code>$reimport-keep-instance</code></a></h3>
+<h3 id="reimport-keep-instance"><a class="header" href="#reimport-keep-instance"><code>$reimport-keep-instance</code></a></h3>
 <p>By default imported <code>UDcImportedDataAsset</code> object is destroyed and recreated on every import. Now <code>$reimport-keep-instance</code> changes the behavior and it would reuse the existing object. This is mostly for more advanced setups.</p>
 <p>The main reason we create a new object on every import is that one can hardly reset the values of the dirty object. Consider the example below:</p>
 <pre><code class="language-json">// DcJsonAsset/Tests/DcJsonFixture_Simple.json
@@ -368,17 +346,13 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="Tutorial.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
                             <a rel="next" href="Tooling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -386,49 +360,35 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
                     <a rel="prev" href="Tutorial.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
                     <a rel="next" href="Tooling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
 
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
 
     </body>
 </html>

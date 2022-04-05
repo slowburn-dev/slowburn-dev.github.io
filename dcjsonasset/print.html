@@ -4,39 +4,26 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>DataConfig Json Asset Book</title>
-        
         <meta name="robots" content="noindex" />
-        
-        
 
 
         <!-- Custom HTML head -->
         
-
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="DataConfig JSON backed DataAsset Plugin">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="favicon.svg">
-        
-        
         <link rel="shortcut icon" href="favicon.png">
-        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
-        
         <link rel="stylesheet" href="css/print.css" media="print">
-        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="fonts/fonts.css">
-        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -44,11 +31,8 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="custom.css">
-        
 
-        
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -107,8 +91,7 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -124,29 +107,24 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">DataConfig Json Asset Book</h1>
 
                     <div class="right-buttons">
-                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
-                        
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -154,7 +132,6 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
@@ -167,7 +144,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#dataconfig-json-asset-book" id="dataconfig-json-asset-book">DataConfig JSON Asset Book</a></h1>
+                        <h1 id="dataconfig-json-asset-book"><a class="header" href="#dataconfig-json-asset-book">DataConfig JSON Asset Book</a></h1>
 <p><img src="README.assets/Thumbnail_284_284.png" alt="Thumbnail_284_284" /></p>
 <p><a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a> (<code>DcJsonAsset</code> in short) is a UE plugin that does one particular thing:</p>
 <p><strong>Import JSON files into Unreal Engine as DataAsset</strong></p>
@@ -178,14 +155,14 @@
 <li><a href="Tooling.html">Batch import and reimport</a>.</li>
 </ul>
 <p>It's built on top of <a href="https://slowburn.dev/dataconfig/" title="DataConfig">DataConfig</a>, a serialization framework for Unreal Engine.</p>
-<h2><a class="header" href="#getting-started" id="getting-started">Getting Started</a></h2>
+<h2 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h2>
 <ul>
 <li>Checkout our <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">UE Marketplace</a> page.</li>
 <li>See <a href="Tutorial.html">Tutorial</a> for a quick guided tour.</li>
 <li>See <a href="Schema.html">Schema</a> for supported JSON spec.</li>
 <li>See <a href="Changes.html">Changes</a> for versioning history.</li>
 </ul>
-<h1><a class="header" href="#tutorial" id="tutorial">Tutorial</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tutorial"><a class="header" href="#tutorial">Tutorial</a></h1>
 <p>This page shows a quick demo of how to use <code>DcJsonAsset</code>.</p>
 <ol>
 <li>
@@ -232,9 +209,9 @@ public:
 <p><img src="Tutorial.assets/MessageLogDiagnostics.png" alt="MessageLogDiagnostics" /></p>
 </li>
 </ol>
-<h1><a class="header" href="#schema" id="schema">Schema</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="schema"><a class="header" href="#schema">Schema</a></h1>
 <p>This page documents the JSON schema that DataConfig JSON Asset supports.</p>
-<h2><a class="header" href="#root-type" id="root-type">Root <code>$type</code></a></h2>
+<h2 id="root-type"><a class="header" href="#root-type">Root <code>$type</code></a></h2>
 <p>The first thing when importing a JSON asset is to determine which class to deserialize into. It's specified by the <code>$type</code> field in the JSON source:</p>
 <pre><code class="language-json">// DcJsonAsset/Tests/DcJsonFixture_Simple.json
 {
@@ -256,7 +233,7 @@ For example: <code>/DcJsonAsset/DcFixture/DcTestBPDataAsset</code></li>
 </ul>
 </li>
 </ul>
-<h2><a class="header" href="#scalar-types" id="scalar-types">Scalar Types</a></h2>
+<h2 id="scalar-types"><a class="header" href="#scalar-types">Scalar Types</a></h2>
 <p>Most UE primitive types has pretty straight forward mappings to JSON data types:</p>
 <table><thead><tr><th>UE Type</th><th>JSON Type</th><th>Example</th></tr></thead><tbody>
 <tr><td>bool</td><td>Boolean</td><td>true, false</td></tr>
@@ -264,7 +241,7 @@ For example: <code>/DcJsonAsset/DcFixture/DcTestBPDataAsset</code></li>
 <tr><td>int, uint, float, double</td><td>Number</td><td>123, 234.5</td></tr>
 </tbody></table>
 <p>We additionally support a few scalar like data types:</p>
-<h3><a class="header" href="#enums" id="enums">Enums</a></h3>
+<h3 id="enums"><a class="header" href="#enums">Enums</a></h3>
 <p>Enum can be deserialized from a string. Enum flags needs to be deserialized from a list of string:</p>
 <pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h
 UCLASS()
@@ -281,7 +258,7 @@ class UDcJsonAssetTestDataAsset1_Enum : public UDcImportedDataAsset {
     &quot;EnumFlagField&quot; : [&quot;Alpha&quot;, &quot;Gamma&quot;], 
 }
 </code></pre>
-<h3><a class="header" href="#gameplaytags" id="gameplaytags">GameplayTags</a></h3>
+<h3 id="gameplaytags"><a class="header" href="#gameplaytags">GameplayTags</a></h3>
 <p><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Tags/index.html" title="Gameplay Tags">Gameplay Tag</a> structs <code>FGameplayTag</code> and <code>FGameplayTagContainer</code> are both supported:</p>
 <pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h 
 UCLASS()
@@ -303,13 +280,13 @@ class UDcJsonAssetTestDataAsset2_GameplayTag : public UDcImportedDataAsset {
     ]
 }
 </code></pre>
-<h2><a class="header" href="#containers-and-aggregates" id="containers-and-aggregates">Containers and Aggregates</a></h2>
+<h2 id="containers-and-aggregates"><a class="header" href="#containers-and-aggregates">Containers and Aggregates</a></h2>
 <p>UE containers mapping to JSON is also pretty unsurprising:</p>
 <table><thead><tr><th>UE Type</th><th>JSON Type</th><th>Example</th></tr></thead><tbody>
 <tr><td>Array, Set</td><td>Array</td><td>[&quot;foo&quot;, &quot;bar&quot;]</td></tr>
 <tr><td>Map, Struct, Class Root</td><td>Object</td><td>{&quot;foo&quot;: &quot;bar&quot;}</td></tr>
 </tbody></table>
-<h2><a class="header" href="#object-references" id="object-references">Object References</a></h2>
+<h2 id="object-references"><a class="header" href="#object-references">Object References</a></h2>
 <p>UE provides a few options when referencing <code>UObject</code> instances:</p>
 <table><thead><tr><th>Type</th><th>Example</th></tr></thead><tbody>
 <tr><td><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/ProgrammingWithCPP/Assets/ReferencingAssets/index.html#directpropertyreference" title="Direct Property Reference">Direct object reference</a></td><td><code>UObject*</code>, <code>AActor*</code></td></tr>
@@ -354,7 +331,7 @@ class UDcJsonAssetTestDataAsset3_References : public UDcImportedDataAsset {
 <li><code>DirectRef1/2/3</code> are deserialized into identical references to the same object.</li>
 <li><code>DcSoftImported1/2</code> are specially handled and <code>/Path/To/Content</code> are the only format that's supported.</li>
 </ol>
-<h2><a class="header" href="#inline-sub-objects" id="inline-sub-objects">Inline Sub Objects</a></h2>
+<h2 id="inline-sub-objects"><a class="header" href="#inline-sub-objects">Inline Sub Objects</a></h2>
 <p>UE already supports &quot;Inline Sub Objects&quot;, that is UCLASS marked with <a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/GameplayArchitecture/Classes/Specifiers/index.html" title="Class Specifiers"><code>DefaultToInstanced</code> specifier</a>. Editor would try to create new sub objects inline for these classes' references, rather than points to a existing one. It's also a way of doing data polymorphism in UE.</p>
 <p>Given a simple class hierarchy like this:</p>
 <pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports2.h
@@ -402,9 +379,9 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
     &quot;ShapeField3&quot; : null
 }
 </code></pre>
-<h2><a class="header" href="#other-root-meta-fields" id="other-root-meta-fields">Other Root Meta Fields</a></h2>
+<h2 id="other-root-meta-fields"><a class="header" href="#other-root-meta-fields">Other Root Meta Fields</a></h2>
 <p>In the root JSON object we now check for some other <code>$meta</code> fields.</p>
-<h3><a class="header" href="#reimport-keep-instance" id="reimport-keep-instance"><code>$reimport-keep-instance</code></a></h3>
+<h3 id="reimport-keep-instance"><a class="header" href="#reimport-keep-instance"><code>$reimport-keep-instance</code></a></h3>
 <p>By default imported <code>UDcImportedDataAsset</code> object is destroyed and recreated on every import. Now <code>$reimport-keep-instance</code> changes the behavior and it would reuse the existing object. This is mostly for more advanced setups.</p>
 <p>The main reason we create a new object on every import is that one can hardly reset the values of the dirty object. Consider the example below:</p>
 <pre><code class="language-json">// DcJsonAsset/Tests/DcJsonFixture_Simple.json
@@ -430,26 +407,26 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
     &quot;AlphaStr&quot; : &quot;Changed&quot;  // new value in reimport
 }
 </code></pre>
-<h1><a class="header" href="#tooling" id="tooling">Tooling</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tooling"><a class="header" href="#tooling">Tooling</a></h1>
 <p>The plugin also comes with a few supporting tooling and settings.</p>
-<h2><a class="header" href="#settings" id="settings">Settings</a></h2>
+<h2 id="settings"><a class="header" href="#settings">Settings</a></h2>
 <p>&quot;DataConfig JsonAsset&quot; settings can be found in &quot;Project Settings&quot; with the same name:</p>
 <table><thead><tr><th>Name</th><th>Usage</th></tr></thead><tbody>
 <tr><td>Suffixes</td><td>The file suffix that this plugin looks for. If you're already using <code>.json</code> suffix for other purposes you can add or change a new one.</td></tr>
 </tbody></table>
-<h2><a class="header" href="#console-commands" id="console-commands">Console Commands</a></h2>
+<h2 id="console-commands"><a class="header" href="#console-commands">Console Commands</a></h2>
 <p>We also provide some handy commands that can be used for batch processing.</p>
 <table><thead><tr><th>Command</th><th>Example</th><th>Usage</th></tr></thead><tbody>
 <tr><td><code>Dc.ImportDirectory</code></td><td><code>Dc.ImportDirectory &quot;C:/Src/Dir&quot; &quot;/Game/Target&quot;</code></td><td>Recursively import source directory into content.</td></tr>
 <tr><td><code>Dc.ReimportDirectory</code></td><td><code>Dc.ReimportDirectory &quot;/Game/Target&quot;</code></td><td>Recursively reimport content directory</td></tr>
 <tr><td><code>Dc.SetupAutoReimport</code></td><td><code>Dc.SetupAutoReimport &quot;C:/Src/Dir&quot; &quot;/Game/Target&quot;</code></td><td>Setup <a href="https://docs.unrealengine.com/en-US/Basics/AssetsAndPackages/AutoReImport/index.html" title="Auto Reimport">Auto reimport</a> entry in editor settings</td></tr>
 </tbody></table>
-<h2><a class="header" href="#tool-ui" id="tool-ui">Tool UI</a></h2>
+<h2 id="tool-ui"><a class="header" href="#tool-ui">Tool UI</a></h2>
 <p>Finally we wrapped the commands above into a tooling panel, which can be found at &quot;Windows -&gt; JsonAsset Tool&quot; menu:</p>
 <p><img src="Tooling.assets/JsonAssetUI.png" alt="JsonAssetUI" /></p>
-<h1><a class="header" href="#caveats" id="caveats">Caveats</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="caveats"><a class="header" href="#caveats">Caveats</a></h1>
 <p>This page put together miscellaneous topics.</p>
-<h2><a class="header" href="#unicode-handling" id="unicode-handling">Unicode Handling</a></h2>
+<h2 id="unicode-handling"><a class="header" href="#unicode-handling">Unicode Handling</a></h2>
 <p>We decided to use <code>FFileHelper::LoadFileToString</code> to load files into <code>FString</code> instances, which handles the following encodings:</p>
 <ul>
 <li>UTF8 without BOM</li>
@@ -458,23 +435,28 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
 <li>UTF16 BE with BOM</li>
 </ul>
 <p>If you can choose an encoding we recommend use UTF8 without BOM across the board. You can setup an <a href="https://editorconfig.org/" title="EditorConfig"><code>.editorconfig</code></a>to enforce it.</p>
-<h1><a class="header" href="#changes" id="changes">Changes</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>Version listed here should match with <code>VersionName</code> field in <code>DcJsonAsset.uplugin</code></p>
-<h2><a class="header" href="#120---2022-1-26" id="120---2022-1-26">1.2.0 - 2022-1-26</a></h2>
+<h2 id="122---2022-4-6"><a class="header" href="#122---2022-4-6">1.2.2 - 2022-4-6</a></h2>
+<ul>
+<li>Integrate DataConfig 1.2.2</li>
+<li>Support for <a href="https://docs.unrealengine.com/5.0/en-US/unreal-engine-5-0-release-notes/">UE 5.0.0</a></li>
+</ul>
+<h2 id="120---2022-1-26"><a class="header" href="#120---2022-1-26">1.2.0 - 2022-1-26</a></h2>
 <ul>
 <li>Integrate DataConfig 1.2.0</li>
 <li>Allow <code>/path/to/Blueprint</code> in <code>UClass</code> field positions</li>
 <li>Added <code>$reimport-keep-instance</code> meta field.</li>
 <li>Support Blueprint Enum.</li>
 </ul>
-<h2><a class="header" href="#111---2021-10-9" id="111---2021-10-9">1.1.1 - 2021-10-9</a></h2>
+<h2 id="111---2021-10-9"><a class="header" href="#111---2021-10-9">1.1.1 - 2021-10-9</a></h2>
 <ul>
 <li>Support UE 4.27</li>
 <li>Integrate <a href="https://slowburn.dev/dataconfig/Changes.html#111---2021106">DataConfig Core 1.1.1</a></li>
 <li>Show versions in JsonAsset tool widget.</li>
 </ul>
-<h2><a class="header" href="#11---2021-4-24" id="11---2021-4-24">1.1 - 2021-4-24</a></h2>
+<h2 id="11---2021-4-24"><a class="header" href="#11---2021-4-24">1.1 - 2021-4-24</a></h2>
 <ul>
 <li>Integrate <a href="https://slowburn.dev/dataconfig/Changes.html#110---2021-4-24">DataConfig Core 1.1.0</a></li>
 <li>Fix UTF8 / UTF16 JSON file importing. Previously non ASCII characters are loaded as <code>?</code></li>
@@ -484,9 +466,7 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
 
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -494,49 +474,34 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
 
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
 
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
-        
         <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
-        
-        
 
     </body>
 </html>
