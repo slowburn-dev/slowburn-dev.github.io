@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Schema.html" class="active"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">5.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html"><strong aria-hidden="true">6.</strong> Changes</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Integration.html"><strong aria-hidden="true">3.</strong> Integration</a></li><li class="chapter-item expanded "><a href="Schema.html" class="active"><strong aria-hidden="true">4.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html"><strong aria-hidden="true">5.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">6.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html"><strong aria-hidden="true">7.</strong> Changes</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -144,7 +144,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="schema"><a class="header" href="#schema">Schema</a></h1>
-<p>This page documents the JSON schema that DataConfig JSON Asset supports.</p>
+<p>This page documents the JSON schema that DataConfig JSON Asset supports. Note that DcJsonAsset shares most common deserialize handlers from DataConfigCore, which is <a href="/dataconfig/Formats/JSON#schema" title="DataConfig - JSON - Schema">documented here</a>.</p>
 <h2 id="root-type"><a class="header" href="#root-type">Root <code>$type</code></a></h2>
 <p>The first thing when importing a JSON asset is to determine which class to deserialize into. It's specified by the <code>$type</code> field in the JSON source:</p>
 <pre><code class="language-json">// DcJsonAsset/Tests/DcJsonFixture_Simple.json
@@ -214,6 +214,30 @@ class UDcJsonAssetTestDataAsset2_GameplayTag : public UDcImportedDataAsset {
     ]
 }
 </code></pre>
+<h3 id="fprimaryassetid"><a class="header" href="#fprimaryassetid"><code>FPrimaryAssetId</code></a></h3>
+<p><code>FPrimaryAssetId</code> is used to <a href="https://unrealcommunity.wiki/using-the-asset-manager-qj38astq" title="Using the Asset Manager">soft reference primary data assets</a>. It's serialized into a <code>Type:Name</code> string, and can be loaded from the same string form, or a full object path:</p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports3.h 
+class UDcJsonAssetTestAssetTypes1 : public UDcPrimaryImportedDataAsset
+{
+    // ...
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FPrimaryAssetId AssetId1;
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FPrimaryAssetId AssetId2;
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FPrimaryAssetId AssetId3;
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FPrimaryAssetId AssetId4;
+};
+
+// DcJsonAsset/Tests/DcJsonFixture_PrimaryAssetId.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestAssetTypes1&quot;,
+    &quot;AssetId1&quot; : null,
+    &quot;AssetId2&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAssetInstance&quot;,
+    &quot;AssetId3&quot; :
+    {
+        &quot;$type&quot; : &quot;DcTestBPDataAsset&quot;,
+        &quot;$name&quot; : &quot;DcTestBPDataAssetInstance&quot;
+    }
+}
+</code></pre>
 <h2 id="containers-and-aggregates"><a class="header" href="#containers-and-aggregates">Containers and Aggregates</a></h2>
 <p>UE containers mapping to JSON is also pretty unsurprising:</p>
 <table><thead><tr><th>UE Type</th><th>JSON Type</th><th>Example</th></tr></thead><tbody>
@@ -265,6 +289,8 @@ class UDcJsonAssetTestDataAsset3_References : public UDcImportedDataAsset {
 <li><code>DirectRef1/2/3</code> are deserialized into identical references to the same object.</li>
 <li><code>DcSoftImported1/2</code> are specially handled and <code>/Path/To/Content</code> are the only format that's supported.</li>
 </ol>
+<p>Blueprint classes can use <code>FSoftObjectPath/FSoftClassPath</code> to replace the templated C++ equivelent. It looks like this in the Blueprint editor:</p>
+<p><img src="Images/Schema-SoftObjectClassPath.png" alt="Schema-SoftObjectClassPath" /></p>
 <h2 id="inline-sub-objects"><a class="header" href="#inline-sub-objects">Inline Sub Objects</a></h2>
 <p>UE already supports &quot;Inline Sub Objects&quot;, that is UCLASS marked with <a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/GameplayArchitecture/Classes/Specifiers/index.html" title="Class Specifiers"><code>DefaultToInstanced</code> specifier</a>. Editor would try to create new sub objects inline for these classes' references, rather than points to a existing one. It's also a way of doing data polymorphism in UE.</p>
 <p>Given a simple class hierarchy like this:</p>
@@ -346,7 +372,7 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="Tutorial.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="Integration.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -360,7 +386,7 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="Tutorial.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="Integration.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 

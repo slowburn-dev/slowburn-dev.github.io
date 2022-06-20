@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Schema.html"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">5.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html"><strong aria-hidden="true">6.</strong> Changes</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Integration.html"><strong aria-hidden="true">3.</strong> Integration</a></li><li class="chapter-item expanded "><a href="Schema.html"><strong aria-hidden="true">4.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html"><strong aria-hidden="true">5.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">6.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html"><strong aria-hidden="true">7.</strong> Changes</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -145,7 +145,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="dataconfig-json-asset-book"><a class="header" href="#dataconfig-json-asset-book">DataConfig JSON Asset Book</a></h1>
-<p><img src="README.assets/Thumbnail_284_284.png" alt="Thumbnail_284_284" /></p>
+<p><img src="Images/Thumbnail_284_284.png" alt="Thumbnail_284_284" /></p>
 <p><a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a> (<code>DcJsonAsset</code> in short) is a UE plugin that does one particular thing:</p>
 <p><strong>Import JSON files into Unreal Engine as DataAsset</strong></p>
 <p>Notably features:</p>
@@ -167,11 +167,11 @@
 <ol>
 <li>
 <p>First ensure that the plugin is properly integrated in your project. Open <code>Settings -&gt; Plugins</code> and search for <strong>DataConfig JSON Asset</strong>:</p>
-<p><img src="Tutorial.assets/DataConfigJsonAssetPlugin.png" alt="DataConfig JsonAsset Plugin" /></p>
+<p><img src="Images/Tutorial-Plugins.png" alt="DataConfig JsonAsset Plugin" /></p>
 </li>
 <li>
-<p>We have bundled a simple Blueprint class <code>DcTestBPDataAsset</code>:</p>
-<p><img src="Tutorial.assets/DcTestBPDataAsset.png" alt="DcTestBPDataAsset" /></p>
+<p>We have bundled a simple Blueprint class <code>/DcJsonAsset/DcFixture/DcTestBPDataAsset.DcTestBPDataAsset</code>:</p>
+<p><img src="Images/Tutorial-DcTestBPDataAsset.png" alt="DcTestBPDataAsset" /></p>
 <p>It's almost equivalent to a C++ UCLASS like this:</p>
 <pre><code class="language-c++">UCLASS()
 class UDcTestBPDataAsset : public UDcPrimaryImportedDataAsset {
@@ -184,7 +184,7 @@ public:
 </code></pre>
 </li>
 <li>
-<p>Prepare a JSON file on disk with the content below:</p>
+<p>Open your text editor and copy in the JSON below, and save the file on disk:</p>
 <pre><code class="language-json">{
     &quot;$type&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAsset&quot;,
     &quot;StrField&quot; : &quot;Hello DataConfig Json Asset&quot;,
@@ -194,7 +194,7 @@ public:
 </li>
 <li>
 <p>Then drop the file from the explorer into &quot;Content Browser&quot; and it's done.</p>
-<p><img src="Tutorial.assets/ImportExampleJson.png" alt="ImportExampleJson" /></p>
+<p><img src="Images/Tutorial-Import.webp" alt="ImportExampleJson" /></p>
 </li>
 <li>
 <p>Say we made a mistake when editing the JSON file:</p>
@@ -206,11 +206,77 @@ public:
 }
 </code></pre>
 <p>Right click on the <code>Example</code> asset and select reimport. DcJsonAsset would report this error in the &quot;Message Log&quot; window:</p>
-<p><img src="Tutorial.assets/MessageLogDiagnostics.png" alt="MessageLogDiagnostics" /></p>
+<p><img src="Images/Tutorial-MessageLogDiagnostics.png" alt="MessageLogDiagnostics" /></p>
 </li>
 </ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="integration"><a class="header" href="#integration">Integration</a></h1>
+<h2 id="c-integration"><a class="header" href="#c-integration">C++ Integration</a></h2>
+<p>The main entry point for C++ integration is the <code>DcJsonAssetRuntime</code> module. The most straight forward way to integrate is to add <code>DcJsonAssetRuntime</code> to your game module's <code>Game.Build.cs</code>:</p>
+<pre><code class="language-c++">using UnrealBuildTool;
+public class DcProjectGame : ModuleRules
+{
+    public DcProjectGame(ReadOnlyTargetRules Target) : base(Target)
+    {
+        // ...
+        PublicDependencyModuleNames.AddRange(new string[] {
+            &quot;Core&quot;,
+            &quot;CoreUObject&quot;,
+            &quot;Engine&quot;
+            &quot;DcJsonAssetRuntime&quot;, // &lt;-- add reference here
+        });
+    }
+}
+</code></pre>
+<p>Then in your game module you can subclass <code>UDcImportedDataAsset</code> or <code>UDcPrimaryImportedDataAsset</code> to start structuring your data:</p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports1.h
+UCLASS()
+class UDcJsonAssetTestPrimaryDataAsset1 : public UDcPrimaryImportedDataAsset
+{
+    // ...
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FName AlphaName;
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) bool AlphaBool;
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FString AlphaStr;
+};
+</code></pre>
+<p>If you're already deriving <code>UDataAsset</code> in your projects and wants to adapt them to be importable, you can implement <code>IDcImportedInterface</code> interface and the editor tooling would be able to detect them automatically. This is actually how <code>UDcImportedDataAsset</code> and <code>UDcPrimaryImportedDataAsset</code> are implemented:</p>
+<pre><code class="language-c++">// DcJsonAssetRuntime/Public/DcImportedInterface.h
+class DCJSONASSETRUNTIME_API IDcImportedInterface
+{
+    // ...
+#if WITH_EDITORONLY_DATA
+    virtual void GetAssetRegistryTags(TArray&lt;UObject::FAssetRegistryTag&gt;&amp; OutTags) const = 0;
+
+    virtual UAssetImportData* GetAssetImportData() const = 0;
+    virtual void SetAssetImportData(UAssetImportData* NewAssetImportData) = 0;
+#endif // WITH_EDITORONLY_DATA
+};
+
+// DcJsonAssetRuntime\Public\DcImportedDataAsset.h
+UCLASS()
+class DCJSONASSETRUNTIME_API UDcImportedDataAsset : public UDataAsset, public IDcImportedInterface
+{
+    // ...
+#if WITH_EDITORONLY_DATA
+public:
+    void GetAssetRegistryTags(TArray&lt;FAssetRegistryTag&gt;&amp; OutTags) const override;
+
+    UAssetImportData* GetAssetImportData() const override;
+    void SetAssetImportData(UAssetImportData* NewAssetImportData) override;
+
+    /** Importing data and options used for this asset */
+    UPROPERTY(VisibleAnywhere, Instanced, Category = ImportSettings)
+    class UAssetImportData* AssetImportData;
+#endif // WITH_EDITORONLY_DATA
+};
+</code></pre>
+<h2 id="blueprint-integration"><a class="header" href="#blueprint-integration">Blueprint Integration</a></h2>
+<p>We strongly recommend you author DataAsset classes in C++. It's more resilient and easier to debug this way. However Blueprint DataAsset, and Blueprint Enum/Struct etc are well supported and tested.</p>
+<p>Create a Blueprint class and use <code>DcPrimaryImportedDataAsset</code> as base class:</p>
+<p><img src="Images/Integration-BPDcPrimaryImportedDataAsset.png" alt="Blueprint DcPrimaryImportedDataAsset" /></p>
+<p>The Blueprint Class can be used as a normal DataAsset. Note that the <code>Asset Import Data</code> is derived from the base class, which is needed for reimport and change detection.</p>
+<p><img src="Images/Integration-ClassFields.png" alt="Class Fields" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="schema"><a class="header" href="#schema">Schema</a></h1>
-<p>This page documents the JSON schema that DataConfig JSON Asset supports.</p>
+<p>This page documents the JSON schema that DataConfig JSON Asset supports. Note that DcJsonAsset shares most common deserialize handlers from DataConfigCore, which is <a href="/dataconfig/Formats/JSON#schema" title="DataConfig - JSON - Schema">documented here</a>.</p>
 <h2 id="root-type"><a class="header" href="#root-type">Root <code>$type</code></a></h2>
 <p>The first thing when importing a JSON asset is to determine which class to deserialize into. It's specified by the <code>$type</code> field in the JSON source:</p>
 <pre><code class="language-json">// DcJsonAsset/Tests/DcJsonFixture_Simple.json
@@ -280,6 +346,30 @@ class UDcJsonAssetTestDataAsset2_GameplayTag : public UDcImportedDataAsset {
     ]
 }
 </code></pre>
+<h3 id="fprimaryassetid"><a class="header" href="#fprimaryassetid"><code>FPrimaryAssetId</code></a></h3>
+<p><code>FPrimaryAssetId</code> is used to <a href="https://unrealcommunity.wiki/using-the-asset-manager-qj38astq" title="Using the Asset Manager">soft reference primary data assets</a>. It's serialized into a <code>Type:Name</code> string, and can be loaded from the same string form, or a full object path:</p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports3.h 
+class UDcJsonAssetTestAssetTypes1 : public UDcPrimaryImportedDataAsset
+{
+    // ...
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FPrimaryAssetId AssetId1;
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FPrimaryAssetId AssetId2;
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FPrimaryAssetId AssetId3;
+    UPROPERTY(EditAnywhere, Category=&quot;DcJsonAsset|Tests&quot;) FPrimaryAssetId AssetId4;
+};
+
+// DcJsonAsset/Tests/DcJsonFixture_PrimaryAssetId.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestAssetTypes1&quot;,
+    &quot;AssetId1&quot; : null,
+    &quot;AssetId2&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAssetInstance&quot;,
+    &quot;AssetId3&quot; :
+    {
+        &quot;$type&quot; : &quot;DcTestBPDataAsset&quot;,
+        &quot;$name&quot; : &quot;DcTestBPDataAssetInstance&quot;
+    }
+}
+</code></pre>
 <h2 id="containers-and-aggregates"><a class="header" href="#containers-and-aggregates">Containers and Aggregates</a></h2>
 <p>UE containers mapping to JSON is also pretty unsurprising:</p>
 <table><thead><tr><th>UE Type</th><th>JSON Type</th><th>Example</th></tr></thead><tbody>
@@ -331,6 +421,8 @@ class UDcJsonAssetTestDataAsset3_References : public UDcImportedDataAsset {
 <li><code>DirectRef1/2/3</code> are deserialized into identical references to the same object.</li>
 <li><code>DcSoftImported1/2</code> are specially handled and <code>/Path/To/Content</code> are the only format that's supported.</li>
 </ol>
+<p>Blueprint classes can use <code>FSoftObjectPath/FSoftClassPath</code> to replace the templated C++ equivelent. It looks like this in the Blueprint editor:</p>
+<p><img src="Images/Schema-SoftObjectClassPath.png" alt="Schema-SoftObjectClassPath" /></p>
 <h2 id="inline-sub-objects"><a class="header" href="#inline-sub-objects">Inline Sub Objects</a></h2>
 <p>UE already supports &quot;Inline Sub Objects&quot;, that is UCLASS marked with <a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/GameplayArchitecture/Classes/Specifiers/index.html" title="Class Specifiers"><code>DefaultToInstanced</code> specifier</a>. Editor would try to create new sub objects inline for these classes' references, rather than points to a existing one. It's also a way of doing data polymorphism in UE.</p>
 <p>Given a simple class hierarchy like this:</p>
@@ -417,13 +509,23 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
 <h2 id="console-commands"><a class="header" href="#console-commands">Console Commands</a></h2>
 <p>We also provide some handy commands that can be used for batch processing.</p>
 <table><thead><tr><th>Command</th><th>Example</th><th>Usage</th></tr></thead><tbody>
-<tr><td><code>Dc.ImportDirectory</code></td><td><code>Dc.ImportDirectory &quot;C:/Src/Dir&quot; &quot;/Game/Target&quot;</code></td><td>Recursively import source directory into content.</td></tr>
+<tr><td><code>Dc.ImportDirectory</code></td><td><code>Dc.ImportDirectory &quot;C:/Src/Dir&quot; &quot;/Game/Target&quot;</code></td><td>Recursively import source directory into content</td></tr>
 <tr><td><code>Dc.ReimportDirectory</code></td><td><code>Dc.ReimportDirectory &quot;/Game/Target&quot;</code></td><td>Recursively reimport content directory</td></tr>
 <tr><td><code>Dc.SetupAutoReimport</code></td><td><code>Dc.SetupAutoReimport &quot;C:/Src/Dir&quot; &quot;/Game/Target&quot;</code></td><td>Setup <a href="https://docs.unrealengine.com/en-US/Basics/AssetsAndPackages/AutoReImport/index.html" title="Auto Reimport">Auto reimport</a> entry in editor settings</td></tr>
+<tr><td><code>Dc.DumpDirectory</code></td><td><code>Dc.DumpDirectory &quot;/Game&quot; &quot;C:/JsonOutput&quot;</code></td><td>Recursively dump all DataAssets to JSON files</td></tr>
 </tbody></table>
+<h2 id="context-menu-actions"><a class="header" href="#context-menu-actions">Context Menu Actions</a></h2>
+<p>Right click on any asset and there's <code>DataConfig JSON Asset</code> sub menu:</p>
+<p><img src="Images/Tooling-DcJsonAssetActions.png" alt="JsonAssetActions" /></p>
+<table><thead><tr><th>Name</th><th>Usage</th></tr></thead><tbody>
+<tr><td>Dump To Log</td><td>Dump selected assets to Output Log</td></tr>
+<tr><td>Dump To JSON</td><td>Dump selected assets to Output Log as JSON</td></tr>
+<tr><td>Save to JSON</td><td>Serialize selected assets as JSON and save to disk</td></tr>
+</tbody></table>
+<p>See <a href="Caveats.html#dump-assets">caveats</a> for dump details.</p>
 <h2 id="tool-ui"><a class="header" href="#tool-ui">Tool UI</a></h2>
 <p>Finally we wrapped the commands above into a tooling panel, which can be found at &quot;Windows -&gt; JsonAsset Tool&quot; menu:</p>
-<p><img src="Tooling.assets/JsonAssetUI.png" alt="JsonAssetUI" /></p>
+<p><img src="Images/Tooling-DcJsonAssetWindow.png" alt="JsonAssetUI" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="caveats"><a class="header" href="#caveats">Caveats</a></h1>
 <p>This page put together miscellaneous topics.</p>
 <h2 id="unicode-handling"><a class="header" href="#unicode-handling">Unicode Handling</a></h2>
@@ -435,9 +537,85 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
 <li>UTF16 BE with BOM</li>
 </ul>
 <p>If you can choose an encoding we recommend use UTF8 without BOM across the board. You can setup an <a href="https://editorconfig.org/" title="EditorConfig"><code>.editorconfig</code></a>to enforce it.</p>
+<h2 id="dump-assets"><a class="header" href="#dump-assets">Dump Assets</a></h2>
+<p>In the <a href="Tooling.html#context-menu-actions">context menu</a> we provide some shortcut actions for dumping arbitrary asset to textual presentation, which is a bit similar to UE's Export asset.</p>
+<p><code>Dump to JSON</code> sample output:</p>
+<pre><code>// /Game/Example
+{
+    &quot;$type&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAsset&quot;,
+    &quot;StrField&quot; : &quot;Hello DataConfig Json Asset&quot;,
+    &quot;IntField&quot; : 43,
+    &quot;NameField&quot; : &quot;None&quot;
+}
+</code></pre>
+<p><code>Dump To Log</code> sample output:</p>
+<pre><code># Datum: 'BlueprintGeneratedClass', 'DcTestBPDataAsset_C'
+&lt;ClassRoot&gt; 'DcTestBPDataAsset_C'
+|---&lt;Name&gt; 'StrField'
+|---&lt;String&gt; 'Hello DataConfig Json Asset'
+|---&lt;Name&gt; 'IntField'
+|---&lt;Int32&gt; '43'
+|---&lt;Name&gt; 'NameField'
+|---&lt;Name&gt; 'None'
+|---&lt;Name&gt; 'AssetImportData'
+|---&lt;ClassRoot&gt; 'AssetImportData'
+|   |---&lt;Name&gt; 'SourceFilePath'
+|   |---&lt;String&gt; ''
+|   |---&lt;Name&gt; 'SourceFileTimestamp'
+|   |---&lt;String&gt; ''
+|   |---&lt;Name&gt; 'SourceData'
+|   |---&lt;StructRoot&gt; 'AssetImportInfo'
+|   |---&lt;StructEnd&gt; 'AssetImportInfo'
+|---&lt;ClassEnd&gt; 'AssetImportData'
+|---&lt;Name&gt; 'AssetBundleData'
+|---&lt;StructRoot&gt; 'AssetBundleData'
+|   |---&lt;Name&gt; 'Bundles'
+|   |---&lt;ArrayRoot&gt;
+|   |---&lt;ArrayEnd&gt;
+|---&lt;StructEnd&gt; 'AssetBundleData'
+|---&lt;Name&gt; 'NativeClass'
+|---&lt;ClassReference&gt; 'DcTestBPDataAsset_C'
+&lt;ClassEnd&gt; 'DcTestBPDataAsset_C'
+</code></pre>
+<p>We try to make sure the dump actions doesn't crash. When running into unrecognized properties it should fail with explicit error.</p>
+<p>There's also batch process <a href="Tooling.html#console-commands"><code>Dc.DumpDirectory</code></a> that dumps all data assets. We've tested it against Lyra and CitySample project and it 
+have pretty readable output results. Note that currently we made minimal efforts to import the output JSON, but the current setup should've
+covered most common cases.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>Version listed here should match with <code>VersionName</code> field in <code>DcJsonAsset.uplugin</code></p>
+<h2 id="130---2022-6-20"><a class="header" href="#130---2022-6-20">1.3.0 - 2022-6-20</a></h2>
+<ul>
+<li>
+<p><strong>NEW</strong> Dump data asset to JSON:</p>
+<ul>
+<li><a href="Tooling.html#console-commands"><code>Dc.DumpDirectory</code></a></li>
+<li><a href="Tooling.html#context-menu-actions">Context menu 'Dump to JSON, Save to JSON'</a></li>
+</ul>
+</li>
+<li>
+<p><strong>FIX</strong> Core change and fixes:</p>
+<ul>
+<li>Integrate DataConfig 1.3</li>
+<li><a href="Schema.html#fprimaryassetid">Support <code>FPrimaryAssetId</code> property</a></li>
+<li><a href="Schema.html#object-references">Support <code>FSoftObjectPath/FSoftClassPath</code> property</a></li>
+</ul>
+</li>
+<li>
+<p><strong>NEW</strong> Docs:</p>
+<ul>
+<li><a href="Integration.html">Integration</a></li>
+<li><a href="Caveats.html#dump-assets">Caveats - Dump</a></li>
+</ul>
+</li>
+<li>
+<p><strong>KNOWN ISSUE</strong>:</p>
+<ul>
+<li>Some &quot;DcJsonAsset&quot; tests fail on UE 4.25/4.26 due to fixture assets are created in newer engine versions.<br>
+This doesn't affect actual usage though.</li>
+</ul>
+</li>
+</ul>
 <h2 id="122---2022-4-6"><a class="header" href="#122---2022-4-6">1.2.2 - 2022-4-6</a></h2>
 <ul>
 <li>Integrate DataConfig 1.2.2</li>

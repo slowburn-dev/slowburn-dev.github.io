@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Schema.html"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html" class="active"><strong aria-hidden="true">4.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">5.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html"><strong aria-hidden="true">6.</strong> Changes</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Integration.html"><strong aria-hidden="true">3.</strong> Integration</a></li><li class="chapter-item expanded "><a href="Schema.html"><strong aria-hidden="true">4.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html" class="active"><strong aria-hidden="true">5.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">6.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html"><strong aria-hidden="true">7.</strong> Changes</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -153,13 +153,23 @@
 <h2 id="console-commands"><a class="header" href="#console-commands">Console Commands</a></h2>
 <p>We also provide some handy commands that can be used for batch processing.</p>
 <table><thead><tr><th>Command</th><th>Example</th><th>Usage</th></tr></thead><tbody>
-<tr><td><code>Dc.ImportDirectory</code></td><td><code>Dc.ImportDirectory &quot;C:/Src/Dir&quot; &quot;/Game/Target&quot;</code></td><td>Recursively import source directory into content.</td></tr>
+<tr><td><code>Dc.ImportDirectory</code></td><td><code>Dc.ImportDirectory &quot;C:/Src/Dir&quot; &quot;/Game/Target&quot;</code></td><td>Recursively import source directory into content</td></tr>
 <tr><td><code>Dc.ReimportDirectory</code></td><td><code>Dc.ReimportDirectory &quot;/Game/Target&quot;</code></td><td>Recursively reimport content directory</td></tr>
 <tr><td><code>Dc.SetupAutoReimport</code></td><td><code>Dc.SetupAutoReimport &quot;C:/Src/Dir&quot; &quot;/Game/Target&quot;</code></td><td>Setup <a href="https://docs.unrealengine.com/en-US/Basics/AssetsAndPackages/AutoReImport/index.html" title="Auto Reimport">Auto reimport</a> entry in editor settings</td></tr>
+<tr><td><code>Dc.DumpDirectory</code></td><td><code>Dc.DumpDirectory &quot;/Game&quot; &quot;C:/JsonOutput&quot;</code></td><td>Recursively dump all DataAssets to JSON files</td></tr>
 </tbody></table>
+<h2 id="context-menu-actions"><a class="header" href="#context-menu-actions">Context Menu Actions</a></h2>
+<p>Right click on any asset and there's <code>DataConfig JSON Asset</code> sub menu:</p>
+<p><img src="Images/Tooling-DcJsonAssetActions.png" alt="JsonAssetActions" /></p>
+<table><thead><tr><th>Name</th><th>Usage</th></tr></thead><tbody>
+<tr><td>Dump To Log</td><td>Dump selected assets to Output Log</td></tr>
+<tr><td>Dump To JSON</td><td>Dump selected assets to Output Log as JSON</td></tr>
+<tr><td>Save to JSON</td><td>Serialize selected assets as JSON and save to disk</td></tr>
+</tbody></table>
+<p>See <a href="Caveats.html#dump-assets">caveats</a> for dump details.</p>
 <h2 id="tool-ui"><a class="header" href="#tool-ui">Tool UI</a></h2>
 <p>Finally we wrapped the commands above into a tooling panel, which can be found at &quot;Windows -&gt; JsonAsset Tool&quot; menu:</p>
-<p><img src="Tooling.assets/JsonAssetUI.png" alt="JsonAssetUI" /></p>
+<p><img src="Images/Tooling-DcJsonAssetWindow.png" alt="JsonAssetUI" /></p>
 
                     </main>
 

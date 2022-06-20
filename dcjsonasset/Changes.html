@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Schema.html"><strong aria-hidden="true">3.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html"><strong aria-hidden="true">4.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">5.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html" class="active"><strong aria-hidden="true">6.</strong> Changes</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Integration.html"><strong aria-hidden="true">3.</strong> Integration</a></li><li class="chapter-item expanded "><a href="Schema.html"><strong aria-hidden="true">4.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html"><strong aria-hidden="true">5.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">6.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html" class="active"><strong aria-hidden="true">7.</strong> Changes</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -146,6 +146,38 @@
                         <h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>Version listed here should match with <code>VersionName</code> field in <code>DcJsonAsset.uplugin</code></p>
+<h2 id="130---2022-6-20"><a class="header" href="#130---2022-6-20">1.3.0 - 2022-6-20</a></h2>
+<ul>
+<li>
+<p><strong>NEW</strong> Dump data asset to JSON:</p>
+<ul>
+<li><a href="Tooling.html#console-commands"><code>Dc.DumpDirectory</code></a></li>
+<li><a href="Tooling.html#context-menu-actions">Context menu 'Dump to JSON, Save to JSON'</a></li>
+</ul>
+</li>
+<li>
+<p><strong>FIX</strong> Core change and fixes:</p>
+<ul>
+<li>Integrate DataConfig 1.3</li>
+<li><a href="Schema.html#fprimaryassetid">Support <code>FPrimaryAssetId</code> property</a></li>
+<li><a href="Schema.html#object-references">Support <code>FSoftObjectPath/FSoftClassPath</code> property</a></li>
+</ul>
+</li>
+<li>
+<p><strong>NEW</strong> Docs:</p>
+<ul>
+<li><a href="Integration.html">Integration</a></li>
+<li><a href="Caveats.html#dump-assets">Caveats - Dump</a></li>
+</ul>
+</li>
+<li>
+<p><strong>KNOWN ISSUE</strong>:</p>
+<ul>
+<li>Some &quot;DcJsonAsset&quot; tests fail on UE 4.25/4.26 due to fixture assets are created in newer engine versions.<br>
+This doesn't affect actual usage though.</li>
+</ul>
+</li>
+</ul>
 <h2 id="122---2022-4-6"><a class="header" href="#122---2022-4-6">1.2.2 - 2022-4-6</a></h2>
 <ul>
 <li>Integrate DataConfig 1.2.2</li>
