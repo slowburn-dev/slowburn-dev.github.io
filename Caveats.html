@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - DataConfig Json Asset Book</title>
-        <base href="/dcjsonasset/">
+        <title>Caveats - DataConfig Json Asset Book</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Integration.html"><strong aria-hidden="true">3.</strong> Integration</a></li><li class="chapter-item expanded "><a href="Schema.html"><strong aria-hidden="true">4.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html"><strong aria-hidden="true">5.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html"><strong aria-hidden="true">6.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html"><strong aria-hidden="true">7.</strong> Changes</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="Tutorial.html"><strong aria-hidden="true">2.</strong> Tutorial</a></li><li class="chapter-item expanded "><a href="Integration.html"><strong aria-hidden="true">3.</strong> Integration</a></li><li class="chapter-item expanded "><a href="Schema.html"><strong aria-hidden="true">4.</strong> Schema</a></li><li class="chapter-item expanded "><a href="Tooling.html"><strong aria-hidden="true">5.</strong> Tooling</a></li><li class="chapter-item expanded "><a href="Caveats.html" class="active"><strong aria-hidden="true">6.</strong> Caveats</a></li><li class="chapter-item expanded "><a href="Changes.html"><strong aria-hidden="true">7.</strong> Changes</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -144,14 +143,73 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="caveats"><a class="header" href="#caveats">Caveats</a></h1>
+<p>This page put together miscellaneous topics.</p>
+<h2 id="unicode-handling"><a class="header" href="#unicode-handling">Unicode Handling</a></h2>
+<p>We decided to use <code>FFileHelper::LoadFileToString</code> to load files into <code>FString</code> instances, which handles the following encodings:</p>
+<ul>
+<li>UTF8 without BOM</li>
+<li>UTF8 with BOM</li>
+<li>UTF16 LE with BOM</li>
+<li>UTF16 BE with BOM</li>
+</ul>
+<p>If you can choose an encoding we recommend use UTF8 without BOM across the board. You can setup an <a href="https://editorconfig.org/" title="EditorConfig"><code>.editorconfig</code></a>to enforce it.</p>
+<h2 id="dump-assets"><a class="header" href="#dump-assets">Dump Assets</a></h2>
+<p>In the <a href="Tooling.html#context-menu-actions">context menu</a> we provide some shortcut actions for dumping arbitrary asset to textual presentation, which is a bit similar to UE's Export asset.</p>
+<p><code>Dump to JSON</code> sample output:</p>
+<pre><code>// /Game/Example
+{
+    &quot;$type&quot; : &quot;/DcJsonAsset/DcFixture/DcTestBPDataAsset&quot;,
+    &quot;StrField&quot; : &quot;Hello DataConfig Json Asset&quot;,
+    &quot;IntField&quot; : 43,
+    &quot;NameField&quot; : &quot;None&quot;
+}
+</code></pre>
+<p><code>Dump To Log</code> sample output:</p>
+<pre><code># Datum: 'BlueprintGeneratedClass', 'DcTestBPDataAsset_C'
+&lt;ClassRoot&gt; 'DcTestBPDataAsset_C'
+|---&lt;Name&gt; 'StrField'
+|---&lt;String&gt; 'Hello DataConfig Json Asset'
+|---&lt;Name&gt; 'IntField'
+|---&lt;Int32&gt; '43'
+|---&lt;Name&gt; 'NameField'
+|---&lt;Name&gt; 'None'
+|---&lt;Name&gt; 'AssetImportData'
+|---&lt;ClassRoot&gt; 'AssetImportData'
+|   |---&lt;Name&gt; 'SourceFilePath'
+|   |---&lt;String&gt; ''
+|   |---&lt;Name&gt; 'SourceFileTimestamp'
+|   |---&lt;String&gt; ''
+|   |---&lt;Name&gt; 'SourceData'
+|   |---&lt;StructRoot&gt; 'AssetImportInfo'
+|   |---&lt;StructEnd&gt; 'AssetImportInfo'
+|---&lt;ClassEnd&gt; 'AssetImportData'
+|---&lt;Name&gt; 'AssetBundleData'
+|---&lt;StructRoot&gt; 'AssetBundleData'
+|   |---&lt;Name&gt; 'Bundles'
+|   |---&lt;ArrayRoot&gt;
+|   |---&lt;ArrayEnd&gt;
+|---&lt;StructEnd&gt; 'AssetBundleData'
+|---&lt;Name&gt; 'NativeClass'
+|---&lt;ClassReference&gt; 'DcTestBPDataAsset_C'
+&lt;ClassEnd&gt; 'DcTestBPDataAsset_C'
+</code></pre>
+<p>We try to make sure the dump actions doesn't crash. When running into unrecognized properties it should fail with explicit error.</p>
+<p>There's also batch process <a href="Tooling.html#console-commands"><code>Dc.DumpDirectory</code></a> that dumps all data assets. We've tested it against Lyra and CitySample project and it 
+have pretty readable output results. Note that currently we made minimal efforts to import the output JSON, but the current setup should've
+covered most common cases.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Tooling.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next" href="Changes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -159,7 +217,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Tooling.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next" href="Changes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
