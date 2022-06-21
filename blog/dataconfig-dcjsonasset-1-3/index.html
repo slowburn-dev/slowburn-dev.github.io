@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+
+  
+<title>DataConfig Core and JSON Asset 1.3 Release - slowburn.dev </title>
+<meta property="og:title" content="DataConfig Core and JSON Asset 1.3 Release - slowburn.dev" />
+
+
+<meta name="description" content="DataConfig and DcJsonAsset 1.3 release with qol fixes and dump to JSON support">
+<meta property="og:description" content="DataConfig and DcJsonAsset 1.3 release with qol fixes and dump to JSON support" />
+
+
+
+
+  <meta charset="utf-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@slowburndev" />
+  <meta name="twitter:creator" content="@slowburndev" />
+
+  <meta property="og:url" content="https://slowburn.dev/blog/dataconfig-dcjsonasset-1-3/" />
+
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+</head>
+<body>
+    
+<div class="container page">
+
+<h1>DataConfig Core and JSON Asset 1.3 Release</h1>
+<span class="date after-h1">2022-06-20</span>
+
+<h1 id="intro">Intro<a class="zola-anchor" href="#intro">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h1>
+<p>We've just released 1.3 version of <a href="https://github.com/slowburn-dev/DataConfig" title="DataConfig">DataConfig</a> serialization framework and the market plugin <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a>.
+Some highlights:</p>
+<ul>
+<li>UE5 support and fixes.</li>
+<li><code>TArray/TSet/TMap</code> and <code>int[5]</code> array root serialization support.</li>
+<li>Tons of bug fixes and QOL improvements.</li>
+<li>DcJsonAsset gets <code>Dc.DumpDirectory</code> command to dump data assets to JSON. </li>
+</ul>
+<p>The full changelists are here:</p>
+<ul>
+<li><a href="/dataconfig/Changes#130---2022-6-20">DataConfig 1.3 Changes</a></li>
+<li><a href="/dcjsonasset/Changes#130---2022-6-20">DataConfig JSON Asset 1.3 Changes</a></li>
+</ul>
+<p>In this post we'll highlights some cool new stuff.</p>
+<h1 id="non-class-struct-roots">Non Class/Struct Roots<a class="zola-anchor" href="#non-class-struct-roots">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h1>
+<p>Say you want to use DataConfig to deserialize into a <code>TArray&lt;int&gt;</code>.</p>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span>FString Fixture </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#718c00;">&quot;[1,2,3,4,5]&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span><span>TArray&lt;</span><span style="color:#8959a8;">int</span><span>&gt; Arr;</span><span>
+</span></code></pre>
+<p>There's <code>FFoo::StaticStruct()</code> and <code>UBar::StaticClass()</code>, but there aren't 
+corresponding ones for <code>TArray&lt;&gt;</code> and other containers. How do you get the property?</p>
+<p>Well turns out you can create <code>FArrayProperty</code> and others by yourself. This seems to be a pattern used a lot in
+builtin plugins like 'PythonScriptPlugin' (see <code>PyUtil::FPropertyDef</code>).
+In this release we have <code>DcPropertyUtils::FDcPropertyBuilder</code> helper to make this easier:</p>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">//  create int array property</span><span style="color:#999999;">
+</span><span style="color:#8959a8;">using namespace</span><span> DcPropertyUtils;</span><span>
+</span><span style="color:#8959a8;">auto</span><span> ArrProp </span><span style="color:#3e999f;">= </span><span style="color:#4271ae;">FDcPropertyBuilder::</span><span style="color:#c82829;">Array</span><span style="color:#4271ae;">(</span><span style="color:#4271ae;">
+</span><span style="color:#4271ae;">    FDcPropertyBuilder::</span><span style="color:#c82829;">Int</span><span style="color:#4271ae;">()</span><span style="color:#4271ae;">
+</span><span style="color:#4271ae;">    )</span><span>.</span><span style="color:#c82829;">LinkOnScope</span><span>();</span><span>
+</span><span>
+</span><span>FDcJsonReader </span><span style="color:#c82829;">Reader</span><span style="color:#4271ae;">{Fixture}</span><span>;</span><span>
+</span><span style="color:#c82829;">DC_TRY</span><span style="color:#4271ae;">(DcAutomationUtils::</span><span style="color:#c82829;">DeserializeFrom</span><span style="color:#4271ae;">(</span><span style="color:#3e999f;">&amp;</span><span style="color:#4271ae;">Reader, </span><span style="color:#c82829;">FDcPropertyDatum</span><span style="color:#4271ae;">(ArrProp.</span><span style="color:#c82829;">Get</span><span style="color:#4271ae;">(), </span><span style="color:#3e999f;">&amp;</span><span style="color:#4271ae;">Arr)))</span><span>;</span><span>
+</span></code></pre>
+<p>Checkout more details here: <a href="/dataconfig/Advanced/NonClassStructRoot">DataConfig - Non Class/Struct Root</a></p>
+<h1 id="deserialize-from-sqlite">Deserialize From SQLite<a class="zola-anchor" href="#deserialize-from-sqlite">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h1>
+<p>Unreal Engine has bundled 'SQLiteCore' with SQLite3 source and a set of helpers. In this release
+we added an extra example to use DataConfig to directly deserialize from SQLite query into an array of structs:</p>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">//  execute query and deserialize</span><span style="color:#999999;">
+</span><span>TArray&lt;FDcExtraTestUser&gt; Arr;</span><span>
+</span><span style="color:#c82829;">UTEST_OK</span><span style="color:#4271ae;">(</span><span style="color:#718c00;">&quot;Extra Sqlite&quot;</span><span style="color:#4271ae;">, DcExtra::</span><span style="color:#c82829;">LoadStructArrayFromSQLite</span><span style="color:#4271ae;">(</span><span style="color:#4271ae;">
+</span><span style="color:#4271ae;">    </span><span style="color:#3e999f;">&amp;</span><span style="color:#4271ae;">TestDb,</span><span style="color:#4271ae;">
+</span><span style="color:#4271ae;">    </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#718c00;">&quot;SELECT * FROM users WHERE title == &#39;Engineer&#39; ORDER BY id&quot;</span><span style="color:#4271ae;">),</span><span style="color:#4271ae;">
+</span><span style="color:#4271ae;">    Arr</span><span style="color:#4271ae;">
+</span><span style="color:#4271ae;">    ))</span><span>;</span><span>
+</span><span>
+</span><span style="color:#999999;">//  equivalent fixture</span><span style="color:#999999;">
+</span><span>FString Fixture </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    [</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        {</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            &quot;Id&quot; : 2,</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            &quot;Name&quot; : &quot;Mark&quot;,</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            &quot;Title&quot; : &quot;Engineer&quot;</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        },</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        {</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            &quot;Id&quot; : 3,</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            &quot;Name&quot; : &quot;Bob&quot;,</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            &quot;Title&quot; : &quot;Engineer&quot;</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        }</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    ]</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span></code></pre>
+<p>This is an example of extending DataConfig to support new formats other than builtin JSON/MsgPack.
+The cool thing is, once you derived <code>FDcReader/FDcWriter</code> and get it working, other things like serialization
+handlers can be reused and it should just work.</p>
+<p>See links below for details:</p>
+<ul>
+<li><a href="/dataconfig/Extra/SQLite">DataConfig - Deserialize From SQLite Query</a></li>
+<li><a href="/dataconfig/Programming/ReaderWriter">DataConfig - Reader Writer</a></li>
+</ul>
+<h1 id="inline-structs">Inline Structs<a class="zola-anchor" href="#inline-structs">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h1>
+<p>Previously we have <code>FDcAnyStruct</code> that can store a heap allocated struct of any type. In this release
+we added example of <code>FDcInlineStruct64/128/256</code> that stores the data inline within a fixed size buffer:</p>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span>FDcInlineStruct64 Inline1;</span><span>
+</span><span>Inline1.</span><span style="color:#c82829;">Emplace</span><span>&lt;FColor&gt;(</span><span style="color:#f5871f;">255</span><span>, </span><span style="color:#f5871f;">0</span><span>, </span><span style="color:#f5871f;">0</span><span>, </span><span style="color:#f5871f;">255</span><span>);</span><span>
+</span><span style="color:#c82829;">UTEST_TRUE</span><span style="color:#4271ae;">(</span><span style="color:#718c00;">&quot;Inline Struct&quot;</span><span style="color:#4271ae;">, </span><span style="color:#3e999f;">*</span><span style="color:#4271ae;">Inline1.</span><span style="color:#c82829;">GetChecked</span><span style="color:#4271ae;">&lt;FColor&gt;() </span><span style="color:#3e999f;">==</span><span style="color:#4271ae;"> FColor::Red)</span><span>;</span><span>
+</span></code></pre>
+<p>Comparing to <code>FDcAnyStruct</code> this get rid of the heap alloc and have better cache locality. What's more exciting
+is that this inline struct supports polymorphism deserialization, and can be used as a cheap alternative
+to inline objects. We'll do a blog post on this later.</p>
+<p>See: <a href="/dataconfig/Extra/InlineStruct">DataConfig - Inline Structs</a></p>
+<h1 id="dcjsonasset-dump-to-json">DcJsonAsset Dump To JSON<a class="zola-anchor" href="#dcjsonasset-dump-to-json">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h1>
+<p>Finally we added a set of context menu actions for DataConfig JSON Asset:</p>
+<p><img src="/dcjsonasset/Images/Tooling-DcJsonAssetActions.png" alt="JsonAssetActions" /></p>
+<p>And there's a new <code>Dc.DumpDirectory</code> commandlet for batch dumping DataAsset to JSON files on disk.</p>
+<p>We tested this feature over <a href="https://docs.unrealengine.com/5.0/en-US/lyra-sample-game-in-unreal-engine/">Lyra</a> and <a href="https://docs.unrealengine.com/5.0/en-US/city-sample-project-unreal-engine-demonstration/">CitySample</a> and iterated a bit. Here's an excerpt of dumping Lyra ShooterCore's main game feature data.</p>
+<pre data-lang="JSON" style="background-color:#ffffff;color:#4d4d4c;" class="language-JSON "><code class="language-JSON" data-lang="JSON"><span style="color:#999999;">// /ShooterCore/ShooterCore</span><span>
+</span><span>{</span><span>
+</span><span>    </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameFeatureData&quot;</span><span>,</span><span>
+</span><span>    </span><span style="color:#718c00;">&quot;Actions&quot; </span><span>: [</span><span>
+</span><span>        {</span><span>
+</span><span>            </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameFeatureAction_AddComponents&quot;</span><span>,</span><span>
+</span><span>            </span><span style="color:#718c00;">&quot;ComponentList&quot; </span><span>: [</span><span>
+</span><span>                {</span><span>
+</span><span>                    </span><span style="color:#718c00;">&quot;ActorClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameStateBase&quot;</span><span>,</span><span>
+</span><span>                    </span><span style="color:#718c00;">&quot;ComponentClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;/ShooterCore/Accolades/B_EliminationFeedRelay&quot;</span><span>,</span><span>
+</span><span>                    </span><span style="color:#718c00;">&quot;bClientComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>,</span><span>
+</span><span>                    </span><span style="color:#718c00;">&quot;bServerComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>
+</span><span>                },</span><span>
+</span><span>                {</span><span>
+</span><span>                    </span><span style="color:#718c00;">&quot;ActorClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;LyraCharacter&quot;</span><span>,</span><span>
+</span><span>                    </span><span style="color:#718c00;">&quot;ComponentClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;LyraEquipmentManagerComponent&quot;</span><span>,</span><span>
+</span><span>                    </span><span style="color:#718c00;">&quot;bClientComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>,</span><span>
+</span><span>                    </span><span style="color:#718c00;">&quot;bServerComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>
+</span><span>                },</span><span>
+</span><span>                </span><span style="color:#999999;">// ...</span><span>
+</span></code></pre>
+<p>We take special care to make sure it's human readable. You can take a look at <a href="https://github.com/slowburn-dev/site-gists/tree/main/DcJsonAssetDumps">more dumped JSON here</a>.
+See links below for details:</p>
+<ul>
+<li><a href="dcjsonasset/Tooling">DcJsonAsset - Tooling</a></li>
+<li><a href="dcjsonasset/Caveats#dump-assets">DcJsonAsset - Caveats - Dump Asset</a></li>
+</ul>
+<h2 id="conclusion">Conclusion<a class="zola-anchor" href="#conclusion">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>DataConfig 1.3 didn't add much new features instead focus on getting existing stuff fixed and improved.
+Give it a try if you deal with data and stuff in Unreal Engine.</p>
+
+
+<div class="footer">
+  <a href="/">slowburn.dev</a>
+</div>
+
+</div>
+
+
+    
+    
+</body>
+
+</html>
