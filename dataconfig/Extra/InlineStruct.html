@@ -150,8 +150,8 @@
 <p>In <a href="AnyStruct.html">AnyStruct</a> we implemented <code>FDcAnyStruct</code> that can store arbitrary heap allocated <code>USTRUCT</code>. A shortcoming of this approach is that it introduces overhead of heap allocated memory, which also have worse cache locality comparing to stack allocated structs.</p>
 <p>In this example we implemented a series of structs <code>FDcInlineStruct64/FDcInlineStruct128/FDcInlineStruct256/FDcInlineStruct512</code> which stores a USTRUCT inline. Think it as a small buffer optimized version of <code>FDcAnyStruct</code>. These can also be used as a cheap alternative to UCLASS based polymorphism.</p>
 <ul>
-<li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/Types/DcAnyStruct.h">DcInlineStruct.h</a></li>
-<li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Types/DcAnyStruct.cpp">DcInlineStruct.cpp</a></li>
+<li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/Types/DcInlineStruct.h">DcInlineStruct.h</a></li>
+<li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Types/DcInlineStruct.cpp">DcInlineStruct.cpp</a></li>
 </ul>
 <pre><code class="language-c++">// DataConfigExtra/Private/DataConfig/Extra/SerDe/DcSerDeInlineStruct.cpp
 //  stack allocated usage
