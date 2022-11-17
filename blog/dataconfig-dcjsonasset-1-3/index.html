@@ -38,9 +38,9 @@
 <h1>DataConfig Core and JSON Asset 1.3 Release</h1>
 <span class="date after-h1">2022-06-20</span>
 
-<h1 id="intro">Intro<a class="zola-anchor" href="#intro">
+<h2 id="intro">Intro<a class="zola-anchor" href="#intro">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
-</a></h1>
+</a></h2>
 <p>We've just released 1.3 version of <a href="https://github.com/slowburn-dev/DataConfig" title="DataConfig">DataConfig</a> serialization framework and the market plugin <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a>.
 Some highlights:</p>
 <ul>
@@ -55,9 +55,9 @@ Some highlights:</p>
 <li><a href="/dcjsonasset/Changes#130---2022-6-20">DataConfig JSON Asset 1.3 Changes</a></li>
 </ul>
 <p>In this post we'll highlights some cool new stuff.</p>
-<h1 id="non-class-struct-roots">Non Class/Struct Roots<a class="zola-anchor" href="#non-class-struct-roots">
+<h2 id="non-class-struct-roots">Non Class/Struct Roots<a class="zola-anchor" href="#non-class-struct-roots">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
-</a></h1>
+</a></h2>
 <p>Say you want to use DataConfig to deserialize into a <code>TArray&lt;int&gt;</code>.</p>
 <pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span>FString Fixture </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#718c00;">&quot;[1,2,3,4,5]&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
 </span><span>TArray&lt;</span><span style="color:#8959a8;">int</span><span>&gt; Arr;</span><span>
@@ -77,9 +77,9 @@ In this release we have <code>DcPropertyUtils::FDcPropertyBuilder</code> helper 
 </span><span style="color:#c82829;">DC_TRY</span><span style="color:#4271ae;">(DcAutomationUtils::</span><span style="color:#c82829;">DeserializeFrom</span><span style="color:#4271ae;">(</span><span style="color:#3e999f;">&amp;</span><span style="color:#4271ae;">Reader, </span><span style="color:#c82829;">FDcPropertyDatum</span><span style="color:#4271ae;">(ArrProp.</span><span style="color:#c82829;">Get</span><span style="color:#4271ae;">(), </span><span style="color:#3e999f;">&amp;</span><span style="color:#4271ae;">Arr)))</span><span>;</span><span>
 </span></code></pre>
 <p>Checkout more details here: <a href="/dataconfig/Advanced/NonClassStructRoot">DataConfig - Non Class/Struct Root</a></p>
-<h1 id="deserialize-from-sqlite">Deserialize From SQLite<a class="zola-anchor" href="#deserialize-from-sqlite">
+<h2 id="deserialize-from-sqlite">Deserialize From SQLite<a class="zola-anchor" href="#deserialize-from-sqlite">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
-</a></h1>
+</a></h2>
 <p>Unreal Engine has bundled 'SQLiteCore' with SQLite3 source and a set of helpers. In this release
 we added an extra example to use DataConfig to directly deserialize from SQLite query into an array of structs:</p>
 <pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">//  execute query and deserialize</span><span style="color:#999999;">
@@ -114,9 +114,9 @@ handlers can be reused and it should just work.</p>
 <li><a href="/dataconfig/Extra/SQLite">DataConfig - Deserialize From SQLite Query</a></li>
 <li><a href="/dataconfig/Programming/ReaderWriter">DataConfig - Reader Writer</a></li>
 </ul>
-<h1 id="inline-structs">Inline Structs<a class="zola-anchor" href="#inline-structs">
+<h2 id="inline-structs">Inline Structs<a class="zola-anchor" href="#inline-structs">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
-</a></h1>
+</a></h2>
 <p>Previously we have <code>FDcAnyStruct</code> that can store a heap allocated struct of any type. In this release
 we added example of <code>FDcInlineStruct64/128/256</code> that stores the data inline within a fixed size buffer:</p>
 <pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span>FDcInlineStruct64 Inline1;</span><span>
@@ -127,9 +127,9 @@ we added example of <code>FDcInlineStruct64/128/256</code> that stores the data 
 is that this inline struct supports polymorphism deserialization, and can be used as a cheap alternative
 to inline objects. We'll do a blog post on this later.</p>
 <p>See: <a href="/dataconfig/Extra/InlineStruct">DataConfig - Inline Structs</a></p>
-<h1 id="dcjsonasset-dump-to-json">DcJsonAsset Dump To JSON<a class="zola-anchor" href="#dcjsonasset-dump-to-json">
+<h2 id="dcjsonasset-dump-to-json">DcJsonAsset Dump To JSON<a class="zola-anchor" href="#dcjsonasset-dump-to-json">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
-</a></h1>
+</a></h2>
 <p>Finally we added a set of context menu actions for DataConfig JSON Asset:</p>
 <p><img src="/dcjsonasset/Images/Tooling-DcJsonAssetActions.png" alt="JsonAssetActions" /></p>
 <p>And there's a new <code>Dc.DumpDirectory</code> commandlet for batch dumping DataAsset to JSON files on disk.</p>
