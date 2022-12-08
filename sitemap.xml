@@ -22,4 +22,8 @@
         <loc>https://slowburn.dev/blog/headless-fun-unreal-engine/</loc>
         <lastmod>2022-03-29</lastmod>
     </url>
+    <url>
+        <loc>https://slowburn.dev/blog/polymorphic-serialization-in-unreal-engine/</loc>
+        <lastmod>2022-12-08</lastmod>
+    </url>
 </urlset>
