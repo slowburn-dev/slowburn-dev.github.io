@@ -147,11 +147,11 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="no-metadata"><a class="header" href="#no-metadata">No MetaData</a></h1>
-<p>Some DataConfig behaviors take advantage of <a href="https://docs.unrealengine.com/en-US/metadata-specifiers-in-unreal-engine/">property metadata</a>, notable the default <code>DcSkip</code> metadata to let DataConfig ignore a property:</p>
+<p>Some DataConfig behaviors take advantage of <a href="https://docs.unrealengine.com/en-US/metadata-specifiers-in-unreal-engine/">property metadata</a>. For example the default <code>DcSkip</code> metadata let DataConfig ignore marked property:</p>
 <pre><code class="language-c++">//  DataConfigTests/Private/DcTestProperty3.h
 UPROPERTY(meta = (DcSkip)) int SkipField1;
 </code></pre>
-<p>However the metadata would be stripped in packaged builds, meanwhile the <code>FProperty::GetMetaData/HasMetaData()</code> methods would be gone. The state is roughly like this:</p>
+<p>However the metadata would be stripped in packaged builds and <code>FProperty::GetMetaData/HasMetaData()</code> set of methods would be gone. The state is roughly like this:</p>
 <ol>
 <li>In <a href="https://docs.unrealengine.com/en-US/packaging-unreal-engine-projects/">packaged builds</a> there's no metadata C++ methods nor any data.</li>
 <li>Program targets can choose whether to keep metadata methods by setting <code>bBuildWithEditorOnlyData</code> in <code>Target.cs</code>. This toggles macro <code>WITH_EDITORONLY_DATA</code>.
@@ -159,17 +159,18 @@ However the actual metadata would <em>not</em> be auto loaded.</li>
 <li>In editor metadata works as intended.</li>
 </ol>
 <p>In release 1.4.1 we fixed compilation on <code>!WITH_EDITORONLY_DATA</code>. This would allow you to include <code>DataConfigCore</code> as a runtime module and ship it with your project. This is an intended and supported use case.</p>
-<p>However some builtin DataConfig features are affected in builds with no metadata.</p>
+<p>However with no metadata some default DataConfig behaviors would be different:</p>
 <ul>
 <li>All builtin metas (<code>DcSkip/DcMsgPackBlob</code>) are ignored.</li>
 <li>Bitflag enums (<code>UENUM(meta = (Bitflags))</code>) are ignored. All enums are now treated as scalar.</li>
 </ul>
-<p>The good news is that DataConfig allows you to workaround this <a href="../Programming/SerializerDeserializer.html">by writing custom serialization handlers</a>. For example for bitflag enums:</p>
+<p>The good news is that you can workaround this <a href="../Programming/SerializerDeserializer.html">by writing custom serialization handlers</a>. For example for bitflag enums:</p>
 <ul>
 <li>Name your bitflag enums with a prefix like <code>EFlagBar</code> and check for it in predicates.</li>
 <li>Collect a list of bitflag enum names and test for it in predicates.</li>
 <li>On serializing <code>PeekRead</code> for next data entry. If it's a <code>ArrayRoot</code> then treat it as a bitflag enum.</li>
 </ul>
+<p>Note that you should be able to implement these without modifying <code>DataConfigCore</code> code.</p>
 
                     </main>
 
