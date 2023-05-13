@@ -471,6 +471,62 @@ class UDcJsonAssetTestDataAsset4_SubObjects : public UDcImportedDataAsset {
     &quot;ShapeField3&quot; : null
 }
 </code></pre>
+<h2 id="instanced-struct"><a class="header" href="#instanced-struct">Instanced Struct</a></h2>
+<p>UE introduced <code>FInstancedStruct</code> with <a href="https://docs.unrealengine.com/5.0/en-US/API/Plugins/StructUtils/">StructUtils plugin</a> since 5.0 which implements lightweight polymorphic serialization. Given a struct hierarchy like this:</p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports3.h
+USTRUCT(BlueprintType)
+struct FDcJsonAssetTestStructShapeBase
+{
+    // ...
+    UPROPERTY(EditAnywhere) FName ShapeName;
+};
+
+USTRUCT(BlueprintType)
+struct FDcJsonAssetTestStructShapeRectangle : public FDcJsonAssetTestStructShapeBase
+{
+    // ...
+    UPROPERTY(EditAnywhere) float Height;
+    UPROPERTY(EditAnywhere) float Width;
+};
+
+USTRUCT(BlueprintType)
+struct FDcJsonAssetTestStructShapeCircle : public FDcJsonAssetTestStructShapeBase
+{
+    // ...
+    UPROPERTY(EditAnywhere) float Radius;
+};
+</code></pre>
+<p>An asset can be loaded from a JSON like this:</p>
+<pre><code class="language-c++">// DcJsonAssetTests/Private/DcTestImports3.h
+UCLASS()
+class UDcJsonAssetTestAssetInstancedStruct : public UDcPrimaryImportedDataAsset
+{
+    GENERATED_BODY()
+public:
+    UPROPERTY(EditAnywhere) FInstancedStruct Instanced1;
+    UPROPERTY(EditAnywhere) FInstancedStruct Instanced2;
+    UPROPERTY(EditAnywhere) FInstancedStruct Instanced3;
+};
+
+// DcJsonAsset/Tests/DcJsonFixture_InstancedStruct.json
+{
+    &quot;$type&quot; : &quot;DcJsonAssetTestAssetInstancedStruct&quot;,
+    &quot;Instanced1&quot; : null,
+    &quot;Instanced2&quot; :
+    {
+        &quot;$type&quot; : &quot;DcJsonAssetTestStructShapeRectangle&quot;,
+        &quot;ShapeName&quot; : &quot;MyBox&quot;,
+        &quot;Height&quot; : 3,
+        &quot;Width&quot; : 4
+    },
+    &quot;Instanced3&quot; :
+    {
+        &quot;$type&quot; : &quot;DcJsonAssetTestStructShapeCircle&quot;,
+        &quot;ShapeName&quot; : &quot;MyCircle&quot;,
+        &quot;Radius&quot; : 5
+    }
+}
+</code></pre>
 <h2 id="other-root-meta-fields"><a class="header" href="#other-root-meta-fields">Other Root Meta Fields</a></h2>
 <p>In the root JSON object we now check for some other <code>$meta</code> fields.</p>
 <h3 id="reimport-keep-instance"><a class="header" href="#reimport-keep-instance"><code>$reimport-keep-instance</code></a></h3>
@@ -584,6 +640,17 @@ covered most common cases.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>Version listed here should match with <code>VersionName</code> field in <code>DcJsonAsset.uplugin</code></p>
+<h2 id="141---2023-5-13"><a class="header" href="#141---2023-5-13">1.4.1 - 2023-5-13</a></h2>
+<ul>
+<li>Integrate DataConfig 1.4.1</li>
+<li><a href="Schema.html#instanced-struct">Support <code>FInstancedStruct</code> property</a></li>
+<li>Support for UE 5.2.
+<ul>
+<li>Since this release DcJsonAsset only works with UE 5.0+.</li>
+<li>You can still get older versions from Epic store for older engines versions. And DataConfigCore still committed to work on UE 4.25+.</li>
+</ul>
+</li>
+</ul>
 <h2 id="140---2022-11-17"><a class="header" href="#140---2022-11-17">1.4.0 - 2022-11-17</a></h2>
 <ul>
 <li>Integrate DataConfig 1.4</li>
