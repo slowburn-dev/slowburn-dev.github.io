@@ -148,6 +148,12 @@
                     <main>
                         <h1 id="unreal-engine-upgrades"><a class="header" href="#unreal-engine-upgrades">Unreal Engine Upgrades</a></h1>
 <p>DataConfig is committed to support multiple UE versions with no deprecations and warnings. On this page we'll document important upgrade and migration info.</p>
+<h1 id="ue53"><a class="header" href="#ue53">UE5.3</a></h1>
+<ul>
+<li>Introduces <code>BuildSettingsVersion.V4</code> which now defaults to C++ 20.</li>
+<li><code>TRemoveConst</code> is deprecated over <code>std::remove_const</code>.</li>
+<li><code>FScriptDelegate</code> etc now has additional checkers based on threading model and debug/release build. Thus we change how <code>FScriptDelegateAccess</code> works.</li>
+</ul>
 <h1 id="ue52"><a class="header" href="#ue52">UE5.2</a></h1>
 <ul>
 <li><code>TIsSame</code> is deprecated over <code>std::is_same</code>.</li>
