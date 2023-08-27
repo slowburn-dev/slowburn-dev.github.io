@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+
+  
+<title>Flexible JSON Serialization in Unreal Engine Using DataConfig - slowburn.dev </title>
+<meta property="og:title" content="Flexible JSON Serialization in Unreal Engine Using DataConfig - slowburn.dev" />
+
+
+<meta name="description" content="Shows off how DataConfig loads NDJSON, nested array and root level object&#x2F;array into Unreal Engine">
+<meta property="og:description" content="Shows off how DataConfig loads NDJSON, nested array and root level object&#x2F;array into Unreal Engine" />
+
+
+
+
+  <meta charset="utf-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@slowburndev" />
+  <meta name="twitter:creator" content="@slowburndev" />
+
+  <meta property="og:url" content="https://slowburn.dev/blog/flexible-json-serialization-ue-dataconfig/" />
+
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+</head>
+<body>
+    
+<div class="container page">
+
+<h1>Flexible JSON Serialization in Unreal Engine Using DataConfig</h1>
+<span class="date after-h1">2023-08-27</span>
+
+<h2 id="intro">Intro<a class="zola-anchor" href="#intro">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>We've just pushed [DataConfig 1.4.3][1]. It's a small release with some samples showing off flexibility of DataConfig's JSON reader and writer.</p>
+<h2 id="ndjson">NDJSON<a class="zola-anchor" href="#ndjson">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>NDJSON is popular among datasets and DataConfig can handle it just fine.</p>
+<ul>
+<li><a href="https://slowburn.dev/dataconfig/Extra/NDJSON">Extra - NDJSON</a></li>
+</ul>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    { &quot;Name&quot; : &quot;Foo&quot;, &quot;Id&quot; : 1, &quot;Type&quot; : &quot;Alpha&quot; }</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    { &quot;Name&quot; : &quot;Bar&quot;, &quot;Id&quot; : 2, &quot;Type&quot; : &quot;Beta&quot; }</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    { &quot;Name&quot; : &quot;Baz&quot;, &quot;Id&quot; : 3, &quot;Type&quot; : &quot;Gamma&quot; }</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span><span>
+</span><span style="color:#c82829;">UTEST_OK</span><span style="color:#4271ae;">(</span><span style="color:#718c00;">&quot;Extra NDJSON&quot;</span><span style="color:#4271ae;">, </span><span style="color:#c82829;">LoadNDJSON</span><span style="color:#4271ae;">(</span><span style="color:#3e999f;">*</span><span style="color:#4271ae;">Str, Dest))</span><span>;</span><span>
+</span><span>
+</span><span>FString SavedStr;</span><span>
+</span><span style="color:#c82829;">UTEST_OK</span><span style="color:#4271ae;">(</span><span style="color:#718c00;">&quot;Extra NDJSON&quot;</span><span style="color:#4271ae;">, </span><span style="color:#c82829;">SaveNDJSON</span><span style="color:#4271ae;">(Dest, SavedStr))</span><span>;</span><span>
+</span></code></pre>
+<h2 id="root-object-array">Root Object/Array<a class="zola-anchor" href="#root-object-array">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>Omitting root level JSON <code>{}</code> and <code>[]</code> is a tiny itch among people writes JSON manually. Turns out
+DataConfig can support this too:</p>
+<ul>
+<li><a href="https://slowburn.dev/dataconfig/Extra/RootObject">Extra - Root Object</a></li>
+</ul>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    &quot;Name&quot; : &quot;Foo&quot;,</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    &quot;Id&quot; : 253,</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    &quot;Type&quot; : &quot;Beta&quot;</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span><span style="color:#999999;">// ...</span><span style="color:#999999;">
+</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    &quot;Alpha&quot;,</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    &quot;Beta&quot;,</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    &quot;Gamma&quot;</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span></code></pre>
+<h2 id="nested-arrays">Nested Arrays<a class="zola-anchor" href="#nested-arrays">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>People familar with UE know that it doesn't allow multidimensional array property like <code>TArray&lt;TArray&lt;int&gt;&gt;</code>. We can do nothing about this but DataConfig allows you to directly loads nested JSON array into whatever you want!</p>
+<ul>
+<li><a href="https://slowburn.dev/dataconfig/Extra/Nested">Extra - Nested Arrays</a></li>
+</ul>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
+</span><span style="color:#8959a8;">struct </span><span>FDcGrid2D</span><span>
+</span><span>{</span><span>
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() TArray&lt;</span><span style="color:#8959a8;">int</span><span>&gt; Data;</span><span>
+</span><span>};</span><span>
+</span><span>
+</span><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
+</span><span style="color:#8959a8;">struct </span><span>FDcExtraTestNested_Grid</span><span>
+</span><span>{</span><span>
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>(</span><span style="color:#f5871f;">meta</span><span style="color:#3e999f;">=</span><span>(DcWidth </span><span style="color:#3e999f;">= </span><span style="color:#f5871f;">2</span><span>, DcHeight </span><span style="color:#3e999f;">= </span><span style="color:#f5871f;">2</span><span>)) FDcGrid2D GridField1;</span><span>
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>(</span><span style="color:#f5871f;">meta</span><span style="color:#3e999f;">=</span><span>(DcWidth </span><span style="color:#3e999f;">= </span><span style="color:#f5871f;">3</span><span>, DcHeight </span><span style="color:#3e999f;">= </span><span style="color:#f5871f;">4</span><span>)) FDcGrid2D GridField2;</span><span>
+</span><span>};</span><span>
+</span><span>
+</span><span style="color:#999999;">// ...</span><span style="color:#999999;">
+</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    {</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        &quot;GridField1&quot; :</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        [</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            [1,2],</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            [3,4],</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        ],</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        &quot;GridField2&quot; :</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        [</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            [ 1, 2, 3],</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            [ 4, 5, 6],</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            [ 7, 8, 9],</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">            [10,11,12],</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">        ],</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">    }</span><span style="color:#718c00;">
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span></code></pre>
+<h2 id="closing">Closing<a class="zola-anchor" href="#closing">
+<svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+</a></h2>
+<p>These featuers are there in DataConfig from the start and now we've managed to show them off as proper samples. DataConfig is all about flexible data serialization and if you're dealing with JSON and UnrealEngine, give it a try!</p>
+<p>Download the <a href="https://github.com/slowburn-dev/DataConfig/releases/tag/1.4.3">latest release here</a>. There's also <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset">DataConfig JSON Asset</a> on UE market place.</p>
+
+
+<div class="footer">
+  <a href="/">slowburn.dev</a>
+</div>
+
+</div>
+
+
+    
+    
+</body>
+
+</html>
