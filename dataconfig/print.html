@@ -3493,6 +3493,7 @@ You can do it in Visual Studio or with commands below:</p>
 <li>New property <code>Optional</code> and <code>VValue</code> are added. We fully support <code>Optional</code> starting by adding <code>EDcDataEntry::OptionalRoot/OptionalEnd</code> and then evantually it works with all DataConfig APIs including JSON/MsgPack serialization and property builder. </li>
 <li><code>FObjectPtrProperty/FClassPtrProperty</code> are deprecated. It's introduced in 5.0 now removed and alias to <code>FObjectProperty/FClassProperty</code> respectively.</li>
 <li>Defaults to MSVC <code>\W4</code> flag now which checks for unreachable code. It reports confusing locations and you can set <code>bUseUnity = false</code> in your <code>*.Build.cs</code> module rules to locate whereabout.</li>
+<li><code>FText</code> internal pointer changed from <code>TSharedRef</code> to <code>TRefCountPtr</code>.</li>
 </ul>
 <h1 id="ue53"><a class="header" href="#ue53">UE5.3</a></h1>
 <ul>
@@ -3568,6 +3569,10 @@ return Entry.Name == FName(TEXT(&quot;Enum&quot;));
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="161---2024-4-28"><a class="header" href="#161---2024-4-28">1.6.1 - 2024-4-28</a></h2>
+<ul>
+<li>Fix compilation for UE 5.4.</li>
+</ul>
 <h2 id="160---2024-3-31"><a class="header" href="#160---2024-3-31">1.6.0 - 2024-3-31</a></h2>
 <ul>
 <li><strong>BREAKING</strong> Removed <code>PredicateIsUStruct</code>. Use struct handlers instead.
