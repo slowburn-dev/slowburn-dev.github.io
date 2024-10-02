@@ -74,7 +74,7 @@ The directory hierarchy is pretty simple:</p>
 </span><span>        `-- DcProjectGame.h</span><span>
 </span></code></pre>
 <p>Open up your terminal and cd into <code>DcProject</code> root. Suppose you have a UE copy at <code>C:\UnrealEngine</code>, you can build the project with the command line below:</p>
-<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool DcProjectEditor Win64 Development &quot;%CD%/DcProject.uproject&quot; -Rocket -NoHotReload</span><span>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Build\BatchFiles\RunUBT DcProjectEditor Win64 Development &quot;%CD%/DcProject.uproject&quot; -Rocket -NoHotReload</span><span>
 </span></code></pre>
 <p>When compilation is done launch the project from command line:</p>
 <pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\Win64\UE4Editor &quot;%CD%/DcProject.uproject&quot;</span><span>
@@ -139,7 +139,7 @@ The directory hierarchy is pretty simple:</p>
 </ul>
 <p>DcPlugin itself can be dropped into a UE project's <code>Plugins/</code> folder and it should build and work just fine. But the headless target only works with a <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/DevelopmentSetup/BuildingUnrealEngine/" title="Building Unreal Engine from Source">source build</a>. Be sure you have a locally built Unreal Engine with full sources and continue on the steps below.</p>
 <p>Open up a shell and cd into <code>DcPlugin</code> root. Suppose your UE source build is located at <code>C:\UnrealEngine</code>, run the command below to build headless.</p>
-<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool -project=&quot;%CD%/DcPlugin.uplugin&quot; DcPluginHeadless Win64 Debug</span><span>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Build\BatchFiles\RunUBT -project=&quot;%CD%/DcPlugin.uplugin&quot; DcPluginHeadless Win64 Debug</span><span>
 </span></code></pre>
 <p>It would produce a binary named <code>DcPluginHeadless-Win64-Debug.exe</code> which you can run from the command line:</p>
 <pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\DcPlugin&gt;.\Binaries\Win64\DcPluginHeadless-Win64-Debug.exe</span><span>
@@ -164,7 +164,7 @@ With the headless target <code>Debug</code> is okay as it doesn't make that much
 <p>There are also downsides here: you can not use most engine and editor features. To be more specific you can't reference <code>Engine</code> and <code>UnrealEd</code> modules in the headless target. These modules are the key modules to the &quot;Engine&quot; part of the code. If your plugin depends on the gameplay framework or editor system you can do very little thing
 in the headless target.</p>
 <p>The built-in <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Physics/ChaosPhysics/Overview/" title="Chaos Physics Overview">Chaos physics</a> module features a headless program target to host its unit tests. You can build it with the commands below:</p>
-<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool HeadlessChaos Win64 Development</span><span>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Build\BatchFiles\RunUBT HeadlessChaos Win64 Development</span><span>
 </span></code></pre>
 <p>Run the resulting <code>HeadlessChaos</code> binary to start the googletest runner:</p>
 <pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>.\Binaries\Win64\NotForLicensees\HeadlessChaos.exe</span><span>
@@ -177,10 +177,10 @@ in the headless target.</p>
 it should build just fine with clang. Turns out we can't be more wrong on this. Now I can say with confidence that a codebase that's only built and 
 tested with MSVC is guaranteed <em>not</em> to work with clang/gcc on the first try, no matter how careful you are. There're so many subtle little differences that would surface
 when you actually build it with another compiler. The good news is that UE build system makes it trivia to cross-compile and target WSL for testing.</p>
-<p>UE <a href="https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/GettingStarted/" title="Cross-Compiling for Linux">officially supports cross compiling</a> and distributes toolchains on its website. Download and install the toolchain according to your UE version <a href="https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/GettingStarted/#gettingthetoolchain" title="Getting the Toolchain">here</a>.
+<p>UE <a href="https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/GettingStarted/" title="Cross-Compiling for Linux">officially supports cross compiling</a> and distributes toolchains on its website. Download and install the toolchain according to your UE version <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/linux-development-requirements-for-unreal-engine" title="Linux Game Development - Development Requirements">here</a>.
 Then remember to restart your terminal to let new environment var kick in, namely <code>LINUX_MULTIARCH_ROOT</code> which points to the installation path.</p>
 <p>Then invoke the commands below at DcPlugin root:</p>
-<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Binaries\DotNET\UnrealBuildTool -project=&quot;%CD%/DcPlugin.uplugin&quot; DcPluginHeadless Linux Debug</span><span>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>C:\UnrealEngine\Engine\Build\BatchFiles\RunUBT -project=&quot;%CD%/DcPlugin.uplugin&quot; DcPluginHeadless Linux Debug</span><span>
 </span></code></pre>
 <p>Note that <code>Win64</code> is changed to <code>Linux</code> and the console output should hint that it's using clang. When it finishes you should've gotten a Linux binary at
 <code>.\Binaries\Linux\DcPluginHeadless-Linux-Debug</code>.</p>

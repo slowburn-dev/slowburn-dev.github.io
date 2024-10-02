@@ -393,6 +393,7 @@ extern FDcDebug gDcDebug;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="integration"><a class="header" href="#integration">Integration</a></h1>
 <p>At the moment it supports these the engine versions below:</p>
 <ul>
+<li>UE 5.5</li>
 <li>UE 5.4</li>
 <li>UE 5.3 </li>
 <li>UE 5.2 </li>
@@ -431,15 +432,24 @@ extern FDcDebug gDcDebug;
 <pre><code class="language-shell">git clone https://github.com/slowburn-dev/DataConfig
 # requires python 3.6+
 python ./DataConfig/Misc/Scripts/make_dataconfig_ue4.py
+python ./DataConfig/Misc/Scripts/make_dataconfig_ue54.py
 python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 </code></pre>
-<h3 id="manual-steps-for-ue5"><a class="header" href="#manual-steps-for-ue5">Manual Steps for UE5</a></h3>
+<h3 id="dataconfigxxuplugin"><a class="header" href="#dataconfigxxuplugin"><code>DataConfigXX.uplugin</code></a></h3>
+<p>Ultimately we figured that we'll need multiple <code>.uplugin</code> files to support acrosss UE versions:</p>
+<table><thead><tr><th>Name</th><th>Version</th></tr></thead><tbody>
+<tr><td>DataConfig4.uplugin</td><td>4.25 - 4.27</td></tr>
+<tr><td>DataConfig54.uplugin</td><td>5.0 - 5.4</td></tr>
+<tr><td>DataConfig5.uplugin</td><td>5.5 - Latest</td></tr>
+</tbody></table>
+<p>When packaging for each engine version we rename the one we want and delete the rest.</p>
+<h3 id="manual-steps-for-ue5-latest"><a class="header" href="#manual-steps-for-ue5-latest">Manual Steps for UE5 Latest</a></h3>
 <ol>
 <li>
 <p>Get a copy of <a href="https://github.com/slowburn-dev/DataConfig" title="slowburn-dev/DataConfig">DataConfig repository</a>. Then copy  <code>./DataConfig</code> (where <code>DataConfig.uplugin</code> is located) into your project's <code>Plugins</code> directory.</p>
 </li>
 <li>
-<p>Delete <code>DataConfig4.uplugin</code>.</p>
+<p>Delete <code>DataConfig4.uplugin</code>, and other <code>DataConfig5X.uplugin</code>.</p>
 </li>
 <li>
 <p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or you your project won't build</strong>.</p>
@@ -3356,7 +3366,7 @@ However the actual metadata would <em>not</em> be auto loaded.</li>
 <li>
 <p>Get a copy of <a href="https://github.com/slowburn-dev/DataConfig" title="slowburn-dev/DataConfig">DataConfig repository</a>. At the folder where <code>DataConfig.uplugin</code> and <code>DataConfig4.uplugin</code> resides:</p>
 <pre><code class="language-shell"># UE5
-&lt;PathToUE5SourceBuild&gt;/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Win64 Debug
+&lt;PathToUE5SourceBuild&gt;/Engine/Build/BatchFiles/RunUBT -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Win64 Debug
 
 # UE4
 &lt;PathToUE4SourceBuild&gt;/Engine/Binaries/DotNET/UnrealBuildTool.exe -project=&quot;%CD%/DataConfig4.uplugin&quot; DataConfigHeadless Win64 Debug
@@ -3383,7 +3393,7 @@ Run:  122, Success:  122, Fail:    0
 <p><code>DataConfigHeadless</code> accepts command line arguments as filters. The benchmarks runs slower are skipped by default.
 You can build and run the benchmarks with the commands below:</p>
 <pre><code class="language-shell"># remember to build in Shipping
-&lt;PathToUE5SourceBuild&gt;/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Win64 Shipping
+&lt;PathToUE5SourceBuild&gt;Engine/Build/BatchFiles/RunUBT -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Win64 Shipping
 %CD%/Binaries/Win64/DataConfigHeadless-Win64-Shipping.exe DataConfigBenchmark
 </code></pre>
 <h3 id="build-and-run-linux-target-with-wsl2"><a class="header" href="#build-and-run-linux-target-with-wsl2">Build and run Linux target with WSL2</a></h3>
@@ -3410,7 +3420,7 @@ through environment variable.</p>
 <p>Build the headless target for Linux.</p>
 <pre><code class="language-shell"># UE5.1
 set LINUX_MULTIARCH_ROOT=&lt;PathToToolchains&gt;/v20_clang-13.0.1-centos7
-&lt;PathToUE5SourceBuild&gt;/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Linux Debug
+&lt;PathToUE5SourceBuild&gt;/Engine/Build/BatchFiles/RunUBT -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Linux Debug
 
 # UE4
 set LINUX_MULTIARCH_ROOT=&lt;PathToToolchains&gt;/v19_clang-11.0.1-centos7
@@ -3456,7 +3466,7 @@ You can also find a clean project bundled at <a href="https://github.com/slowbur
 You can do it in Visual Studio or with commands below:</p>
 <pre><code class="language-shell"># UE5
 # build
-&lt;PathToUE5&gt;/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe DcProjectEditor Win64 Development %CD%/DcProject5.uproject -NoHotReload -NoEngineChanges
+&lt;PathToUE5&gt;/Engine/Build/BatchFiles/RunUBT DcProjectEditor Win64 Development %CD%/DcProject5.uproject -NoHotReload -NoEngineChanges
 # run commandlet
 &lt;PathToUE5&gt;/Engine/Binaries/Win64/UnrealEditor-Cmd.exe %CD%/DcProject5.uproject DataConfigEditorExtra.DcCoreTestsCommandlet
 
@@ -3488,6 +3498,16 @@ You can do it in Visual Studio or with commands below:</p>
 <p><img src="Advanced/../Images/Integration-DataConfigAutomations.png" alt="Integration-DataConfigAutomations" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="unreal-engine-upgrades"><a class="header" href="#unreal-engine-upgrades">Unreal Engine Upgrades</a></h1>
 <p>DataConfig is committed to support multiple UE versions with no deprecations and warnings. On this page we'll document important upgrade and migration info.</p>
+<h1 id="ue55"><a class="header" href="#ue55">UE5.5</a></h1>
+<ul>
+<li><code>EAutomationTestFlags</code> is now a <code>enum class</code> type.</li>
+<li><code>TIsTriviallyDestructible</code> is deprecated over <code>std::is_trivially_destructible_v</code>.</li>
+<li><code>TFieldPath(OtherPropertyType*)</code> constructor now checks for actual type safety.</li>
+<li><code>FProperty::ElementSize</code> deprecated over <code>GetElementSize</code>.</li>
+<li><code>StructUtils</code> plugin is deprecated with all things moved in engine.</li>
+<li><code>PER_MODULE_BOILERPLATE</code> not needed anymore as UBT handles it automatically.</li>
+<li><code>FVerseValueProperty</code> renamed to <code>FVValueProperty</code>, also compiled only with <code>WITH_VERSE_VM</code> define.</li>
+</ul>
 <h1 id="ue54"><a class="header" href="#ue54">UE5.4</a></h1>
 <ul>
 <li>New property <code>Optional</code> and <code>VValue</code> are added. We fully support <code>Optional</code> starting by adding <code>EDcDataEntry::OptionalRoot/OptionalEnd</code> and then evantually it works with all DataConfig APIs including JSON/MsgPack serialization and property builder. </li>
@@ -3534,6 +3554,10 @@ You can do it in Visual Studio or with commands below:</p>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="breaking-changes"><a class="header" href="#breaking-changes">Breaking Changes</a></h1>
 <p>On this page we'll document breaking changes across versions.</p>
+<h1 id="170"><a class="header" href="#170">1.7.0</a></h1>
+<ul>
+<li>UE 5.5 deprecated <code>StructUtils</code> plugin, thus we'll need to setup multiple uplugins for UE5. See: <a href="Advanced/../Integration.html#dataconfigxxuplugin">DataConfigXX.uplugin</a></li>
+</ul>
 <h1 id="160"><a class="header" href="#160">1.6.0</a></h1>
 <ul>
 <li>
@@ -3569,6 +3593,15 @@ return Entry.Name == FName(TEXT(&quot;Enum&quot;));
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="170---2024-10-2"><a class="header" href="#170---2024-10-2">1.7.0 - 2024-10-2</a></h2>
+<ul>
+<li>Initial UE 5.5 support.</li>
+<li><strong>BREAKING</strong> Separate <code>DataConfig54.uplugin</code> and <code>DataConfig.uplugin</code>.
+<ul>
+<li>See: <a href="Advanced/Breaking.html#170">Breaking - 1.7.0</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="162---2024-5-18"><a class="header" href="#162---2024-5-18">1.6.2 - 2024-5-18</a></h2>
 <ul>
 <li>Misc Shipping configuration build fixes.</li>

@@ -161,7 +161,7 @@
 <li>
 <p>Get a copy of <a href="https://github.com/slowburn-dev/DataConfig" title="slowburn-dev/DataConfig">DataConfig repository</a>. At the folder where <code>DataConfig.uplugin</code> and <code>DataConfig4.uplugin</code> resides:</p>
 <pre><code class="language-shell"># UE5
-&lt;PathToUE5SourceBuild&gt;/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Win64 Debug
+&lt;PathToUE5SourceBuild&gt;/Engine/Build/BatchFiles/RunUBT -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Win64 Debug
 
 # UE4
 &lt;PathToUE4SourceBuild&gt;/Engine/Binaries/DotNET/UnrealBuildTool.exe -project=&quot;%CD%/DataConfig4.uplugin&quot; DataConfigHeadless Win64 Debug
@@ -188,7 +188,7 @@ Run:  122, Success:  122, Fail:    0
 <p><code>DataConfigHeadless</code> accepts command line arguments as filters. The benchmarks runs slower are skipped by default.
 You can build and run the benchmarks with the commands below:</p>
 <pre><code class="language-shell"># remember to build in Shipping
-&lt;PathToUE5SourceBuild&gt;/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Win64 Shipping
+&lt;PathToUE5SourceBuild&gt;Engine/Build/BatchFiles/RunUBT -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Win64 Shipping
 %CD%/Binaries/Win64/DataConfigHeadless-Win64-Shipping.exe DataConfigBenchmark
 </code></pre>
 <h3 id="build-and-run-linux-target-with-wsl2"><a class="header" href="#build-and-run-linux-target-with-wsl2">Build and run Linux target with WSL2</a></h3>
@@ -215,7 +215,7 @@ through environment variable.</p>
 <p>Build the headless target for Linux.</p>
 <pre><code class="language-shell"># UE5.1
 set LINUX_MULTIARCH_ROOT=&lt;PathToToolchains&gt;/v20_clang-13.0.1-centos7
-&lt;PathToUE5SourceBuild&gt;/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Linux Debug
+&lt;PathToUE5SourceBuild&gt;/Engine/Build/BatchFiles/RunUBT -project=&quot;%CD%/DataConfig.uplugin&quot; DataConfigHeadless Linux Debug
 
 # UE4
 set LINUX_MULTIARCH_ROOT=&lt;PathToToolchains&gt;/v19_clang-11.0.1-centos7
@@ -261,7 +261,7 @@ You can also find a clean project bundled at <a href="https://github.com/slowbur
 You can do it in Visual Studio or with commands below:</p>
 <pre><code class="language-shell"># UE5
 # build
-&lt;PathToUE5&gt;/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe DcProjectEditor Win64 Development %CD%/DcProject5.uproject -NoHotReload -NoEngineChanges
+&lt;PathToUE5&gt;/Engine/Build/BatchFiles/RunUBT DcProjectEditor Win64 Development %CD%/DcProject5.uproject -NoHotReload -NoEngineChanges
 # run commandlet
 &lt;PathToUE5&gt;/Engine/Binaries/Win64/UnrealEditor-Cmd.exe %CD%/DcProject5.uproject DataConfigEditorExtra.DcCoreTestsCommandlet
 

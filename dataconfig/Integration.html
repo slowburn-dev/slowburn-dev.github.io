@@ -149,6 +149,7 @@
                         <h1 id="integration"><a class="header" href="#integration">Integration</a></h1>
 <p>At the moment it supports these the engine versions below:</p>
 <ul>
+<li>UE 5.5</li>
 <li>UE 5.4</li>
 <li>UE 5.3 </li>
 <li>UE 5.2 </li>
@@ -187,15 +188,24 @@
 <pre><code class="language-shell">git clone https://github.com/slowburn-dev/DataConfig
 # requires python 3.6+
 python ./DataConfig/Misc/Scripts/make_dataconfig_ue4.py
+python ./DataConfig/Misc/Scripts/make_dataconfig_ue54.py
 python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 </code></pre>
-<h3 id="manual-steps-for-ue5"><a class="header" href="#manual-steps-for-ue5">Manual Steps for UE5</a></h3>
+<h3 id="dataconfigxxuplugin"><a class="header" href="#dataconfigxxuplugin"><code>DataConfigXX.uplugin</code></a></h3>
+<p>Ultimately we figured that we'll need multiple <code>.uplugin</code> files to support acrosss UE versions:</p>
+<table><thead><tr><th>Name</th><th>Version</th></tr></thead><tbody>
+<tr><td>DataConfig4.uplugin</td><td>4.25 - 4.27</td></tr>
+<tr><td>DataConfig54.uplugin</td><td>5.0 - 5.4</td></tr>
+<tr><td>DataConfig5.uplugin</td><td>5.5 - Latest</td></tr>
+</tbody></table>
+<p>When packaging for each engine version we rename the one we want and delete the rest.</p>
+<h3 id="manual-steps-for-ue5-latest"><a class="header" href="#manual-steps-for-ue5-latest">Manual Steps for UE5 Latest</a></h3>
 <ol>
 <li>
 <p>Get a copy of <a href="https://github.com/slowburn-dev/DataConfig" title="slowburn-dev/DataConfig">DataConfig repository</a>. Then copy  <code>./DataConfig</code> (where <code>DataConfig.uplugin</code> is located) into your project's <code>Plugins</code> directory.</p>
 </li>
 <li>
-<p>Delete <code>DataConfig4.uplugin</code>.</p>
+<p>Delete <code>DataConfig4.uplugin</code>, and other <code>DataConfig5X.uplugin</code>.</p>
 </li>
 <li>
 <p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or you your project won't build</strong>.</p>
