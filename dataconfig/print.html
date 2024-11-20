@@ -3554,6 +3554,22 @@ You can do it in Visual Studio or with commands below:</p>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="breaking-changes"><a class="header" href="#breaking-changes">Breaking Changes</a></h1>
 <p>On this page we'll document breaking changes across versions.</p>
+<h1 id="171"><a class="header" href="#171">1.7.1</a></h1>
+<ul>
+<li>
+<p><code>FDcPropertyWriter</code> will now empty <code>TArray/TSet/TMap</code> on write.</p>
+<p>Previously when running into container property with default values DataConfig will thrash the defaults also leaving the container with incorrect elements count. Now the containers will be properly emptied on write.</p>
+<pre><code class="language-c++">// Example of TArray property with default values.
+USTRUCT()
+struct FDcTestStructWithDefaults
+{
+    // ...
+    UPROPERTY() TArray&lt;FString&gt; StrArrFieldWithDefault = {&quot;Foo&quot;, &quot;Bar&quot;, &quot;Baz&quot;};
+};
+</code></pre>
+<p>Though this is a behavior change but it should have minimal impact. See <code>DataConfig.Core.Property.Defaults</code> test for details.</p>
+</li>
+</ul>
 <h1 id="170"><a class="header" href="#170">1.7.0</a></h1>
 <ul>
 <li>UE 5.5 deprecated <code>StructUtils</code> plugin, thus we'll need to setup multiple uplugins for UE5. See: <a href="Advanced/../Integration.html#dataconfigxxuplugin">DataConfigXX.uplugin</a></li>
@@ -3593,6 +3609,14 @@ return Entry.Name == FName(TEXT(&quot;Enum&quot;));
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="171---2024-11-20"><a class="header" href="#171---2024-11-20">1.7.1 - 2024-11-20</a></h2>
+<ul>
+<li><strong>BREAKING</strong> Empty <code>TArray/TSet/TMap</code> properties on write.
+<ul>
+<li>See: <a href="Advanced/Breaking.html#171">Breaking - 1.7.1</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="170---2024-10-2"><a class="header" href="#170---2024-10-2">1.7.0 - 2024-10-2</a></h2>
 <ul>
 <li>Initial UE 5.5 support.</li>
