@@ -3099,15 +3099,7 @@ return DcOk();
 <li>When reading from Property, Array/Struct can be read as a <code>FDcBlobViewData</code> which directly points to the memory span.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ue-core-types-handlers"><a class="header" href="#ue-core-types-handlers">UE Core Types Handlers</a></h1>
-<p>Without any special handling a <code>FVector</code> is serialized as a JSON object like this:</p>
-<pre><code class="language-JSON">{
-    &quot;X&quot; : 1,
-    &quot;Y&quot; : 2,
-    &quot;Z&quot; : 3,
-}
-</code></pre>
-<p>This is fine but sometimes we want it to be more compact. DataConfig now comes with 
-a set of serialize/deserialize handlers that writes the commonly used types in compact form:</p>
+<p>We bundled some custom serialization handlers for common Unreal Engine types (think <code>FText/FVector/FColor</code>) to improve developer experience. You need to explicitly set it up with your serializer/deserializers.</p>
 <pre><code class="language-c++">//  setup core types serializers
 FDcSerializer Serializer;
 DcSetupCoreTypesSerializeHandlers(Serializer);
@@ -3116,6 +3108,43 @@ DcSetupCoreTypesSerializeHandlers(Serializer);
 FDcDeserializer Deserializer;
 DcSetupCoreTypesDeserializeHandlers(Deserializer);
 </code></pre>
+<p>These are also used in <a href="Advanced/../Extra/BlueprintNodes.html" title="Blueprint Nodes">DataConfig blueprint nodes</a>. </p>
+<p>Note that you always can custom these default behavior <a href="Advanced/./WritingHandlers.html" title="Writing Handlers">by writing your own handlers</a>.</p>
+<h2 id="ftext"><a class="header" href="#ftext">FText</a></h2>
+<p><code>FText</code> is used to handle localization in UE and it's quite different from <code>FString</code>. When calling <code>ReadText()</code> on JSON/MsgPack reader
+we pipe the string through a helper method <code>FTextStringHelper::CreateFromBuffer()</code> which parses and handles <code>NSLOCTEXT()/LOCTABLE()</code> style string.</p>
+<pre><code class="language-json">//  DataConfigTests/Private/DcTestProperty5.cpp
+{
+    &quot;TextFieldAlpha&quot; : &quot;NSLOCTEXT(\&quot;DataConfig.Tests\&quot;, \&quot;BAR_TEST\&quot;, \&quot;Localize String Bar\&quot;)&quot;,
+    &quot;TextFieldBeta&quot; : &quot;LOCTABLE(\&quot;/Bogus/Path/To/Table\&quot;, \&quot;FOO_TEST\&quot;)&quot;
+}
+</code></pre>
+<p>The escaping sequences in JSON makes it a bit difficult to use. With the core types handlers we also accept arrays:</p>
+<pre><code class="language-json">//  DataConfigTests/Private/DcTestRoundtrip2.cpp
+{
+    // [&lt;namespace&gt;, &lt;text-id&gt;, &lt;source&gt;], same as `NSLOCTEXT()`
+    &quot;TextFieldAlpha&quot; : [
+        &quot;DataConfig.Tests&quot;,
+        &quot;BAR_TEST&quot;,
+        &quot;Localize String Bar&quot;
+    ],
+    // [&lt;string-table-id&gt;, &lt;text-id&gt;], same as `LOCTABLE()`
+    &quot;TextFieldBeta&quot; : [
+        &quot;/Bogus/Path/To/Table&quot;,
+        &quot;FOO_TEST&quot;
+    ]
+}
+</code></pre>
+<h2 id="compact-presentation"><a class="header" href="#compact-presentation">Compact Presentation</a></h2>
+<p>Without any special handling a <code>FVector</code> is serialized as a JSON object like this:</p>
+<pre><code class="language-JSON">{
+    &quot;X&quot; : 1,
+    &quot;Y&quot; : 2,
+    &quot;Z&quot; : 3,
+}
+</code></pre>
+<p>This is fine but sometimes we want it to be more compact. DataConfig now comes with 
+a set of serialize/deserialize handlers that writes the commonly used types in compact form.</p>
 <p>With a struct like this:</p>
 <pre><code class="language-c++">USTRUCT()
 struct DATACONFIGEXTRA_API FDcExtraCoreTypesStruct
@@ -3609,6 +3638,14 @@ return Entry.Name == FName(TEXT(&quot;Enum&quot;));
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="172---2024-11-27"><a class="header" href="#172---2024-11-27">1.7.2 - 2024-11-27</a></h2>
+<ul>
+<li><strong>New</strong> Better <code>FText</code> deserialize handling.
+<ul>
+<li>See: <a href="Advanced/CoreTypes.html#ftext">Core Types - FText</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="171---2024-11-20"><a class="header" href="#171---2024-11-20">1.7.1 - 2024-11-20</a></h2>
 <ul>
 <li><strong>BREAKING</strong> Empty <code>TArray/TSet/TMap</code> properties on write.
