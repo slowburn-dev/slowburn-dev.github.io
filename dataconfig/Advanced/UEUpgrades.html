@@ -150,6 +150,8 @@
 <p>DataConfig is committed to support multiple UE versions with no deprecations and warnings. On this page we'll document important upgrade and migration info.</p>
 <h1 id="ue55"><a class="header" href="#ue55">UE5.5</a></h1>
 <ul>
+<li>A new series batch scripts under <code>Engine/Build/BatchFiles/RunUBT</code> is added which will will do a bunch of checks before running <code>UnrealBuildTool</code>.
+One should now use <code>RunUBT</code> instead of <code>UnrealBuildTool</code> otherwise it won't work in some configuration.</li>
 <li><code>EAutomationTestFlags</code> is now a <code>enum class</code> type.</li>
 <li><code>TIsTriviallyDestructible</code> is deprecated over <code>std::is_trivially_destructible_v</code>.</li>
 <li><code>TFieldPath(OtherPropertyType*)</code> constructor now checks for actual type safety.</li>

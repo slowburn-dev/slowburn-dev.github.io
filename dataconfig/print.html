@@ -3529,6 +3529,8 @@ You can do it in Visual Studio or with commands below:</p>
 <p>DataConfig is committed to support multiple UE versions with no deprecations and warnings. On this page we'll document important upgrade and migration info.</p>
 <h1 id="ue55"><a class="header" href="#ue55">UE5.5</a></h1>
 <ul>
+<li>A new series batch scripts under <code>Engine/Build/BatchFiles/RunUBT</code> is added which will will do a bunch of checks before running <code>UnrealBuildTool</code>.
+One should now use <code>RunUBT</code> instead of <code>UnrealBuildTool</code> otherwise it won't work in some configuration.</li>
 <li><code>EAutomationTestFlags</code> is now a <code>enum class</code> type.</li>
 <li><code>TIsTriviallyDestructible</code> is deprecated over <code>std::is_trivially_destructible_v</code>.</li>
 <li><code>TFieldPath(OtherPropertyType*)</code> constructor now checks for actual type safety.</li>
@@ -3638,6 +3640,10 @@ return Entry.Name == FName(TEXT(&quot;Enum&quot;));
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="173---2024-12-25"><a class="header" href="#173---2024-12-25">1.7.3 - 2024-12-25</a></h2>
+<ul>
+<li><strong>FIX</strong> Fix uninitialized struct fields which causes bogus errors.</li>
+</ul>
 <h2 id="172---2024-11-27"><a class="header" href="#172---2024-11-27">1.7.2 - 2024-11-27</a></h2>
 <ul>
 <li><strong>New</strong> Better <code>FText</code> deserialize handling.
