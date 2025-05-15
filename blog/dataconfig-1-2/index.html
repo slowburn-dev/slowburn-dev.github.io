@@ -50,91 +50,91 @@
 <h2 id="origins">Origins<a class="zola-anchor" href="#origins">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
-<p>I started dabbling into Unreal Engine a few years ago coming from a strong Unity3D background. Nowadays many developers share this experience there's even an <a href="https://docs.unrealengine.com/4.27/en-US/Basics/UnrealEngineForUnityDevs/" title="Unreal Engine 4 For Unity Developers">&quot;Unreal Engine for Unity Developers&quot;</a> page in official docs. One cool thing about Unity3D is the huge pool of ready-to-use plugins and assets readily available. Unity developers each have their own list of &quot;must-have&quot; plugins and libs that one tends to carry to every project. It's very common for us to start a project with nothing but a set of personal favorite packages and grow from there.</p>
+<p>I started dabbling into Unreal Engine a few years ago coming from a strong Unity3D background. Nowadays many developers share this experience there's even an <a href="https://docs.unrealengine.com/4.27/en-US/Basics/UnrealEngineForUnityDevs/" title="Unreal Engine 4 For Unity Developers">"Unreal Engine for Unity Developers"</a> page in official docs. One cool thing about Unity3D is the huge pool of ready-to-use plugins and assets readily available. Unity developers each have their own list of "must-have" plugins and libs that one tends to carry to every project. It's very common for us to start a project with nothing but a set of personal favorite packages and grow from there.</p>
 <p>My #1 pick was always <a href="https://github.com/jacobdufault/fullserializer" title="jacobdufault/fullserializer">FullSerializer</a> and <a href="http://jacobdufault.github.io/fullinspector/guide/" title="Full Inspector">FullInspector</a>. They're discontinued as the author moved on to other fields, and later get superseded by <a href="https://odininspector.com/" title="Odin Inspector and Serializer">Odin Inspector and Serializer</a>. If you already know what these libraries do and are also proficient with UnrealEngine then DataConfig easy to explain: <strong>DataConfig is FullSerializer/OdinSerializer implemented for Unreal Engine</strong>. <a href="https://github.com/slowburn-dev/DataConfig" title="Serialization framework for Unreal Engine Property System that just works!">Grab a copy on Github and try it out now!</a> Otherwise read on ;)</p>
-<p>Prior to these people use a patched version of <a href="https://www.newtonsoft.com/json" title="Json.NET">Json.NET</a> that's compatible with earlier Unity3D versions. At the core these libraries all do one thing: convert between C# objects and JSON, or some other binary formats. The proper term describing these process are <strong>serialization</strong>(<code>C# -&gt; JSON</code>) and <strong>deserialization</strong>(<code>JSON -&gt; C#</code>). </p>
+<p>Prior to these people use a patched version of <a href="https://www.newtonsoft.com/json" title="Json.NET">Json.NET</a> that's compatible with earlier Unity3D versions. At the core these libraries all do one thing: convert between C# objects and JSON, or some other binary formats. The proper term describing these process are <strong>serialization</strong>(<code>C# -&gt; JSON</code>) and <strong>deserialization</strong>(<code>JSON -&gt; C#</code>).</p>
 <p>Here's a snippet taken from Json.NET frontpage:</p>
-<pre data-lang="c#" style="background-color:#ffffff;color:#4d4d4c;" class="language-c# "><code class="language-c#" data-lang="c#"><span style="color:#999999;">// Deserialize JSON in C#</span><span>
-</span><span style="color:#8959a8;">string </span><span style="color:#c82829;">json </span><span style="color:#3e999f;">= </span><span style="color:#718c00;">@&quot;{</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">  &#39;Name&#39;: &#39;Bad Boys&#39;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">  &#39;ReleaseDate&#39;: &#39;1995-4-7T00:00:00&#39;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">  &#39;Genres&#39;: [</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    &#39;Action&#39;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    &#39;Comedy&#39;</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">  ]</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">}&quot;</span><span>;</span><span>
+<pre data-lang="c#" style="background-color:#ffffff;color:#4d4d4c;" class="language-c# "><code class="language-c#" data-lang="c#"><span style="color:#999999;">// Deserialize JSON in C#
+</span><span style="color:#8959a8;">string </span><span style="color:#c82829;">json </span><span style="color:#3e999f;">= </span><span style="color:#718c00;">@&quot;{
+</span><span style="color:#718c00;">  &#39;Name&#39;: &#39;Bad Boys&#39;,
+</span><span style="color:#718c00;">  &#39;ReleaseDate&#39;: &#39;1995-4-7T00:00:00&#39;,
+</span><span style="color:#718c00;">  &#39;Genres&#39;: [
+</span><span style="color:#718c00;">    &#39;Action&#39;,
+</span><span style="color:#718c00;">    &#39;Comedy&#39;
+</span><span style="color:#718c00;">  ]
+</span><span style="color:#718c00;">}&quot;</span><span>;
 </span><span>
-</span><span style="color:#c99e00;">Movie </span><span style="color:#c82829;">m </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">JsonConvert</span><span>.</span><span style="color:#c82829;">DeserializeObject</span><span style="color:#4271ae;">&lt;</span><span style="color:#c99e00;">Movie</span><span style="color:#4271ae;">&gt;(</span><span style="color:#c82829;">json</span><span style="color:#4271ae;">)</span><span>;</span><span>
-</span><span style="color:#8959a8;">string </span><span style="color:#c82829;">name </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">m</span><span>.</span><span style="color:#c82829;">Name</span><span>;</span><span>
-</span><span style="color:#999999;">// Bad Boys</span><span>
+</span><span style="color:#c99e00;">Movie </span><span style="color:#c82829;">m </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">JsonConvert</span><span>.</span><span style="color:#c82829;">DeserializeObject</span><span style="color:#4271ae;">&lt;</span><span style="color:#c99e00;">Movie</span><span style="color:#4271ae;">&gt;(</span><span style="color:#c82829;">json</span><span style="color:#4271ae;">)</span><span>;
+</span><span style="color:#8959a8;">string </span><span style="color:#c82829;">name </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">m</span><span>.</span><span style="color:#c82829;">Name</span><span>;
+</span><span style="color:#999999;">// Bad Boys
 </span></code></pre>
 <p>Under the hood it's using of C# runtime reflection to figure out the structure of <code>Movie class</code> and access and assign each field by string. Now back in the land of C++ serialization isn't that simple since C++ doesn't have built-in runtime reflection. Classic approach can be <a href="https://preshing.com/20180116/a-primitive-reflection-system-in-cpp-part-1/" title="A Flexible Reflection System in C++: Part 1">manual markup with macro</a>, while <a href="https://twitter.com/supahvee1234/status/1455965666385833984" title="C++20 pretty printer">modern C++ magic</a> also works (but it's hard to understand).</p>
 <h2 id="json-converter">JSON Converter<a class="zola-anchor" href="#json-converter">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
-<p>Unreal Engine uses an alternative approach that is to mark up structs with macros then consume them in a pre-pass with a separated tool called <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/BuildTools/UnrealHeaderTool/" title="UnrealHeaderTool">Unreal Header Tool</a>. It understands a subset of C++ header syntax and gets executed <em>before</em> actual compilation happens. This tool would generate tons of supporting code which get compiled along with the actual engine/game code. The end result is a runtime reflection system called the <a href="https://www.unrealengine.com/en-US/blog/unreal-property-system-reflection" title="Unreal Property System (Reflection)">&quot;Property System&quot;</a>, which is almost feature parity with C# runtime reflection.</p>
+<p>Unreal Engine uses an alternative approach that is to mark up structs with macros then consume them in a pre-pass with a separated tool called <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/BuildTools/UnrealHeaderTool/" title="UnrealHeaderTool">Unreal Header Tool</a>. It understands a subset of C++ header syntax and gets executed <em>before</em> actual compilation happens. This tool would generate tons of supporting code which get compiled along with the actual engine/game code. The end result is a runtime reflection system called the <a href="https://www.unrealengine.com/en-US/blog/unreal-property-system-reflection" title="Unreal Property System (Reflection)">"Property System"</a>, which is almost feature parity with C# runtime reflection.</p>
 <p>With the property system one can write similar deserializing code as the C# example:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// Deserialize JSON in UE Property System</span><span style="color:#999999;">
-</span><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
-</span><span style="color:#8959a8;">struct </span><span>FMovie</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// Deserialize JSON in UE Property System
+</span><span style="color:#c82829;">USTRUCT</span><span>()
+</span><span style="color:#8959a8;">struct </span><span>FMovie
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
 </span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FString Name;</span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FString ReleaseDate;</span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() TArray&lt;FString&gt; Genres;</span><span>
-</span><span>};</span><span>
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FString Name;
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FString ReleaseDate;
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() TArray&lt;FString&gt; Genres;
+</span><span>};
 </span><span>
-</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">{</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">  &quot;Name&quot;: &quot;Bad Boys&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">  &quot;ReleaseDate&quot;: &quot;1995-4-7T00:00:00&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">  &quot;Genres&quot;: [</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    &quot;Action&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    &quot;Comedy&quot;</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">  ]</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">}</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(
+</span><span style="color:#718c00;">{
+</span><span style="color:#718c00;">  &quot;Name&quot;: &quot;Bad Boys&quot;,
+</span><span style="color:#718c00;">  &quot;ReleaseDate&quot;: &quot;1995-4-7T00:00:00&quot;,
+</span><span style="color:#718c00;">  &quot;Genres&quot;: [
+</span><span style="color:#718c00;">    &quot;Action&quot;,
+</span><span style="color:#718c00;">    &quot;Comedy&quot;
+</span><span style="color:#718c00;">  ]
+</span><span style="color:#718c00;">}
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;
 </span><span>
-</span><span>FMovie m;</span><span>
-</span><span style="color:#8959a8;">bool</span><span> bOk </span><span style="color:#3e999f;">= </span><span style="color:#4271ae;">FJsonObjectConverter::</span><span style="color:#c82829;">JsonObjectStringToUStruct</span><span style="color:#4271ae;">(Str, </span><span style="color:#3e999f;">&amp;</span><span style="color:#4271ae;">m)</span><span>;</span><span>
+</span><span>FMovie m;
+</span><span style="color:#8959a8;">bool</span><span> bOk </span><span style="color:#3e999f;">= </span><span style="color:#4271ae;">FJsonObjectConverter::</span><span style="color:#c82829;">JsonObjectStringToUStruct</span><span style="color:#4271ae;">(Str, </span><span style="color:#3e999f;">&amp;</span><span style="color:#4271ae;">m)</span><span>;
 </span><span>
-</span><span>FString name </span><span style="color:#3e999f;">=</span><span> m.</span><span style="color:#c82829;">Name</span><span>;</span><span>
-</span><span style="color:#999999;">// Bad Boys</span><span style="color:#999999;">
+</span><span>FString name </span><span style="color:#3e999f;">=</span><span> m.</span><span style="color:#c82829;">Name</span><span>;
+</span><span style="color:#999999;">// Bad Boys
 </span></code></pre>
 <p>Here I want to stress that <strong>the example works in stock Unreal Engine</strong>. <code>FJsonObjectConverter</code> is a class in builtin module <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/JsonUtilities/" title="JsonUtilities"><code>JsonUtilities</code></a>.
 Compared to conventional C++ deserialization it's already a huge step forward. If you look at the code huge trunk of the logic is in <a href="https://github.com/EpicGames/UnrealEngine/blob/99b6e203a15d04fc7bbbf554c421a985c1ccb8f1/Engine/Source/Runtime/JsonUtilities/Private/JsonObjectConverter.cpp#L395"><code>ConvertScalarJsonValueToFPropertyWithContainer()</code></a> method. It looks at the current <code>FProperty</code>, which points to a <code>UPROPERTY()</code> marked field, and
 decide how should it be converted from the <code>JsonObject</code>.</p>
 <p>DataConfig takes this idea further by implementing a set of API on top of the Property System and trying to make it easier to use. As an example we have <code>JsonObjectStringToUStruct</code> <a href="/dataconfig/Extra/JsonConverter" title="JsonConverter in DataConfig">implemented with DataConfig</a> with the snippet below:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Types/DcJsonConverter.cpp</span><span style="color:#999999;">
-</span><span style="color:#8959a8;">bool </span><span style="color:#4271ae;">JsonObjectReaderToUStruct</span><span>(FDcReader</span><span style="color:#3e999f;">* </span><span style="color:#f5871f;">Reader</span><span>, FDcPropertyDatum </span><span style="color:#f5871f;">Datum</span><span>)</span><span>
-</span><span>{</span><span>
-</span><span>    FDcResult Ret </span><span style="color:#3e999f;">= </span><span>[</span><span style="color:#3e999f;">&amp;</span><span>]() -&gt; </span><span style="color:#c82829;">FDcResult </span><span>{</span><span>
-</span><span>        </span><span style="color:#8959a8;">using namespace</span><span> JsonConverterDetails;</span><span>
-</span><span>        </span><span style="color:#c82829;">LazyInitializeDeserializer</span><span style="color:#4271ae;">()</span><span>;</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Types/DcJsonConverter.cpp
+</span><span style="color:#8959a8;">bool </span><span style="color:#4271ae;">JsonObjectReaderToUStruct</span><span>(FDcReader</span><span style="color:#3e999f;">* </span><span style="color:#f5871f;">Reader</span><span>, FDcPropertyDatum </span><span style="color:#f5871f;">Datum</span><span>)
+</span><span>{
+</span><span>    FDcResult Ret </span><span style="color:#3e999f;">= </span><span>[</span><span style="color:#3e999f;">&amp;</span><span>]() -&gt; </span><span style="color:#c82829;">FDcResult </span><span>{
+</span><span>        </span><span style="color:#8959a8;">using namespace</span><span> JsonConverterDetails;
+</span><span>        </span><span style="color:#c82829;">LazyInitializeDeserializer</span><span style="color:#4271ae;">()</span><span>;
 </span><span>
-</span><span>        FDcPropertyWriter </span><span style="color:#c82829;">Writer</span><span style="color:#4271ae;">(Datum)</span><span>;</span><span>
+</span><span>        FDcPropertyWriter </span><span style="color:#c82829;">Writer</span><span style="color:#4271ae;">(Datum)</span><span>;
 </span><span>
-</span><span>        FDcDeserializeContext Ctx;</span><span>
-</span><span>        Ctx.</span><span style="color:#c82829;">Reader </span><span style="color:#3e999f;">=</span><span> Reader;</span><span>
-</span><span>        Ctx.</span><span style="color:#c82829;">Writer </span><span style="color:#3e999f;">= &amp;</span><span>Writer;</span><span>
-</span><span>        Ctx.</span><span style="color:#c82829;">Deserializer </span><span style="color:#3e999f;">= &amp;</span><span>Deserializer.</span><span style="color:#c82829;">GetValue</span><span>();</span><span>
-</span><span>        </span><span style="color:#c82829;">DC_TRY</span><span style="color:#4271ae;">(Ctx.</span><span style="color:#c82829;">Prepare</span><span style="color:#4271ae;">())</span><span>;</span><span>
+</span><span>        FDcDeserializeContext Ctx;
+</span><span>        Ctx.</span><span style="color:#c82829;">Reader </span><span style="color:#3e999f;">=</span><span> Reader;
+</span><span>        Ctx.</span><span style="color:#c82829;">Writer </span><span style="color:#3e999f;">= &amp;</span><span>Writer;
+</span><span>        Ctx.</span><span style="color:#c82829;">Deserializer </span><span style="color:#3e999f;">= &amp;</span><span>Deserializer.</span><span style="color:#c82829;">GetValue</span><span>();
+</span><span>        </span><span style="color:#c82829;">DC_TRY</span><span style="color:#4271ae;">(Ctx.</span><span style="color:#c82829;">Prepare</span><span style="color:#4271ae;">())</span><span>;
 </span><span>
-</span><span>        </span><span style="color:#c82829;">DC_TRY</span><span style="color:#4271ae;">(Deserializer-&gt;</span><span style="color:#c82829;">Deserialize</span><span style="color:#4271ae;">(Ctx))</span><span>;</span><span>
-</span><span>        </span><span style="color:#8959a8;">return </span><span style="color:#c82829;">DcOk</span><span style="color:#4271ae;">()</span><span>;</span><span>
-</span><span>    }();</span><span>
+</span><span>        </span><span style="color:#c82829;">DC_TRY</span><span style="color:#4271ae;">(Deserializer-&gt;</span><span style="color:#c82829;">Deserialize</span><span style="color:#4271ae;">(Ctx))</span><span>;
+</span><span>        </span><span style="color:#8959a8;">return </span><span style="color:#c82829;">DcOk</span><span style="color:#4271ae;">()</span><span>;
+</span><span>    }();
 </span><span>
-</span><span>    </span><span style="color:#8959a8;">if </span><span>(</span><span style="color:#3e999f;">!</span><span>Ret.</span><span style="color:#c82829;">Ok</span><span>())</span><span>
-</span><span>    {</span><span>
-</span><span>        </span><span style="color:#c82829;">DcEnv</span><span style="color:#4271ae;">()</span><span>.</span><span style="color:#c82829;">FlushDiags</span><span>();</span><span>
-</span><span>        </span><span style="color:#8959a8;">return </span><span style="color:#f5871f;">false</span><span>;</span><span>
-</span><span>    }</span><span>
-</span><span>    </span><span style="color:#8959a8;">else</span><span>
-</span><span>    {</span><span>
-</span><span>        </span><span style="color:#8959a8;">return </span><span style="color:#f5871f;">true</span><span>;</span><span>
-</span><span>    }</span><span>
-</span><span>}</span><span>
+</span><span>    </span><span style="color:#8959a8;">if </span><span>(</span><span style="color:#3e999f;">!</span><span>Ret.</span><span style="color:#c82829;">Ok</span><span>())
+</span><span>    {
+</span><span>        </span><span style="color:#c82829;">DcEnv</span><span style="color:#4271ae;">()</span><span>.</span><span style="color:#c82829;">FlushDiags</span><span>();
+</span><span>        </span><span style="color:#8959a8;">return </span><span style="color:#f5871f;">false</span><span>;
+</span><span>    }
+</span><span>    </span><span style="color:#8959a8;">else
+</span><span>    {
+</span><span>        </span><span style="color:#8959a8;">return </span><span style="color:#f5871f;">true</span><span>;
+</span><span>    }
+</span><span>}
 </span></code></pre>
 <p>It's an almost drop-in replacement in around 20 lines long. On top of that:</p>
 <ul>
@@ -150,25 +150,25 @@ decide how should it be converted from the <code>JsonObject</code>.</p>
 <li>
 <p>We took special care to provide diagnostics for quickly tracking down errors.</p>
 <p>Let's say we made a mistake that we forgot to close a string literal:</p>
-<pre data-lang="JSON" style="background-color:#ffffff;color:#4d4d4c;" class="language-JSON "><code class="language-JSON" data-lang="JSON"><span>{</span><span>
-</span><span>  </span><span style="color:#718c00;">&quot;Name&quot;</span><span>: </span><span style="color:#718c00;">&quot;Bad Boys&quot;</span><span>,</span><span>
-</span><span>  </span><span style="color:#718c00;">&quot;ReleaseDate&quot;</span><span>: </span><span style="color:#718c00;">&quot;1995-4-7T00:00:00&quot;</span><span>,</span><span>
-</span><span>  </span><span style="color:#718c00;">&quot;Genres&quot;</span><span>: [</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;Action,  // &lt;-- missing quote in here</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;Comedy&quot;</span><span>
-</span><span>  ]</span><span>
-</span><span>}</span><span>
+<pre data-lang="JSON" style="background-color:#ffffff;color:#4d4d4c;" class="language-JSON "><code class="language-JSON" data-lang="JSON"><span>{
+</span><span>  </span><span style="color:#718c00;">&quot;Name&quot;</span><span>: </span><span style="color:#718c00;">&quot;Bad Boys&quot;</span><span>,
+</span><span>  </span><span style="color:#718c00;">&quot;ReleaseDate&quot;</span><span>: </span><span style="color:#718c00;">&quot;1995-4-7T00:00:00&quot;</span><span>,
+</span><span>  </span><span style="color:#718c00;">&quot;Genres&quot;</span><span>: [
+</span><span>    </span><span style="color:#718c00;">&quot;Action,  // &lt;-- missing quote in here</span><span style="background-color:#c82829;color:#ffffff;">
+</span><span>    </span><span style="color:#718c00;">&quot;Comedy&quot;
+</span><span>  ]
+</span><span>}
 </span></code></pre>
 <p>DataConfig would fail and highlight the point of failure.</p>
-<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>* # DataConfig Error: Unclosed string literal</span><span>
-</span><span>* - [WideCharDcJsonReader] --&gt; &lt;in-memory&gt;6:15</span><span>
-</span><span>   4 |          &quot;ReleaseDate&quot;: &quot;1995-4-7T00:00:00&quot;,</span><span>
-</span><span>   5 |          &quot;Genres&quot;: [</span><span>
-</span><span>   6 |            &quot;Action,</span><span>
-</span><span>     |            ^</span><span>
-</span><span>   7 |            &quot;Comedy&quot;</span><span>
-</span><span>   8 |          ]</span><span>
-</span><span>* - [DcPropertyWriter] Writing property: (FMovie)$root.(TArray&lt;FString&gt;)Genres[0]</span><span>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span>* # DataConfig Error: Unclosed string literal
+</span><span>* - [WideCharDcJsonReader] --&gt; &lt;in-memory&gt;6:15
+</span><span>   4 |          &quot;ReleaseDate&quot;: &quot;1995-4-7T00:00:00&quot;,
+</span><span>   5 |          &quot;Genres&quot;: [
+</span><span>   6 |            &quot;Action,
+</span><span>     |            ^
+</span><span>   7 |            &quot;Comedy&quot;
+</span><span>   8 |          ]
+</span><span>* - [DcPropertyWriter] Writing property: (FMovie)$root.(TArray&lt;FString&gt;)Genres[0]
 </span></code></pre>
 <p>If you look closely the diagnostic also points out the property we're writing at the point of failure,
 which is <code>(FMovie)$root.(TArray&lt;FString&gt;)Genres[0]</code>. These efforts are made to help you quickly track
@@ -192,28 +192,28 @@ for some data types the mapping isn't so clear, or maybe we have a very specific
 <li>I want to read a <code>FDateTime</code> from a timestamp string like <code>1995-4-7T00:00:00</code>.</li>
 </ul>
 <p>DataConfig provides mechanism to customize the mapping between property system and external format. Our benchmark use case is to serialize <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Core/Math/FColor/" title="FColor"><code>FColor</code></a> to a <code>#RRGGBBAA</code> string and vice versa:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/Deserialize/DcSerDeColor.h</span><span style="color:#999999;">
-</span><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
-</span><span style="color:#8959a8;">struct </span><span>FDcExtraTestStructWithColor1</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/Deserialize/DcSerDeColor.h
+</span><span style="color:#c82829;">USTRUCT</span><span>()
+</span><span style="color:#8959a8;">struct </span><span>FDcExtraTestStructWithColor1
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
 </span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FColor ColorField1;</span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FColor ColorField2;</span><span>
-</span><span>};</span><span>
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FColor ColorField1;
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FColor ColorField2;
+</span><span>};
 </span><span>
-</span><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcSerDeColor.cpp</span><span style="color:#999999;">
-</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    {</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        &quot;ColorField1&quot; : &quot;#0000FFFF&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        &quot;ColorField2&quot; : &quot;#FF0000FF&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    }</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcSerDeColor.cpp
+</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(
+</span><span style="color:#718c00;">    {
+</span><span style="color:#718c00;">        &quot;ColorField1&quot; : &quot;#0000FFFF&quot;,
+</span><span style="color:#718c00;">        &quot;ColorField2&quot; : &quot;#FF0000FF&quot;,
+</span><span style="color:#718c00;">    }
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;
 </span></code></pre>
 <p>Details are documented <a href="/dataconfig/Extra/FColor" title="FColor Serialization/Deserialization">here</a>. The key takeaways are:</p>
 <ul>
 <li>
-<p>It works recursively as one would expect. </p>
+<p>It works recursively as one would expect.</p>
 <p>This means that it works with ad-hoc <code>FColor</code> fields, also <code>TArray&lt;FColor&gt;</code>, <code>TMap&lt;FString, FColor&gt;</code> or any arbitrary data structure that UE allows.</p>
 </li>
 <li>
@@ -232,124 +232,124 @@ deserialize it back to instance <code>B</code>, <code>A</code> and <code>B</code
 <p>The <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Classes/Specifiers/" title="Class Specifiers"><code>DefaultToInstanced</code> Class Specifier</a> means that instances of this class are considered inline objects.
 This allows you to attach an arbitrary derived object inside a parent object. DataConfig allows you to mark nested objects
 with a <code>$type</code> field to explicitly select its type. This is often called <strong>polymorphism serialization</strong>.</p>
-<p>Given this toy &quot;Object Oriented&quot; class hierarchy:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigTests/Public/DcTestProperty.h</span><span style="color:#999999;">
-</span><span style="color:#c82829;">UCLASS</span><span>(BlueprintType, EditInlineNew, DefaultToInstanced)</span><span>
-</span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcBaseShape </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UObject</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#999999;">//...</span><span style="color:#999999;">
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FName ShapeName;</span><span>
-</span><span>};</span><span>
+<p>Given this toy "Object Oriented" class hierarchy:</p>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigTests/Public/DcTestProperty.h
+</span><span style="color:#c82829;">UCLASS</span><span>(BlueprintType, EditInlineNew, DefaultToInstanced)
+</span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcBaseShape </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UObject
+</span><span>{
+</span><span>    </span><span style="color:#999999;">//...
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FName ShapeName;
+</span><span>};
 </span><span>
-</span><span style="color:#c82829;">UCLASS</span><span>()</span><span>
-</span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcShapeBox </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcBaseShape</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#999999;">//...</span><span style="color:#999999;">
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() </span><span style="color:#8959a8;">float</span><span> Height;</span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() </span><span style="color:#8959a8;">float</span><span> Width;</span><span>
-</span><span>};</span><span>
+</span><span style="color:#c82829;">UCLASS</span><span>()
+</span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcShapeBox </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcBaseShape
+</span><span>{
+</span><span>    </span><span style="color:#999999;">//...
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() </span><span style="color:#8959a8;">float</span><span> Height;
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() </span><span style="color:#8959a8;">float</span><span> Width;
+</span><span>};
 </span><span>
-</span><span style="color:#c82829;">UCLASS</span><span>()</span><span>
-</span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcShapeSquare </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcBaseShape</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#999999;">//...</span><span style="color:#999999;">
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() </span><span style="color:#8959a8;">float</span><span> Radius;</span><span>
-</span><span>};</span><span>
+</span><span style="color:#c82829;">UCLASS</span><span>()
+</span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcShapeSquare </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcBaseShape
+</span><span>{
+</span><span>    </span><span style="color:#999999;">//...
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() </span><span style="color:#8959a8;">float</span><span> Radius;
+</span><span>};
 </span></code></pre>
 <p>DataConfig would handle polymorphism as expected:</p>
-<pre data-lang="json" style="background-color:#ffffff;color:#4d4d4c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#999999;">// DataConfig/Source/DataConfigTests/Private/DcTestDeserialize.cpp</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;ShapeField1&quot; </span><span>:  {</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;DcShapeBox&quot;</span><span>,</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;ShapeName&quot; </span><span>: </span><span style="color:#718c00;">&quot;Box1&quot;</span><span>,</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;Height&quot; </span><span>: </span><span style="color:#f5871f;">17.5</span><span>,</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;Width&quot; </span><span>: </span><span style="color:#f5871f;">1.9375</span><span>
-</span><span>    },</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;ShapeField2&quot; </span><span>: {</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;DcShapeSquare&quot;</span><span>,</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;ShapeName&quot; </span><span>: </span><span style="color:#718c00;">&quot;Square1&quot;</span><span>,</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;Radius&quot; </span><span>: </span><span style="color:#f5871f;">1.75</span><span>,</span><span>
-</span><span>    },</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;ShapeField3&quot; </span><span>: </span><span style="color:#f5871f;">null</span><span>
-</span><span>}</span><span>
+<pre data-lang="json" style="background-color:#ffffff;color:#4d4d4c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#999999;">// DataConfig/Source/DataConfigTests/Private/DcTestDeserialize.cpp
+</span><span>{
+</span><span>    </span><span style="color:#718c00;">&quot;ShapeField1&quot; </span><span>:  {
+</span><span>        </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;DcShapeBox&quot;</span><span>,
+</span><span>        </span><span style="color:#718c00;">&quot;ShapeName&quot; </span><span>: </span><span style="color:#718c00;">&quot;Box1&quot;</span><span>,
+</span><span>        </span><span style="color:#718c00;">&quot;Height&quot; </span><span>: </span><span style="color:#f5871f;">17.5</span><span>,
+</span><span>        </span><span style="color:#718c00;">&quot;Width&quot; </span><span>: </span><span style="color:#f5871f;">1.9375
+</span><span>    },
+</span><span>    </span><span style="color:#718c00;">&quot;ShapeField2&quot; </span><span>: {
+</span><span>        </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;DcShapeSquare&quot;</span><span>,
+</span><span>        </span><span style="color:#718c00;">&quot;ShapeName&quot; </span><span>: </span><span style="color:#718c00;">&quot;Square1&quot;</span><span>,
+</span><span>        </span><span style="color:#718c00;">&quot;Radius&quot; </span><span>: </span><span style="color:#f5871f;">1.75</span><span>,
+</span><span>    },
+</span><span>    </span><span style="color:#718c00;">&quot;ShapeField3&quot; </span><span>: </span><span style="color:#f5871f;">null
+</span><span>}
 </span></code></pre>
 </li>
 <li>
 <p><a href="/dataconfig/Extra/Base64" title="Base64 Blob Serialization/Deserialization">Base64 Blob</a></p>
 <p>UnrealEngine allows you to attach data in <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Metadata/" title="Metadata Specifiers">metadata specifiers</a>.
 Here we mark <code>TArray&lt;uint8&gt;</code> fields with <code>DcExtraBase64</code> so they would be deserialized from Base64 string:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/Deserialize/DcSerDeBase64.h</span><span style="color:#999999;">
-</span><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
-</span><span style="color:#8959a8;">struct </span><span>FDcExtraTestStructWithBase64</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/Deserialize/DcSerDeBase64.h
+</span><span style="color:#c82829;">USTRUCT</span><span>()
+</span><span style="color:#8959a8;">struct </span><span>FDcExtraTestStructWithBase64
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
 </span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>(</span><span style="color:#f5871f;">meta </span><span style="color:#3e999f;">= </span><span>(DcExtraBase64)) TArray&lt;uint8&gt; BlobField1;</span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>(</span><span style="color:#f5871f;">meta </span><span style="color:#3e999f;">= </span><span>(DcExtraBase64)) TArray&lt;uint8&gt; BlobField2;</span><span>
-</span><span>};</span><span>
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>(</span><span style="color:#f5871f;">meta </span><span style="color:#3e999f;">= </span><span>(DcExtraBase64)) TArray&lt;uint8&gt; BlobField1;
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>(</span><span style="color:#f5871f;">meta </span><span style="color:#3e999f;">= </span><span>(DcExtraBase64)) TArray&lt;uint8&gt; BlobField2;
+</span><span>};
 </span><span>
-</span><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcSerDeBase64.cpp</span><span style="color:#999999;">
-</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    {</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        &quot;BlobField1&quot; : &quot;dGhlc2UgYXJlIG15IHR3aXN0ZWQgd29yZHM=&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        &quot;BlobField2&quot; : &quot;&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    }</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcSerDeBase64.cpp
+</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(
+</span><span style="color:#718c00;">    {
+</span><span style="color:#718c00;">        &quot;BlobField1&quot; : &quot;dGhlc2UgYXJlIG15IHR3aXN0ZWQgd29yZHM=&quot;,
+</span><span style="color:#718c00;">        &quot;BlobField2&quot; : &quot;&quot;,
+</span><span style="color:#718c00;">    }
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;
 </span></code></pre>
 </li>
 <li>
 <p><a href="/dataconfig/Extra/AnyStruct" title="AnyStruct">AnyStruct</a></p>
 <p>In this example, we implemented a variant type <code>FDcAnyStruct</code> that embeds a heap allocated struct of any type.
 It can also be deserialized of a JSON object with <code>$type</code> field:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/SerDe/DcSerDeAnyStruct.h</span><span style="color:#999999;">
-</span><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
-</span><span style="color:#8959a8;">struct </span><span>FDcExtraTestWithAnyStruct1</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/SerDe/DcSerDeAnyStruct.h
+</span><span style="color:#c82829;">USTRUCT</span><span>()
+</span><span style="color:#8959a8;">struct </span><span>FDcExtraTestWithAnyStruct1
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
 </span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FDcAnyStruct AnyStructField1;</span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FDcAnyStruct AnyStructField2;</span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FDcAnyStruct AnyStructField3;</span><span>
-</span><span>};</span><span>
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FDcAnyStruct AnyStructField1;
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FDcAnyStruct AnyStructField2;
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FDcAnyStruct AnyStructField3;
+</span><span>};
 </span><span>
-</span><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/SerDe/DcSerDeAnyStruct.cpp</span><span style="color:#999999;">
-</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    {</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        &quot;AnyStructField1&quot; : {</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">            &quot;$type&quot; : &quot;DcExtraTestSimpleStruct1&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">            &quot;NameField&quot; : &quot;Foo&quot;</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        },</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        &quot;AnyStructField2&quot; : {</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">            &quot;$type&quot; : &quot;DcExtraTestStructWithColor1&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">            &quot;ColorField1&quot; : &quot;#0000FFFF&quot;,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">            &quot;ColorField2&quot; : &quot;#FF0000FF&quot;</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        },</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        &quot;AnyStructField3&quot; : null</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    }</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span><span style="color:#999999;">// DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/SerDe/DcSerDeAnyStruct.cpp
+</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(
+</span><span style="color:#718c00;">    {
+</span><span style="color:#718c00;">        &quot;AnyStructField1&quot; : {
+</span><span style="color:#718c00;">            &quot;$type&quot; : &quot;DcExtraTestSimpleStruct1&quot;,
+</span><span style="color:#718c00;">            &quot;NameField&quot; : &quot;Foo&quot;
+</span><span style="color:#718c00;">        },
+</span><span style="color:#718c00;">        &quot;AnyStructField2&quot; : {
+</span><span style="color:#718c00;">            &quot;$type&quot; : &quot;DcExtraTestStructWithColor1&quot;,
+</span><span style="color:#718c00;">            &quot;ColorField1&quot; : &quot;#0000FFFF&quot;,
+</span><span style="color:#718c00;">            &quot;ColorField2&quot; : &quot;#FF0000FF&quot;
+</span><span style="color:#718c00;">        },
+</span><span style="color:#718c00;">        &quot;AnyStructField3&quot; : null
+</span><span style="color:#718c00;">    }
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;
 </span></code></pre>
 </li>
 <li>
 <p><a href="/dataconfig/Extra/GameplayTag" title="GameplayTag">GameplayTag</a></p>
 <p><a href="https://docs.unrealengine.com/en-US/ProgrammingAndScripting/Tags/index.html" title="Gameplay Tags">GameplayTags</a> is a built-in runtime module that implements hierarchical tags.
 We map <code>FGameplayTag</code> to a string like <code>Foo.Bar</code> or <code>null</code> when it's empty. During deserialization we also make sure the tag exists.</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigEditorExtra/Public/DataConfig/EditorExtra/SerDe/DcSerDeGameplayTags.h</span><span style="color:#999999;">
-</span><span style="color:#c82829;">USTRUCT</span><span>()</span><span>
-</span><span style="color:#8959a8;">struct </span><span>FDcEditorExtraTestStructWithGameplayTag1</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#999999;">// DataConfig/Source/DataConfigEditorExtra/Public/DataConfig/EditorExtra/SerDe/DcSerDeGameplayTags.h
+</span><span style="color:#c82829;">USTRUCT</span><span>()
+</span><span style="color:#8959a8;">struct </span><span>FDcEditorExtraTestStructWithGameplayTag1
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
 </span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FGameplayTag TagField1;</span><span>
-</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FGameplayTag TagField2;</span><span>
-</span><span>};</span><span>
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FGameplayTag TagField1;
+</span><span>    </span><span style="color:#4271ae;">UPROPERTY</span><span>() FGameplayTag TagField2;
+</span><span>};
 </span><span>
-</span><span style="color:#999999;">// DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/SerDe/DcSerDeGameplayTags.cpp</span><span style="color:#999999;">
-</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    {</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        &quot;TagField1&quot; : null,</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">        &quot;TagField2&quot; : &quot;DataConfig.Foo.Bar&quot;</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">    }</span><span style="color:#718c00;">
-</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;</span><span>
+</span><span style="color:#999999;">// DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/SerDe/DcSerDeGameplayTags.cpp
+</span><span>FString Str </span><span style="color:#3e999f;">= </span><span style="color:#c82829;">TEXT</span><span style="color:#4271ae;">(</span><span style="color:#8959a8;">R</span><span style="color:#718c00;">&quot;(
+</span><span style="color:#718c00;">    {
+</span><span style="color:#718c00;">        &quot;TagField1&quot; : null,
+</span><span style="color:#718c00;">        &quot;TagField2&quot; : &quot;DataConfig.Foo.Bar&quot;
+</span><span style="color:#718c00;">    }
+</span><span style="color:#718c00;">)&quot;</span><span style="color:#4271ae;">)</span><span>;
 </span></code></pre>
 </li>
 </ul>
@@ -359,63 +359,63 @@ We map <code>FGameplayTag</code> to a string like <code>Foo.Bar</code> or <code>
 </a></h2>
 <p>Now that you know DataConfig comes with JSON and MsgPack support, it allows fancy serialization and deserialization.
 But what should you do with it? When working on the project we have a user story in mind that is to support alternative data pipeline in Unreal Engine.</p>
-<p>If you're not familiar with the concept of data pipeline or &quot;Data Driven Design&quot; here's a <a href="https://benui.ca/unreal/data-driven-design/" title="Data-driven Design in Unreal">very good post on this topic</a>.
-In short UnrealEngine supports <a href="https://docs.unrealengine.com/4.26/en-US/BlueprintAPI/DataTable/" title="DataTable">DataTable</a> and <a href="https://www.youtube.com/watch?v=gLWXZ3FXhO8" title="WTF Is? Data Asset in Unreal Engine 4 ( UE4 )">DataAsset</a> that allows users to configure gameplay values within the editor. A common gripe is that UnrealEngine saves data to disk as <code>uasset</code> files, which are binary blobs. Binary format make meaningful diff almost impossible. It also suffers when things go wrong, notorious dilemma is &quot;editor is crashing due to a bad file but you need the editor running to fix the file&quot;.</p>
+<p>If you're not familiar with the concept of data pipeline or "Data Driven Design" here's a <a href="https://benui.ca/unreal/data-driven-design/" title="Data-driven Design in Unreal">very good post on this topic</a>.
+In short UnrealEngine supports <a href="https://docs.unrealengine.com/4.26/en-US/BlueprintAPI/DataTable/" title="DataTable">DataTable</a> and <a href="https://www.youtube.com/watch?v=gLWXZ3FXhO8" title="WTF Is? Data Asset in Unreal Engine 4 ( UE4 )">DataAsset</a> that allows users to configure gameplay values within the editor. A common gripe is that UnrealEngine saves data to disk as <code>uasset</code> files, which are binary blobs. Binary format make meaningful diff almost impossible. It also suffers when things go wrong, notorious dilemma is "editor is crashing due to a bad file but you need the editor running to fix the file".</p>
 <p>We favor textual formats as the fact that one can easily grep through them and peek its content with any text editor brings us peace of mind. Here we want to clarify that many successful titles ships with binary formats. It works but it takes effort and especially disciplines to manage. There's plan to support <a href="https://youtu.be/p4RcDpGQ_tI?t=1853" title="Workflow on Fortnite | Unreal Fest Europe 2019 | Unreal Engine">text based assets</a> but
 even with that the textual files are not meant to be edited by human.</p>
 <p><a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/GameplayAbilitySystem/" title="Gameplay Ability System">Gameplay Ability</a> is a built-in plugin for building data driven abilities. It's canon example of how to do data driven with Unreal.
 You can derive some blueprint classes for custom logic then store configuration within class defaults.</p>
 <p>We have <a href="/dataconfig/Extra/GameplayAbility" title="Deserialize Gameplay Abilities">an example</a> that populate <code>GameplayAbility</code> and <code>GameplayEffect</code> from a JSON file. Given a JSON like this:</p>
-<pre data-lang="json" style="background-color:#ffffff;color:#4d4d4c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#999999;">// DataConfig/Tests/Fixture_AbilityAlpha.json</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#999999;">/// Tags</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;AbilityTags&quot; </span><span>: [</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;DataConfig.Foo.Bar&quot;</span><span>,</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;DataConfig.Foo.Bar.Baz&quot;</span><span>,</span><span>
-</span><span>    ],</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;CancelAbilitiesWithTag&quot; </span><span>: [</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;DataConfig.Foo.Bar.Baz&quot;</span><span>,</span><span>
-</span><span>        </span><span style="color:#718c00;">&quot;DataConfig.Tar.Taz&quot;</span><span>,</span><span>
-</span><span>    ],</span><span>
-</span><span>    </span><span style="color:#999999;">/// Costs</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;CostGameplayEffectClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;/DataConfig/DcFixture/DcTestGameplayEffectAlpha&quot;</span><span>,</span><span>
-</span><span>    </span><span style="color:#999999;">/// Advanced</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;ReplicationPolicy&quot; </span><span>: </span><span style="color:#718c00;">&quot;ReplicateYes&quot;</span><span>,</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;InstancingPolicy&quot; </span><span>: </span><span style="color:#718c00;">&quot;NonInstanced&quot;</span><span>,</span><span>
-</span><span>}</span><span>
+<pre data-lang="json" style="background-color:#ffffff;color:#4d4d4c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#999999;">// DataConfig/Tests/Fixture_AbilityAlpha.json
+</span><span>{
+</span><span>    </span><span style="color:#999999;">/// Tags
+</span><span>    </span><span style="color:#718c00;">&quot;AbilityTags&quot; </span><span>: [
+</span><span>        </span><span style="color:#718c00;">&quot;DataConfig.Foo.Bar&quot;</span><span>,
+</span><span>        </span><span style="color:#718c00;">&quot;DataConfig.Foo.Bar.Baz&quot;</span><span>,
+</span><span>    ],
+</span><span>    </span><span style="color:#718c00;">&quot;CancelAbilitiesWithTag&quot; </span><span>: [
+</span><span>        </span><span style="color:#718c00;">&quot;DataConfig.Foo.Bar.Baz&quot;</span><span>,
+</span><span>        </span><span style="color:#718c00;">&quot;DataConfig.Tar.Taz&quot;</span><span>,
+</span><span>    ],
+</span><span>    </span><span style="color:#999999;">/// Costs
+</span><span>    </span><span style="color:#718c00;">&quot;CostGameplayEffectClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;/DataConfig/DcFixture/DcTestGameplayEffectAlpha&quot;</span><span>,
+</span><span>    </span><span style="color:#999999;">/// Advanced
+</span><span>    </span><span style="color:#718c00;">&quot;ReplicationPolicy&quot; </span><span>: </span><span style="color:#718c00;">&quot;ReplicateYes&quot;</span><span>,
+</span><span>    </span><span style="color:#718c00;">&quot;InstancingPolicy&quot; </span><span>: </span><span style="color:#718c00;">&quot;NonInstanced&quot;</span><span>,
+</span><span>}
 </span></code></pre>
 <p>Right-click on a <code>GameplayAbility</code> blueprint asset and select <code>Load From JSON</code>， then select this file and confirm. It would correctly populate the fields with the values in JSON, as seen in the gif below:</p>
 <p><img src="/dataconfig/Extra/Images/DataConfigEditorExtra-LoadJsonIntoAbility.png" alt="DataConfigEditorExtra-LoadJsonIntoAbility" /></p>
-<p>This example demonstrates the idea of using a set of external JSON files as the authoritative data source. In this vein we have a premium plugin called <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a> on the UE marketplace. </p>
+<p>This example demonstrates the idea of using a set of external JSON files as the authoritative data source. In this vein we have a premium plugin called <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a> on the UE marketplace.</p>
 <p>Write a data asset class that inherits <code>UDcPrimaryImportedDataAsset</code>, which is a common base class provided by the plugin for <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/AssetManagement/" title="Asset Management">asset management</a>:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UCLASS</span><span>()</span><span>
-</span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcJsonAssetTestPrimaryDataAsset1 </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcPrimaryImportedDataAsset</span><span>
-</span><span>{</span><span>
-</span><span>  </span><span style="color:#999999;">//...</span><span style="color:#999999;">
-</span><span>  </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere, Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;DcJsonAsset|Tests&quot;</span><span style="color:#4271ae;">)</span><span> FName AlphaName;</span><span>
-</span><span>  </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere, Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;DcJsonAsset|Tests&quot;</span><span style="color:#4271ae;">) </span><span style="color:#8959a8;">bool</span><span> AlphaBool;</span><span>
-</span><span>  </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere, Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;DcJsonAsset|Tests&quot;</span><span style="color:#4271ae;">)</span><span> FString AlphaStr;</span><span>
-</span><span>  </span><span style="color:#999999;">//...</span><span style="color:#999999;">
-</span><span>};</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UCLASS</span><span>()
+</span><span style="color:#8959a8;">class </span><span style="color:#c99e00;">UDcJsonAssetTestPrimaryDataAsset1 </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcPrimaryImportedDataAsset
+</span><span>{
+</span><span>  </span><span style="color:#999999;">//...
+</span><span>  </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere, Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;DcJsonAsset|Tests&quot;</span><span style="color:#4271ae;">)</span><span> FName AlphaName;
+</span><span>  </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere, Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;DcJsonAsset|Tests&quot;</span><span style="color:#4271ae;">) </span><span style="color:#8959a8;">bool</span><span> AlphaBool;
+</span><span>  </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere, Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;DcJsonAsset|Tests&quot;</span><span style="color:#4271ae;">)</span><span> FString AlphaStr;
+</span><span>  </span><span style="color:#999999;">//...
+</span><span>};
 </span></code></pre>
 <p>The next step is to prepare a JSON file on disk like this:</p>
-<pre data-lang="json" style="background-color:#ffffff;color:#4d4d4c;" class="language-json "><code class="language-json" data-lang="json"><span>{</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;DcJsonAssetTestPrimaryDataAsset1&quot;</span><span>,</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;AlphaName&quot; </span><span>: </span><span style="color:#718c00;">&quot;Foo&quot;</span><span>,</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;AlphaBool&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>, </span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;AlphaStr&quot; </span><span>: </span><span style="color:#718c00;">&quot;Bar&quot;</span><span>
-</span><span>}</span><span>
+<pre data-lang="json" style="background-color:#ffffff;color:#4d4d4c;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>    </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;DcJsonAssetTestPrimaryDataAsset1&quot;</span><span>,
+</span><span>    </span><span style="color:#718c00;">&quot;AlphaName&quot; </span><span>: </span><span style="color:#718c00;">&quot;Foo&quot;</span><span>,
+</span><span>    </span><span style="color:#718c00;">&quot;AlphaBool&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>, 
+</span><span>    </span><span style="color:#718c00;">&quot;AlphaStr&quot; </span><span>: </span><span style="color:#718c00;">&quot;Bar&quot;
+</span><span>}
 </span></code></pre>
 <p>Then just drop the file into the content explorer:</p>
 <p><img src="/dcjsonasset/Tutorial.assets/ImportExampleJson.png" alt="ImportExampleJson" /></p>
-<p>The engine supports <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/DataDriven/" title="Data Driven Gameplay Elements">importing CSV as DataTable</a> out of the box. DataConfig JSON Asset is following the same practices 
+<p>The engine supports <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/DataDriven/" title="Data Driven Gameplay Elements">importing CSV as DataTable</a> out of the box. DataConfig JSON Asset is following the same practices
 of importing external files into the engine as <code>uasset</code>. By going through this standard importing procedures we get many cool features
-like <a href="https://docs.unrealengine.com/4.27/en-US/Basics/AssetsAndPackages/AutoReImport/" title="Auto Reimport">auto reimport on file changes</a>. We also provide handy tools for <a href="/dcjsonasset/Tooling" title="Tooling">batch import/reimport</a>. </p>
+like <a href="https://docs.unrealengine.com/4.27/en-US/Basics/AssetsAndPackages/AutoReImport/" title="Auto Reimport">auto reimport on file changes</a>. We also provide handy tools for <a href="/dcjsonasset/Tooling" title="Tooling">batch import/reimport</a>.</p>
 <p>DataConfig JSON Asset is an example of an alternative data pipeline. Users should author and modify JSON files manually
 and the plugin would parse, validate and import them into the engine. In this setup JSON files are considered authority source of truth
 while the imported <code>uasset</code> files are considered <em>transient</em>: they can be wiped and recreated easily.</p>
-<p>Now in reality it's very tempting to tweak the data assets in the editor then forgot to sync it back to JSON. The point I want to 
-make here is that DataConfig makes alternative data pipelines relatively easy to implement. We decided to ship no tooling nor editor code with DataConfig 
+<p>Now in reality it's very tempting to tweak the data assets in the editor then forgot to sync it back to JSON. The point I want to
+make here is that DataConfig makes alternative data pipelines relatively easy to implement. We decided to ship no tooling nor editor code with DataConfig
 core module as we realized that there simply isn't a one-size-fits-all option in this space. It offers is a set of tools that you'll need to spend engineering
 efforts to build on.</p>
 <h2 id="closing-notes">Closing notes<a class="zola-anchor" href="#closing-notes">

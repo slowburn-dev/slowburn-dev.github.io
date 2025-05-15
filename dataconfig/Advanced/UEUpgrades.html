@@ -148,6 +148,12 @@
                     <main>
                         <h1 id="unreal-engine-upgrades"><a class="header" href="#unreal-engine-upgrades">Unreal Engine Upgrades</a></h1>
 <p>DataConfig is committed to support multiple UE versions with no deprecations and warnings. On this page we'll document important upgrade and migration info.</p>
+<h1 id="ue56"><a class="header" href="#ue56">UE5.6</a></h1>
+<ul>
+<li><code>FString::Appendf</code> and series of functions now do compile time check on the format string, requires the format string to be a static constexpr.</li>
+<li><code>GMalloc</code> access is deprecated.</li>
+<li>'UClass::ClassDefaultObject' is deprecated in favor of global <code>GetDefault&lt;&gt;()</code> or <code>GetMutableDefault&lt;&gt;()</code>.</li>
+</ul>
 <h1 id="ue55"><a class="header" href="#ue55">UE5.5</a></h1>
 <ul>
 <li>A new series batch scripts named <code>Engine/Build/BatchFiles/RunUBT</code> are added which will will do a bunch of checks before running <code>UnrealBuildTool</code>.

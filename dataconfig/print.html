@@ -393,6 +393,7 @@ extern FDcDebug gDcDebug;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="integration"><a class="header" href="#integration">Integration</a></h1>
 <p>At the moment it supports these the engine versions below:</p>
 <ul>
+<li>UE 5.6</li>
 <li>UE 5.5</li>
 <li>UE 5.4</li>
 <li>UE 5.3 </li>
@@ -3527,6 +3528,12 @@ You can do it in Visual Studio or with commands below:</p>
 <p><img src="Advanced/../Images/Integration-DataConfigAutomations.png" alt="Integration-DataConfigAutomations" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="unreal-engine-upgrades"><a class="header" href="#unreal-engine-upgrades">Unreal Engine Upgrades</a></h1>
 <p>DataConfig is committed to support multiple UE versions with no deprecations and warnings. On this page we'll document important upgrade and migration info.</p>
+<h1 id="ue56"><a class="header" href="#ue56">UE5.6</a></h1>
+<ul>
+<li><code>FString::Appendf</code> and series of functions now do compile time check on the format string, requires the format string to be a static constexpr.</li>
+<li><code>GMalloc</code> access is deprecated.</li>
+<li>'UClass::ClassDefaultObject' is deprecated in favor of global <code>GetDefault&lt;&gt;()</code> or <code>GetMutableDefault&lt;&gt;()</code>.</li>
+</ul>
 <h1 id="ue55"><a class="header" href="#ue55">UE5.5</a></h1>
 <ul>
 <li>A new series batch scripts named <code>Engine/Build/BatchFiles/RunUBT</code> are added which will will do a bunch of checks before running <code>UnrealBuildTool</code>.
@@ -3640,6 +3647,10 @@ return Entry.Name == FName(TEXT(&quot;Enum&quot;));
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="174---2025-5-15"><a class="header" href="#174---2025-5-15">1.7.4 - 2025-5-15</a></h2>
+<ul>
+<li>Initial UE 5.6 support.</li>
+</ul>
 <h2 id="173---2024-12-25"><a class="header" href="#173---2024-12-25">1.7.3 - 2024-12-25</a></h2>
 <ul>
 <li><strong>FIX</strong> Fix uninitialized struct fields which causes bogus errors.</li>
@@ -3967,7 +3978,7 @@ Now it only checks for <code>CPF_InstancedReference</code>.</li>
 <p>DataConfig is released under <a href="https://choosealicense.com/licenses/mit/" title="MIT License">MIT License</a>.</p>
 <pre><code>MIT License
 
-Copyright (c) 2021-2024 Chen Tao 
+Copyright (c) 2021-2025 Chen Tao 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -3990,7 +4001,7 @@ SOFTWARE.
 <h2 id="attribution"><a class="header" href="#attribution">Attribution</a></h2>
 <p>If you find DataConfig useful in your project, consider credit us in your project with the full license above or the shorter snippets below. </p>
 <pre><code>DataConfig &lt;https//slowburn.dev/dataconfig&gt;
-MIT License, Copyright (c) 2021-2024 Chen Tao
+MIT License, Copyright (c) 2021-2025 Chen Tao
 </code></pre>
 <p>There's also <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a> on UE Marketplace. It's a premium plugin for importing JSON to UE data assets.</p>
 <p>You can reach us by email to <a href="mailto:hislowburn@gmail.com">hislowburn@gmail.com</a> or on twitter <a href="https://twitter.com/slowburndev">@slowburndev</a>. </p>

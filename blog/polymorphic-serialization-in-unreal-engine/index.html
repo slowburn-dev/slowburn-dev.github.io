@@ -52,23 +52,23 @@
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
 <p>Here's a classical toy example of C++ polymorphism: a base <code>Shape</code> class with derived <code>Rect</code> and <code>Circle</code>.</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#8959a8;">struct </span><span>Shape</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#8959a8;">virtual float </span><span style="color:#c99e00;">Size</span><span>() </span><span style="color:#3e999f;">= </span><span style="color:#f5871f;">0</span><span>;</span><span>
-</span><span>};</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#8959a8;">struct </span><span>Shape
+</span><span>{
+</span><span>    </span><span style="color:#8959a8;">virtual float </span><span style="color:#c99e00;">Size</span><span>() </span><span style="color:#3e999f;">= </span><span style="color:#f5871f;">0</span><span>;
+</span><span>};
 </span><span>
-</span><span style="color:#8959a8;">struct </span><span>Rect : </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">Shape</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#8959a8;">float</span><span> Width;</span><span>
-</span><span>    </span><span style="color:#8959a8;">float</span><span> Height;</span><span>
-</span><span>    </span><span style="color:#8959a8;">float </span><span style="color:#c99e00;">Size</span><span>() </span><span style="color:#c82829;">override </span><span style="color:#4271ae;">{ </span><span style="color:#8959a8;">return</span><span style="color:#4271ae;"> Width </span><span style="color:#3e999f;">*</span><span style="color:#4271ae;"> Height; }</span><span>
-</span><span>};</span><span>
+</span><span style="color:#8959a8;">struct </span><span>Rect : </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">Shape
+</span><span>{
+</span><span>    </span><span style="color:#8959a8;">float</span><span> Width;
+</span><span>    </span><span style="color:#8959a8;">float</span><span> Height;
+</span><span>    </span><span style="color:#8959a8;">float </span><span style="color:#c99e00;">Size</span><span>() </span><span style="color:#c82829;">override </span><span style="color:#4271ae;">{ </span><span style="color:#8959a8;">return</span><span style="color:#4271ae;"> Width </span><span style="color:#3e999f;">*</span><span style="color:#4271ae;"> Height; }
+</span><span>};
 </span><span>
-</span><span style="color:#8959a8;">struct </span><span>Circle : </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">Shape</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#8959a8;">float</span><span> Radius;</span><span>
-</span><span>    </span><span style="color:#8959a8;">float </span><span style="color:#c99e00;">Size</span><span>() </span><span style="color:#c82829;">override </span><span style="color:#4271ae;">{ </span><span style="color:#8959a8;">return </span><span style="color:#f5871f;">3.14</span><span style="color:#8959a8;">f </span><span style="color:#3e999f;">*</span><span style="color:#4271ae;"> Radius </span><span style="color:#3e999f;">*</span><span style="color:#4271ae;"> Radius; }</span><span>
-</span><span>};</span><span>
+</span><span style="color:#8959a8;">struct </span><span>Circle : </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">Shape
+</span><span>{
+</span><span>    </span><span style="color:#8959a8;">float</span><span> Radius;
+</span><span>    </span><span style="color:#8959a8;">float </span><span style="color:#c99e00;">Size</span><span>() </span><span style="color:#c82829;">override </span><span style="color:#4271ae;">{ </span><span style="color:#8959a8;">return </span><span style="color:#f5871f;">3.14</span><span style="color:#8959a8;">f </span><span style="color:#3e999f;">*</span><span style="color:#4271ae;"> Radius </span><span style="color:#3e999f;">*</span><span style="color:#4271ae;"> Radius; }
+</span><span>};
 </span></code></pre>
 <p>Now <code>virtual float Size()</code> is a <em>virtual function</em> which implements runtime polymorphism. The thing we're more interested in is that given a <code>Shape</code> pointer or reference, how can we serialize it with correct type info and its member fields? This process is what we call <strong>polymorphic serialization</strong>.</p>
 <p>Note that there's no out of the box solution with stock C++ and STL. It's actually pretty tricky to implement when you think about it:</p>
@@ -83,53 +83,53 @@
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
 <p>We know that <code>UObject</code> is Unreal Engine's <a href="https://docs.unrealengine.com/5.1/en-US/objects-in-unreal-engine/">magical class</a> that support reflection, serialization and everything. The first solution here is to take advantage of <strong>Instanced Object</strong>, which is toggled with <code>UCLASS(DefaultToInstanced)</code>:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UCLASS</span><span>(Abstract, BlueprintType, EditInlineNew, DefaultToInstanced)</span><span>
-</span><span style="color:#8959a8;">class </span><span>DATACONFIGEXTRA_API </span><span style="color:#c99e00;">UDcBaseShape </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UObject</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
-</span><span style="color:#8959a8;">public</span><span>:</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UCLASS</span><span>(Abstract, BlueprintType, EditInlineNew, DefaultToInstanced)
+</span><span style="color:#8959a8;">class </span><span>DATACONFIGEXTRA_API </span><span style="color:#c99e00;">UDcBaseShape </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UObject
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
+</span><span style="color:#8959a8;">public</span><span>:
 </span><span>
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere)</span><span> FName ShapeName;</span><span>
-</span><span>};</span><span>
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere)</span><span> FName ShapeName;
+</span><span>};
 </span><span>
-</span><span style="color:#c82829;">UCLASS</span><span>()</span><span>
-</span><span style="color:#8959a8;">class </span><span>DATACONFIGEXTRA_API </span><span style="color:#c99e00;">UDcShapeBox </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcBaseShape</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
-</span><span style="color:#8959a8;">public</span><span>:</span><span>
+</span><span style="color:#c82829;">UCLASS</span><span>()
+</span><span style="color:#8959a8;">class </span><span>DATACONFIGEXTRA_API </span><span style="color:#c99e00;">UDcShapeBox </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcBaseShape
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
+</span><span style="color:#8959a8;">public</span><span>:
 </span><span>
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Height;</span><span>
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Width;</span><span>
-</span><span>};</span><span>
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Height;
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Width;
+</span><span>};
 </span><span>
-</span><span style="color:#c82829;">UCLASS</span><span>()</span><span>
-</span><span style="color:#8959a8;">class </span><span>DATACONFIGEXTRA_API </span><span style="color:#c99e00;">UDcShapeSquare </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcBaseShape</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
-</span><span style="color:#8959a8;">public</span><span>:</span><span>
+</span><span style="color:#c82829;">UCLASS</span><span>()
+</span><span style="color:#8959a8;">class </span><span>DATACONFIGEXTRA_API </span><span style="color:#c99e00;">UDcShapeSquare </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UDcBaseShape
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
+</span><span style="color:#8959a8;">public</span><span>:
 </span><span>
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Radius;</span><span>
-</span><span>};</span><span>
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Radius;
+</span><span>};
 </span></code></pre>
 <p>Here're some good docs on the <a href="https://benui.ca/unreal/uproperty">UPROPERTY</a> and <a href="https://benui.ca/unreal/uclass/">UCLASS</a> flags. To use these classes simply setup a <code>UDcBaseShape*</code> property with <code>Instanced</code> flag.</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UPROPERTY</span><span>(EditAnywhere, Instanced)</span><span>
-</span><span>UDcBaseShape</span><span style="color:#3e999f;">*</span><span> ShapeField1;</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UPROPERTY</span><span>(EditAnywhere, Instanced)
+</span><span>UDcBaseShape</span><span style="color:#3e999f;">*</span><span> ShapeField1;
 </span></code></pre>
 <p>In Unreal Editor it looks like this:</p>
-<p><img src="dcbaseshape-property.png" alt="DcBaseShape Property in Unreal Editor" /></p>
+<p><img src="https://slowburn.dev/blog/polymorphic-serialization-in-unreal-engine/dcbaseshape-property.png" alt="DcBaseShape Property in Unreal Editor" /></p>
 <p>Under the hood instanced children <code>UObject</code>s would be created for each field. These sub objects get serialized along with their parent object and have the same lifetime.</p>
-<p>Note that it also works as intended with <code>TArray/TMap</code>, with proper editor and serialization support. </p>
+<p>Note that it also works as intended with <code>TArray/TMap</code>, with proper editor and serialization support.</p>
 <p>Instanced objects are used in UE5's <a href="https://www.unrealdirective.com/articles/modular-game-features-what-you-need-to-know">Modular Game Features plugin</a>. There're sample setups of <code>GameFeatureData</code> in <a href="https://dev.epicgames.com/community/learning/paths/Z4/lyra-starter-game">Lyra</a>. One primary DataAsset class looks like this:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UCLASS</span><span>()</span><span>
-</span><span style="color:#8959a8;">class </span><span>GAMEFEATURES_API </span><span style="color:#c99e00;">UGameFeatureData </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UPrimaryDataAsset</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#999999;">// ...</span><span style="color:#999999;">
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span>(EditDefaultsOnly, Instanced, Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;Actions&quot;</span><span>)</span><span>
-</span><span>    TArray&lt;TObjectPtr&lt;UGameFeatureAction&gt;&gt; Actions;</span><span>
-</span><span>};</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UCLASS</span><span>()
+</span><span style="color:#8959a8;">class </span><span>GAMEFEATURES_API </span><span style="color:#c99e00;">UGameFeatureData </span><span>: </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">UPrimaryDataAsset
+</span><span>{
+</span><span>    </span><span style="color:#999999;">// ...
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span>(EditDefaultsOnly, Instanced, Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;Actions&quot;</span><span>)
+</span><span>    TArray&lt;TObjectPtr&lt;UGameFeatureAction&gt;&gt; Actions;
+</span><span>};
 </span></code></pre>
 <p>In Lyra the <code>ShooterCore</code> is a instance of of <code>GameFeatureData</code> and the actions setup in the editor looks like this:</p>
-<p><img src="lyra-gamefeatureaction-shootercore.png" alt="Lyra GameFeatureActions ShooterCore" /></p>
+<p><img src="https://slowburn.dev/blog/polymorphic-serialization-in-unreal-engine/lyra-gamefeatureaction-shootercore.png" alt="Lyra GameFeatureActions ShooterCore" /></p>
 <p>This is an example of UE's way of doing data driven game development. By setting up polymorphic instanced objects you can mix and match these actions and eventually build up modular features without hard code stuff in C++.</p>
 <h2 id="instanced-struct">Instanced Struct<a class="zola-anchor" href="#instanced-struct">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
@@ -139,101 +139,101 @@
 <li>Unnecessary <code>UObject</code> overhead. For simple classes like <code>UDcShapeBox</code> the overhead outweights its two <code>float</code> members already.</li>
 <li>In many cases we don't need the <code>UObject</code> semantics. <code>UObject</code> can be GCed, referenced and stuff but in many cases we just want a simple data container that's owned by its parent.</li>
 </ul>
-<p>Well turns out there's a solution to all the issues above. Starting with UE5.0 there's a new plugin <a href="https://docs.unrealengine.com/5.0/en-US/API/Plugins/StructUtils/">StructUtils</a> with a struct <a href="https://docs.unrealengine.com/5.0/en-US/API/Plugins/StructUtils/FInstancedStruct/"><code>FInstancedStruct</code></a>. It does exactly what it's name suggests: same feature as instanced objects but now uses all <code>USTRUCT</code>s. </p>
+<p>Well turns out there's a solution to all the issues above. Starting with UE5.0 there's a new plugin <a href="https://docs.unrealengine.com/5.0/en-US/API/Plugins/StructUtils/">StructUtils</a> with a struct <a href="https://docs.unrealengine.com/5.0/en-US/API/Plugins/StructUtils/FInstancedStruct/"><code>FInstancedStruct</code></a>. It does exactly what it's name suggests: same feature as instanced objects but now uses all <code>USTRUCT</code>s.</p>
 <p>The class hierarchy above ported struct looks like this:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">USTRUCT</span><span>(BlueprintType)</span><span>
-</span><span style="color:#8959a8;">struct </span><span>DATACONFIGEXTRA_API FDcStructShapeBase</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere)</span><span> FName ShapeName;</span><span>
-</span><span>};</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">USTRUCT</span><span>(BlueprintType)
+</span><span style="color:#8959a8;">struct </span><span>DATACONFIGEXTRA_API FDcStructShapeBase
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere)</span><span> FName ShapeName;
+</span><span>};
 </span><span>
-</span><span style="color:#c82829;">USTRUCT</span><span>(BlueprintType)</span><span>
-</span><span style="color:#8959a8;">struct </span><span>DATACONFIGEXTRA_API FDcStructShapeRectangle : </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">FDcStructShapeBase</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Height;</span><span>
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Width;</span><span>
-</span><span>};</span><span>
+</span><span style="color:#c82829;">USTRUCT</span><span>(BlueprintType)
+</span><span style="color:#8959a8;">struct </span><span>DATACONFIGEXTRA_API FDcStructShapeRectangle : </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">FDcStructShapeBase
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Height;
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Width;
+</span><span>};
 </span><span>
-</span><span style="color:#c82829;">USTRUCT</span><span>(BlueprintType)</span><span>
-</span><span style="color:#8959a8;">struct </span><span>DATACONFIGEXTRA_API FDcStructShapeCircle : </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">FDcStructShapeBase</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()</span><span>
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Radius;</span><span>
-</span><span>};</span><span>
+</span><span style="color:#c82829;">USTRUCT</span><span>(BlueprintType)
+</span><span style="color:#8959a8;">struct </span><span>DATACONFIGEXTRA_API FDcStructShapeCircle : </span><span style="color:#8959a8;">public </span><span style="color:#718c00;">FDcStructShapeBase
+</span><span>{
+</span><span>    </span><span style="color:#c82829;">GENERATED_BODY</span><span>()
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere) </span><span style="color:#8959a8;">float</span><span> Radius;
+</span><span>};
 </span></code></pre>
 <p>Note all these structs are all plain <code>USTRUCT</code>s. To use these structs setup a <code>FInstancedStruct</code> property like this:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere, meta </span><span style="color:#3e999f;">= </span><span style="color:#4271ae;">(BaseStruct </span><span style="color:#3e999f;">= </span><span style="color:#718c00;">&quot;DcStructShapeBase&quot;</span><span style="color:#4271ae;">))</span><span>
-</span><span>FInstancedStruct ShapeField1;</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(EditAnywhere, meta </span><span style="color:#3e999f;">= </span><span style="color:#4271ae;">(BaseStruct </span><span style="color:#3e999f;">= </span><span style="color:#718c00;">&quot;DcStructShapeBase&quot;</span><span style="color:#4271ae;">))
+</span><span>FInstancedStruct ShapeField1;
 </span></code></pre>
 <p>In Unreal Editor it looks almost the same as instanced objects:</p>
-<p><img src="dcstructshapebase-instancedstruct.png" alt="DcStructShapeBase InstancedStruct" /></p>
+<p><img src="https://slowburn.dev/blog/polymorphic-serialization-in-unreal-engine/dcstructshapebase-instancedstruct.png" alt="DcStructShapeBase InstancedStruct" /></p>
 <p>As you would expect serialization also works as intended. This is almost a drop in replacement for instanced objects for most use cases.</p>
 <p>Instanced structs comes along with <a href="https://dev.epicgames.com/community/learning/talks-and-demos/37Oz/large-numbers-of-entities-with-mass-in-unreal-engine-5">Mass framework</a> and it's used a lot there. In the <a href="https://www.unrealengine.com/marketplace/en-US/product/city-sample">City Sample</a> there's an sample of <code>FInstancedStruct</code> in action:</p>
-<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UCLASS</span><span style="color:#4271ae;">(meta</span><span style="color:#3e999f;">=</span><span style="color:#4271ae;">(DisplayName</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;Assorted Fragments&quot;</span><span style="color:#4271ae;">))</span><span>
-</span><span style="color:#8959a8;">class</span><span> MASSSPAWNER_API UMassAssortedFragmentsTrait </span><span style="color:#3e999f;">:</span><span> public UMassEntityTraitBase</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#999999;">// ...</span><span style="color:#999999;">
-</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;Fragments&quot;</span><span style="color:#4271ae;">, EditAnywhere, meta </span><span style="color:#3e999f;">= </span><span style="color:#4271ae;">(BaseStruct </span><span style="color:#3e999f;">= </span><span style="color:#718c00;">&quot;/Script/MassEntity.MassFragment&quot;</span><span style="color:#4271ae;">, ExcludeBaseStruct))</span><span>
-</span><span>    TArray&lt;FInstancedStruct&gt; Fragments;</span><span>
-</span><span>};</span><span>
+<pre data-lang="c++" style="background-color:#ffffff;color:#4d4d4c;" class="language-c++ "><code class="language-c++" data-lang="c++"><span style="color:#c82829;">UCLASS</span><span style="color:#4271ae;">(meta</span><span style="color:#3e999f;">=</span><span style="color:#4271ae;">(DisplayName</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;Assorted Fragments&quot;</span><span style="color:#4271ae;">))
+</span><span style="color:#8959a8;">class</span><span> MASSSPAWNER_API UMassAssortedFragmentsTrait </span><span style="color:#3e999f;">:</span><span> public UMassEntityTraitBase
+</span><span>{
+</span><span>    </span><span style="color:#999999;">// ...
+</span><span>    </span><span style="color:#c82829;">UPROPERTY</span><span style="color:#4271ae;">(Category</span><span style="color:#3e999f;">=</span><span style="color:#718c00;">&quot;Fragments&quot;</span><span style="color:#4271ae;">, EditAnywhere, meta </span><span style="color:#3e999f;">= </span><span style="color:#4271ae;">(BaseStruct </span><span style="color:#3e999f;">= </span><span style="color:#718c00;">&quot;/Script/MassEntity.MassFragment&quot;</span><span style="color:#4271ae;">, ExcludeBaseStruct))
+</span><span>    TArray&lt;FInstancedStruct&gt; Fragments;
+</span><span>};
 </span></code></pre>
 <p>In the editor the <code>Fragments</code> looks like this:</p>
-<p><img src="city-assortedfragments-masscrowdagentconfig.png" alt="City AssortedFragments MassCrowdAgentConfig" /></p>
+<p><img src="https://slowburn.dev/blog/polymorphic-serialization-in-unreal-engine/city-assortedfragments-masscrowdagentconfig.png" alt="City AssortedFragments MassCrowdAgentConfig" /></p>
 <p>It also looks the same as the instanced object counter parts. Under the hood it saves some memory but more importantly it gives you peace of mind for cutting the unneeded overhead for <code>UObject</code>.</p>
 <h2 id="polymorphic-serialization-with-dataconfig">Polymorphic Serialization with DataConfig<a class="zola-anchor" href="#polymorphic-serialization-with-dataconfig">
 <svg class="octicon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
 </a></h2>
 <p>If you haven't noticed yet, we're working on <a href="https://github.com/slowburn-dev/DataConfig">DataConfig</a> which is a serialization framework that supports JSON and MsgPack. At the very start we're determined to support polymorphic serialization as a very typical use case.</p>
 <p>In the last <a href="https://slowburn.dev/dcjsonasset/Tooling.html#context-menu-actions">DataConfig JSON Asset</a> release we added a feature to dump DataAssets as JSON. The <code>ShooterCore</code> example above would be dumped like this:</p>
-<pre data-lang="json" style="background-color:#ffffff;color:#4d4d4c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#999999;">// /ShooterCore/ShooterCore</span><span>
-</span><span>{</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameFeatureData&quot;</span><span>,</span><span>
-</span><span>    </span><span style="color:#718c00;">&quot;Actions&quot; </span><span>: [</span><span>
-</span><span>        {</span><span>
-</span><span>            </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameFeatureAction_AddComponents&quot;</span><span>,</span><span>
-</span><span>            </span><span style="color:#718c00;">&quot;ComponentList&quot; </span><span>: [</span><span>
-</span><span>                {</span><span>
-</span><span>                    </span><span style="color:#718c00;">&quot;ActorClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameStateBase&quot;</span><span>,</span><span>
-</span><span>                    </span><span style="color:#718c00;">&quot;ComponentClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;/ShooterCore/Accolades/B_EliminationFeedRelay&quot;</span><span>,</span><span>
-</span><span>                    </span><span style="color:#718c00;">&quot;bClientComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>,</span><span>
-</span><span>                    </span><span style="color:#718c00;">&quot;bServerComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>
-</span><span>                },</span><span>
-</span><span>                {</span><span>
-</span><span>                    </span><span style="color:#718c00;">&quot;ActorClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;LyraCharacter&quot;</span><span>,</span><span>
-</span><span>                    </span><span style="color:#718c00;">&quot;ComponentClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;LyraEquipmentManagerComponent&quot;</span><span>,</span><span>
-</span><span>                    </span><span style="color:#718c00;">&quot;bClientComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>,</span><span>
-</span><span>                    </span><span style="color:#718c00;">&quot;bServerComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>
-</span><span>                },</span><span>
-</span><span>                </span><span style="color:#999999;">// ...</span><span>
-</span><span>            ]</span><span>
-</span><span>        },</span><span>
-</span><span>        {</span><span>
-</span><span>            </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameFeatureAction_DataRegistry&quot;</span><span>,</span><span>
-</span><span>            </span><span style="color:#718c00;">&quot;RegistriesToAdd&quot; </span><span>: [</span><span>
-</span><span>                </span><span style="color:#718c00;">&quot;/ShooterCore/Accolades/AccoladeDataRegistry&quot;</span><span>
-</span><span>            ]</span><span>
-</span><span>        }</span><span>
-</span><span>        </span><span style="color:#999999;">// ...</span><span>
-</span><span>    ]</span><span>
-</span><span>}</span><span>
+<pre data-lang="json" style="background-color:#ffffff;color:#4d4d4c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#999999;">// /ShooterCore/ShooterCore
+</span><span>{
+</span><span>    </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameFeatureData&quot;</span><span>,
+</span><span>    </span><span style="color:#718c00;">&quot;Actions&quot; </span><span>: [
+</span><span>        {
+</span><span>            </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameFeatureAction_AddComponents&quot;</span><span>,
+</span><span>            </span><span style="color:#718c00;">&quot;ComponentList&quot; </span><span>: [
+</span><span>                {
+</span><span>                    </span><span style="color:#718c00;">&quot;ActorClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameStateBase&quot;</span><span>,
+</span><span>                    </span><span style="color:#718c00;">&quot;ComponentClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;/ShooterCore/Accolades/B_EliminationFeedRelay&quot;</span><span>,
+</span><span>                    </span><span style="color:#718c00;">&quot;bClientComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>,
+</span><span>                    </span><span style="color:#718c00;">&quot;bServerComponent&quot; </span><span>: </span><span style="color:#f5871f;">true
+</span><span>                },
+</span><span>                {
+</span><span>                    </span><span style="color:#718c00;">&quot;ActorClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;LyraCharacter&quot;</span><span>,
+</span><span>                    </span><span style="color:#718c00;">&quot;ComponentClass&quot; </span><span>: </span><span style="color:#718c00;">&quot;LyraEquipmentManagerComponent&quot;</span><span>,
+</span><span>                    </span><span style="color:#718c00;">&quot;bClientComponent&quot; </span><span>: </span><span style="color:#f5871f;">true</span><span>,
+</span><span>                    </span><span style="color:#718c00;">&quot;bServerComponent&quot; </span><span>: </span><span style="color:#f5871f;">true
+</span><span>                },
+</span><span>                </span><span style="color:#999999;">// ...
+</span><span>            ]
+</span><span>        },
+</span><span>        {
+</span><span>            </span><span style="color:#718c00;">&quot;$type&quot; </span><span>: </span><span style="color:#718c00;">&quot;GameFeatureAction_DataRegistry&quot;</span><span>,
+</span><span>            </span><span style="color:#718c00;">&quot;RegistriesToAdd&quot; </span><span>: [
+</span><span>                </span><span style="color:#718c00;">&quot;/ShooterCore/Accolades/AccoladeDataRegistry&quot;
+</span><span>            ]
+</span><span>        }
+</span><span>        </span><span style="color:#999999;">// ...
+</span><span>    ]
+</span><span>}
 </span></code></pre>
 <p>You can see <a href="https://github.com/slowburn-dev/site-gists/tree/main/DcJsonAssetDumps">more dump results from Lyra and CitySample here</a>. With DataConfig both instanced object and struct can be serialized and deserialized. For more details:</p>
 <ul>
 <li><a href="https://slowburn.dev/dataconfig/Formats/JSON.html#sub-objects">DataConfig - JSON - Instanced Objects</a></li>
 <li><a href="https://slowburn.dev/dataconfig/Extra/InstancedStruct.html">DataConfig - Extra - Instanced Struct</a></li>
 </ul>
-<p>Finally we have a cool example which takes an extra step over instanced struct: <a href="https://slowburn.dev/dataconfig/Extra/InlineStruct.html">Inline Struct</a> behaves like instanced struct but it stores the struct instance inline. This avoids heap allocation and offers better data locality. The trade off is that the contained struct sizes are limited. </p>
+<p>Finally we have a cool example which takes an extra step over instanced struct: <a href="https://slowburn.dev/dataconfig/Extra/InlineStruct.html">Inline Struct</a> behaves like instanced struct but it stores the struct instance inline. This avoids heap allocation and offers better data locality. The trade off is that the contained struct sizes are limited.</p>
 <p>We provide <code>FDcInlineStruct64/FDcInlineStruct128/FDcInlineStruct256/FDcInlineStruct512</code> which have varying sizes. The deserialization process also verify that the struct class can be contained within the inline buffer. Otherwise it would report the dialgnose message below:</p>
-<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span># DataConfig Error: Inline struct too big: BufSize &#39;56&#39;, Struct &#39;DcExtraTestStruct128&#39; Size &#39;128&#39;</span><span>
-</span><span>- [WideCharDcJsonReader] --&gt; &lt;in-memory&gt;5:38</span><span>
-</span><span>   3 |        {</span><span>
-</span><span>   4 |            &quot;InlineField1&quot; : {</span><span>
-</span><span>   5 |                &quot;$type&quot; : &quot;DcExtraTestStruct128&quot;,</span><span>
-</span><span>     |                                                ^</span><span>
-</span><span>   6 |                &quot;NameField&quot; : &quot;Foo&quot;</span><span>
-</span><span>   7 |            },</span><span>
+<pre style="background-color:#ffffff;color:#4d4d4c;"><code><span># DataConfig Error: Inline struct too big: BufSize &#39;56&#39;, Struct &#39;DcExtraTestStruct128&#39; Size &#39;128&#39;
+</span><span>- [WideCharDcJsonReader] --&gt; &lt;in-memory&gt;5:38
+</span><span>   3 |        {
+</span><span>   4 |            &quot;InlineField1&quot; : {
+</span><span>   5 |                &quot;$type&quot; : &quot;DcExtraTestStruct128&quot;,
+</span><span>     |                                                ^
+</span><span>   6 |                &quot;NameField&quot; : &quot;Foo&quot;
+</span><span>   7 |            },
 </span></code></pre>
 <p><a href="https://github.com/slowburn-dev/DataConfig">DataConfig</a> has many other cool samples. Checkout links below if this interests you:</p>
 <ul>
