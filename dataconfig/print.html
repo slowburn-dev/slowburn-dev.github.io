@@ -169,12 +169,12 @@
 <h2 id="license"><a class="header" href="#license">License</a></h2>
 <p><strong>DataConfig</strong> is released under free and permissive MIT license. We'd really appreciate to credit us if you find it useful. See <a href="License.html">License</a> for details.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
-<p>Here're some short and quick examples showcasing DataConfig API usage and features. All code shown here can be found in the <a href="https://github.com/slowburn-dev/DataConfig/blob/release/DataConfig/Source/DataConfigTests/Private/DcTestBlurb.cpp" title="DcTestBlurb.cpp">repo</a>.</p>
+<p>Here are some short and quick examples showcasing DataConfig API usage and features. All code shown here can be found in the <a href="https://github.com/slowburn-dev/DataConfig/blob/release/DataConfig/Source/DataConfigTests/Private/DcTestBlurb.cpp" title="DcTestBlurb.cpp">repo</a>.</p>
 <h2 id="blueprint-nodes"><a class="header" href="#blueprint-nodes">Blueprint Nodes</a></h2>
 <p>If you integrated the full DataConfig plugin we have <a href="Examples/../Extra/BlueprintNodes.html">Blueprint Nodes</a> for you to quickly try it out.</p>
 <p>Create a Blueprint Actor and setup the <code>BeginPlay</code> event like this:</p>
 <p><img src="Examples/./Images/Examples-OnBeginPlayDump.png" alt="Examples OnBeginPlay Dump" /></p>
-<p>Then place the actor in the level and start play. The JSON string would be print to screen like this.</p>
+<p>Then place the actor in the level and start play. The JSON string would be printed to the screen like this.</p>
 <p><img src="Examples/./Images/Examples-BlueprintPrintToScreen.png" alt="Examples Blueprint PrintToScreen" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="json-deserialization"><a class="header" href="#json-deserialization">JSON Deserialization</a></h1>
 <ul>
@@ -277,7 +277,7 @@ DC_TRY(Ctx.Prepare());
 DC_TRY(Serializer.Serialize(Ctx));
 
 auto&amp; Buffer = Writer.GetMainBuffer();
-//  starts withMsgPack FIXMAP(3) header
+//  starts with MsgPack FIXMAP(3) header
 check(Buffer[0] == 0x83);   
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="custom-serialization-and-deserialization"><a class="header" href="#custom-serialization-and-deserialization">Custom Serialization And Deserialization</a></h1>
@@ -391,7 +391,7 @@ extern FDcDebug gDcDebug;
 </code></pre>
 <p>We need DLL name to locate <code>gDcDebug</code> in a non monolith build.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="integration"><a class="header" href="#integration">Integration</a></h1>
-<p>At the moment it supports these the engine versions below:</p>
+<p>At the moment it supports the following engine versions:</p>
 <ul>
 <li>UE 5.6</li>
 <li>UE 5.5</li>
@@ -426,10 +426,10 @@ extern FDcDebug gDcDebug;
       |- DataConfig.uplugin
 </code></pre>
 <ol start="3">
-<li><a href="Integration.html#validate-integration">Validate DataConfig plugin is integrated corrrectly</a>.</li>
+<li><a href="Integration.html#validate-integration">Validate DataConfig plugin is integrated correctly</a>.</li>
 </ol>
 <h3 id="generate-dataconfig-plugin-for-ue4ue5"><a class="header" href="#generate-dataconfig-plugin-for-ue4ue5">Generate DataConfig Plugin for UE4/UE5</a></h3>
-<p>DataConfig now uses separated <code>uplugin</code> files for UE4 and UE5 so that we can try out new features in UE5 without dropping support for UE4. We bundled scripts to generate clean plugins for UE4 and UE5. This is how the <a href="https://github.com/slowburn-dev/DataConfig/releases">DataConfig releases</a> are built.</p>
+<p>DataConfig now uses separate <code>uplugin</code> files for UE4 and UE5 so that we can try out new features in UE5 without dropping support for UE4. We bundled scripts to generate clean plugins for UE4 and UE5. This is how the <a href="https://github.com/slowburn-dev/DataConfig/releases">DataConfig releases</a> are built.</p>
 <pre><code class="language-shell">git clone https://github.com/slowburn-dev/DataConfig
 # requires python 3.6+
 python ./DataConfig/Misc/Scripts/make_dataconfig_ue4.py
@@ -437,7 +437,7 @@ python ./DataConfig/Misc/Scripts/make_dataconfig_ue54.py
 python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 </code></pre>
 <h3 id="dataconfigxxuplugin"><a class="header" href="#dataconfigxxuplugin"><code>DataConfigXX.uplugin</code></a></h3>
-<p>Ultimately we figured that we'll need multiple <code>.uplugin</code> files to support acrosss UE versions:</p>
+<p>Ultimately we figured that we'll need multiple <code>.uplugin</code> files to support across UE versions:</p>
 <table><thead><tr><th>Name</th><th>Version</th></tr></thead><tbody>
 <tr><td>DataConfig4.uplugin</td><td>4.25 - 4.27</td></tr>
 <tr><td>DataConfig54.uplugin</td><td>5.0 - 5.4</td></tr>
@@ -453,7 +453,7 @@ python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 <p>Delete <code>DataConfig4.uplugin</code>, and other <code>DataConfig5X.uplugin</code>.</p>
 </li>
 <li>
-<p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or you your project won't build</strong>.</p>
+<p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or your project won't build</strong>.</p>
 </li>
 </ol>
 <h3 id="manual-steps-for-ue4"><a class="header" href="#manual-steps-for-ue4">Manual Steps for UE4</a></h3>
@@ -465,7 +465,7 @@ python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 <p>Delete <code>DataConfig.uplugin</code>, then rename <code>DataConfig4.uplugin</code> to <code>DataConfig.uplugin</code>.</p>
 </li>
 <li>
-<p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or you your project won't build</strong>.</p>
+<p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or your project won't build</strong>.</p>
 </li>
 <li>
 <p>Additionally delete UE5 specific modules.</p>
@@ -488,13 +488,13 @@ python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 </ol>
 <h2 id="integrate-dataconfigcore-module"><a class="header" href="#integrate-dataconfigcore-module">Integrate <code>DataConfigCore</code> Module</a></h2>
 <p>DataConfig is packed into a plugin to bundle automation tests with a few assets. You're encouraged to integrate only the <code>DataConfigCore</code> module. It contains all core features with minimal dependencies. </p>
-<p>Most projects should has a editor module already setup. In this section we'll go through the steps of integrating <code>DataConfigCore</code> and build it with the project's <code>FooProjectEditor</code> module.</p>
+<p>Most projects should have an editor module already set up. In this section we'll go through the steps of integrating <code>DataConfigCore</code> and build it with the project's <code>FooProjectEditor</code> module.</p>
 <ol>
 <li>
 <p>Get a copy of this repository. Then copy <code>DataConfig/Source/DataConfigCore</code> into your project's <code>Source</code> directory.</p>
 </li>
 <li>
-<p>Edit <code>FooProjectEditor.Build.cs</code> add add <code>DataConfigCore</code> as an extra module:</p>
+<p>Edit <code>FooProjectEditor.Build.cs</code> and add <code>DataConfigCore</code> as an extra module:</p>
 <pre><code class="language-c++">using UnrealBuildTool;
 
 public class FooProjectEditor : ModuleRules
@@ -574,7 +574,7 @@ void FFooProjectEditorModule::ShutdownModule()
 <p>Runtime performance is <em>not</em> our top priority.</p>
 <p>We expect users to use DataConfig in an offline, editor only scenario. In this use case we favor some other aspects over runtime performance:</p>
 <ul>
-<li>Idiomatic. We follow <a href="https://docs.unrealengine.com/en-US/ProductionPipelines/DevelopmentSetup/CodingStandard/index.html" title="Epic C++ Coding StandardBlueprint Debugging in Unreal Engine">Unreal Engine C++ coding conventions</a> and keep core dependency to only <code>Core</code> and <code>CoreUObject</code>.</li>
+<li>Idiomatic. We follow <a href="https://docs.unrealengine.com/en-US/ProductionPipelines/DevelopmentSetup/CodingStandard/index.html" title="Epic C++ Coding Standard">Unreal Engine C++ coding conventions</a> and keep core dependency to only <code>Core</code> and <code>CoreUObject</code>.</li>
 <li>Friendly. When processing invalid data and invalid API usage DataConfig should not crash. It should fail explicitly with detailed context and diagnostics.</li>
 <li>Small code size / fast compile time. DataConfig tries not to expose template API. <code>TDcJsonReader</code> is explicit instantiated with its definition in private files.</li>
 <li>Light memory footprint. Our JSON parser does stream parsing and would <em>not</em> construct the loaded JSON document in memory at all.</li>
@@ -724,7 +724,7 @@ FDcPropertyReader Reader{FDcPropertyDatum(&amp;SimpleStruct)};
 DC_TRY(Reader.ReadStructRoot(&amp;Struct));   // `FDcTestExampleSimple` Struct Root
 
     DC_TRY(Reader.ReadName(&amp;FieldName));  // 'StrField' as FName
-    DC_TRY(Reader.ReadString(&amp;StrValue)); // &quot;Foo STr&quot;
+    DC_TRY(Reader.ReadString(&amp;StrValue)); // &quot;Foo Str&quot;
 
     DC_TRY(Reader.ReadName(&amp;FieldName));  // 'IntField' as FName
     DC_TRY(Reader.ReadInt32(&amp;IntValue));  // 253
@@ -945,12 +945,12 @@ void FDcEngineExtraModule::ShutdownModule()
 <p>You should look at builtin implementation for references. Here's some general rules and caveats:</p>
 <ul>
 <li>
-<p><code>PeekRead()/PeekWrite()</code> should act like it's side-effect free.</p>
+<p><code>PeekRead()/PeekWrite()</code> should act like they're side-effect free.</p>
 <p>This means that it's OK to call <code>PeekRead()/PeekWrite()</code> multiple times. In comparison access methods like <code>ReadBool()/WriteBool()</code> consume the data and alternate internal state. Note that under the hood it might do anything. Both returns <code>FDcResult</code> so the peek can fail. The reason behind this is that calling <code>PeekRead()/PeekWrite()</code> is totally optional. In <code>FDcJsonReader::PeekRead()</code> we do parsing and cache the parsed result to follow this convention.</p>
 </li>
 <li>
 <p><code>CastByID()</code> does not respect inheritance hierarchy.</p>
-<p>We have this very minimal RTTI implemetantion that only allow casting to the exact type.</p>
+<p>We have this very minimal RTTI implementation that only allows casting to the exact type.</p>
 </li>
 <li>
 <p>Implement a subset of the data model.</p>
@@ -966,7 +966,7 @@ void FDcEngineExtraModule::ShutdownModule()
 </ul>
 <p>These are all talked about in details in the <a href="Programming/../Formats/index.html" title="Formats">formats section</a>. We'll go through other builtin Reader/Writers below.</p>
 <h2 id="fdcpipevisitor-and-fdcprettyprintwriter"><a class="header" href="#fdcpipevisitor-and-fdcprettyprintwriter"><code>FDcPipeVisitor</code> and <code>FDcPrettyPrintWriter</code></a></h2>
-<p><code>FDcPipeVisitor</code> takes a <code>FDcReader</code> and a <code>FDcWriter</code> then start peek-read-write loop until it peeks <code>EDcDataEntry::Ended</code> from reader or an error happens </p>
+<p><code>FDcPipeVisitor</code> takes a <code>FDcReader</code> and a <code>FDcWriter</code> then starts a peek-read-write loop until it peeks <code>EDcDataEntry::Ended</code> from reader or an error happens </p>
 <p>Then there's <code>FDcPrettyPrintWriter</code> that dumps everything that got write to it as string.</p>
 <p>Combining these two we get a way to dump arbitrary <code>FDcReader</code> into a string!. This is how built-in debug dump features are implemented:</p>
 <pre><code class="language-c++">// DataConfigCore/Private/DataConfig/Automation/DcAutomationUtils.cpp
@@ -983,7 +983,7 @@ void DumpToOutputDevice(...)
 }
 </code></pre>
 <p><code>FDcPipeVisitor</code> is a handy utility that we use it extensively through the code base for various cases. Try <code>FDcPipeVisitor</code> when you got a reader/writer pair.</p>
-<p>There's also <code>FNoopWriter</code> takes every write and do nothing with it.</p>
+<p>There's also <code>FNoopWriter</code> that takes every write and does nothing with it.</p>
 <h2 id="composition"><a class="header" href="#composition">Composition</a></h2>
 <p>Reader/Writers can also be composited and nested:</p>
 <ul>
@@ -995,7 +995,7 @@ void DumpToOutputDevice(...)
 <div style="break-before: page; page-break-before: always;"></div><h1 id="serializerdeserializer"><a class="header" href="#serializerdeserializer">Serializer/Deserializer</a></h1>
 <p>Serializer/Deserializer are built on top of the data model to convert between external format and Unreal Engine property system.</p>
 <h2 id="context"><a class="header" href="#context">Context</a></h2>
-<p>A company class to the deserializer is <code>FDcDeserializeContext</code>:</p>
+<p>A companion class to the deserializer is <code>FDcDeserializeContext</code>:</p>
 <pre><code class="language-c++">// DataConfigCore/Public/DataConfig/Deserialize/DcDeserializeTypes.h
 struct DATACONFIGCORE_API FDcDeserializeContext
 {
@@ -1109,8 +1109,8 @@ Deserializer.AddPredicatedHandler(
 );
 </code></pre>
 <p>By convention the current deserializing property can be retrieved with <code>Ctx.TopProperty()</code>. <code>PredicateIsScalarArrayProperty</code> here
-checks if it's wring a scalar array with non 1 dimension, if that's the case it would need to treat it like an array.</p>
-<p>Note that all registered predicate handler is iterated through on every property, then proceed to handler on first success match or
+checks if it's writing a scalar array with non 1 dimension, if that's the case it would need to treat it like an array.</p>
+<p>Note that all registered predicate handlers are iterated through on every property, then proceed to handler on first success match or
 fall through to struct/direct handlers when no match. Use it only when struct/direct handlers doesn't fit.</p>
 <p>To recap:</p>
 <table><thead><tr><th style="text-align: left">Handler Type</th><th>Order</th><th>Usage</th><th>Execution</th></tr></thead><tbody>
@@ -1435,7 +1435,9 @@ struct FDcTestStructShapeContainer1
     UPROPERTY() UDcBaseShape* ShapeField1;
     UPROPERTY() UDcBaseShape* ShapeField2;
     UPROPERTY() UDcBaseShape* ShapeField3;
-}USTRUCT()
+};
+
+USTRUCT()
 struct FDcEditorExtraTestObjectRefs1
 {
     GENERATED_BODY()
@@ -1659,7 +1661,7 @@ DcAutomationUtils::DumpToLog(DestDatum);
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="msgpack"><a class="header" href="#msgpack">MsgPack</a></h1>
-<p><a href="https://msgpack.org/index.html" title="MsgPack">MsgPack</a> is an popular binary serialization format. It can be considered as a binary superset of JSON. Unreal Engine already supports <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Cbor" title="Cbor"><code>Cbor</code></a> module which is a format which is very similar to MsgPack.</p>
+<p><a href="https://msgpack.org/index.html" title="MsgPack">MsgPack</a> is a popular binary serialization format. It can be considered as a binary superset of JSON. Unreal Engine already supports <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Cbor" title="Cbor"><code>Cbor</code></a> module which is a format which is very similar to MsgPack.</p>
 <p>We choose to implement MsgPack as we're more familiar with it and also providing an alternative.</p>
 <h2 id="msgpack-readerwriter"><a class="header" href="#msgpack-readerwriter">MsgPack Reader/Writer</a></h2>
 <p>For the most part MsgPack reader/writer works just like their <a href="Formats/./Json.html">JSON counterpart</a>. There're just a few additional data types that belongs to this:</p>
@@ -1715,7 +1717,7 @@ like their JSON counterparts. </p>
 <table><thead><tr><th>EDcDataEntry</th><th>Serialized</th></tr></thead><tbody>
 <tr><td>Name</td><td><code>[uint32, uint32, int32]</code></td></tr>
 <tr><td>Text</td><td><code>[void*, void*, uint32]</code></td></tr>
-<tr><td>ObjectReference, ClassReference</td><td><code>void*</code></td></tr>
+<tr><td>ObjectReference, ClassReference,</td><td><code>void*</code></td></tr>
 <tr><td>SoftObjectReference, SoftClassReference</td><td><code>FString or void*</code></td></tr>
 <tr><td>WeakObjectReference</td><td><code>[int32, int32]</code></td></tr>
 <tr><td>LazyObjectReference</td><td><code>&lt;uuid as FIXEXT16&gt;</code></td></tr>
@@ -1821,7 +1823,7 @@ DcAutomationUtils::DumpToLog(&amp;Reader);
 <ul>
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigCore/Public/DataConfig/Property/DcPropertyTypes.h">DcPropertyTypes.h</a></li>
 </ul>
-<p>Property reader/writer accepts <code>FDcPropertyConfig</code> class for customizing behaviors. By default we've implemented <code>DcSkip</code> metadata that you can mark on <code>given reader/writer.URPOPERTY()</code> and the field would be skipped by given reader/writer:</p>
+<p>Property reader/writer accepts <code>FDcPropertyConfig</code> class for customizing behaviors. By default we've implemented <code>DcSkip</code> metadata that you can mark on <code>given reader/writer.UPROPERTY()</code> and the field would be skipped by given reader/writer:</p>
 <pre><code class="language-c++">//  DataConfigTests/Private/DcTestProperty3.h
 USTRUCT()
 struct FDcTestMeta1
@@ -1947,7 +1949,7 @@ FDcResult HandlerColorSerialize(FDcSerializeContext&amp; Ctx)
 </code></pre>
 <p>Note how <code>FDcPropertyReader::ReadDataEntry</code> and <code>FDcPropertyWriter::WriteDataEntry</code> retrieves the next property as a <code>FDcPropertyDatum</code>, which allows us to directly manipulate a <code>FColor</code> pointer.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="base64-blob-serializationdeserialization"><a class="header" href="#base64-blob-serializationdeserialization">Base64 Blob Serialization/Deserialization</a></h1>
-<p>This demonstrates conversion between<code>TArray&lt;uint8&gt;</code> and Base64 encoded strings in JSON:</p>
+<p>This demonstrates conversion between <code>TArray&lt;uint8&gt;</code> and Base64 encoded strings in JSON:</p>
 <ul>
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/SerDe/DcSerDeBase64.h">DcSerDeBase64.h</a></li>
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/SerDe/DcSerDeBase64.cpp">DcSerDeBase64.cpp</a></li>
@@ -1970,8 +1972,8 @@ FString Str = TEXT(R&quot;(
     }
 )&quot;);
 </code></pre>
-<p>Note that we're tagging the <code>BlobField</code> with <code>(meta = (DcExtraBase64))</code> to explicitly show that we' want this member to be converted into Base64.</p>
-<p>UE support <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Metadata/" title="Metadata Specifiers">arbitrary meta data in the <code>meta = ()</code> segment</a>. But beware that the meta data is only available when <code>WITH_EDITORDATA</code> flag is defined. In predicate we check for this <code>DcExtraBase64</code> like this:</p>
+<p>Note that we're tagging the <code>BlobField</code> with <code>(meta = (DcExtraBase64))</code> to explicitly show that we want this member to be converted into Base64.</p>
+<p>UE support <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Metadata/" title="Metadata Specifiers">arbitrary meta data in the <code>meta = ()</code> segment</a>. But beware that the meta data is only available when <code>WITH_EDITORDATA</code> flag is defined. In the predicate we check for this <code>DcExtraBase64</code> like this:</p>
 <pre><code class="language-c++">// DataConfigExtra/Private/DataConfig/Extra/SerDe/DcSerDeBase64.cpp
 EDcDeserializePredicateResult PredicateIsBase64Blob(FDcDeserializeContext&amp; Ctx)
 {
@@ -2331,7 +2333,7 @@ struct FDcExtraTestWithInlineStruct1
     GENERATED_BODY()
 
     UPROPERTY() FDcInlineStruct64 InlineField1;
-    UPROPERTY() FDcInlineStruct64 InlineField2;;
+    UPROPERTY() FDcInlineStruct64 InlineField2;
 };
 
 // DataConfigExtra/Private/DataConfig/Extra/SerDe/DcSerDeInlineStruct.cpp
@@ -2395,9 +2397,6 @@ struct FDcStructShapeCircle : public FDcStructShapeBase
 <pre><code class="language-c++">// DataConfigEngineExtra5/Public/DataConfig/EngineExtra/SerDe/DcSerDeInstancedStruct.h
 UPROPERTY(EditAnywhere, meta = (BaseStruct = &quot;/Script/DataConfigExtra.DcStructShapeBase&quot;))
 FInstancedStruct InstancedStruct1;
-
-UPROPERTY(EditAnywhere, meta = (BaseStruct = &quot;DcStructShapeBase&quot;))
-FInstancedStruct InstancedStruct2;
 </code></pre>
 <p>The best part is that the editor is also working as intended:</p>
 <p><img src="Extra/Images/DataConfigEditorExtra-InstancedStructEditor.png" alt="DataConfigEditorExtra-InstancedStructEditor" /></p>
@@ -2442,7 +2441,7 @@ FString Str = TEXT(R&quot;(
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcDeserializeRenameStructFieldNames.cpp">DcDeserializeRenameStructFieldNames.cpp</a></li>
 </ul>
 <pre><code class="language-c++">// DataConfigExtra/Private/DataConfig/Extra/Deserialize/DcDeserializeRenameStructFieldNames.cpp
-//  struct equivelent to this:
+//  struct equivalent to this:
 FString Str = TEXT(R&quot;(
     {
         &quot;FromName1&quot; : &quot;Foo&quot;,
@@ -2470,7 +2469,7 @@ UTEST_OK(&quot;...&quot;, DcExtra::DeserializeStructRenaming(
         return FromName;
 })));
 
-// ... results into a struct equivelent to this: 
+// ... results into a struct equivalent to this: 
 FString Str = TEXT(R&quot;(
     {
         &quot;ToName1&quot; : &quot;Foo&quot;,
@@ -2693,14 +2692,14 @@ void FDcEngineExtraModule::ShutdownModule()
 <p>Here's a checklist for integration:</p>
 <ul>
 <li>Register additional diagnostics early. </li>
-<li>Call <code>DcStartUp()/DcShutDonw()</code> pair.</li>
+<li>Call <code>DcStartUp()/DcShutDown()</code> pair.</li>
 <li>Register custom diagnostic consumer.</li>
 </ul>
 <p><code>FDcMessageLogDiagnosticConsumer</code> is an example of redirecting diagnostics to the UE Message Log window with its own category.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dump-asset-to-log"><a class="header" href="#dump-asset-to-log">Dump Asset To Log</a></h1>
 <p>In this example we added a <code>Dump Asset To Log</code> menu entry. After enabling it you can see it on the context menu on all asset types:</p>
 <p><img src="Extra/Images/DataConfigEditorExtra-DumpAssetToLog.png" alt="DataConfigEditorExtra-DumpAssetToLog" /></p>
-<p>On clicking it would use the pretty print writer to dump the asset into Output Log:</p>
+<p>Clicking it would use the pretty print writer to dump the asset into Output Log:</p>
 <p><img src="Extra/Images/DataConfigEditorExtra-DumpOutputLog.png" alt="DataConfigEditorExtra-DumpOutputLog" /></p>
 <p>This is implemented as an editor menu extender:</p>
 <ul>
@@ -2736,7 +2735,7 @@ TSharedRef&lt;FExtender&gt; DumpAssetToLogExtender(const TArray&lt;FAssetData&gt
 </code></pre>
 <p>When asset is a Blueprint we dump its CDO instead as it makes more sense.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="blueprint-serializationdeserialization"><a class="header" href="#blueprint-serializationdeserialization">Blueprint Serialization/Deserialization</a></h1>
-<p><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/reflection-system-in-unreal-engine" title="Unreal Engine Reflection System">The Property System</a> is so powerful that you can create new Blueprint Class/Struct, which is equivalent to C++ <code>UCLASS/USTRUCT</code> to some extents. In this example we'll show how to handle these in DataConfig. </p>
+<p><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/reflection-system-in-unreal-engine" title="Unreal Engine Reflection System">The Property System</a> is so powerful that you can create new Blueprint Class/Struct, which is equivalent to C++ <code>UCLASS/USTRUCT</code> to some extent. In this example we'll show how to handle these in DataConfig.</p>
 <p>The whole blueprint stuff depends on <code>Engine</code> module. This is also why we put related code into <code>DataConfigEngineExtra</code> module.</p>
 <h2 id="blueprint-class-and-object-references"><a class="header" href="#blueprint-class-and-object-references">Blueprint Class and Object references</a></h2>
 <p>Blueprint class are stored within <code>UBlueprint</code> typed assets. Note that we automatically unwrap the container in handlers.</p>
@@ -2794,9 +2793,9 @@ FString Str = TEXT(R&quot;(
     }
 )&quot;);
 </code></pre>
-<p>You can also reference on how to handle Blueprint enum in this example. It need some special care to convert between int value and the descriptive text set within the editor.</p>
+<p>You can also see how to handle Blueprint enums in this example. It needs some special care to convert between int value and the descriptive text set within the editor.</p>
 <h2 id="blueprint-struct-instance"><a class="header" href="#blueprint-struct-instance">Blueprint Struct Instance</a></h2>
-<p>Finally we're combined <code>FColor</code>, <code>FDcAnyStruct</code> and Blueprint struct into one single example:</p>
+<p>Finally we've combined <code>FColor</code>, <code>FDcAnyStruct</code> and Blueprint struct into one single example:</p>
 <p><img src="Extra/Images/DataConfigEditorExtra-BlueprintStruct.png" alt="DataConfigEditorExtra-BlueprintStruct" /></p>
 <pre><code class="language-c++">//DataConfigEngineExtra/Private/DataConfig/EngineExtra/SerDe/DcSerDeBlueprint.cpp
 FString Str = TEXT(R&quot;(
@@ -2898,7 +2897,7 @@ static FDcResult _StringToGameplayTag(FDcDeserializeContext&amp; Ctx, const FStr
     //...
 }
 </code></pre>
-<p>In case of a invalid tag it would report the reason and fixed string:</p>
+<p>In case of an invalid tag it would report the reason and fixed string:</p>
 <pre><code># DataConfig Error: Invalid Gameplay Tag String, Actual: 'DataConfig.Invalid.Tag.', Fixed: 'DataConfig.Invalid.Tag', Error: 'Tag ends with .'
 - [JsonReader] --&gt; &lt;in-memory&gt;5:4
    3 |        { 
@@ -2916,7 +2915,7 @@ static FDcResult _StringToGameplayTag(FDcDeserializeContext&amp; Ctx, const FStr
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigEditorExtra/Public/DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayAbility.h">DcDeserializeGameplayAbility.h</a></li>
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayAbility.cpp">DcDeserializeGameplayAbility.cpp</a></li>
 </ul>
-<p><a href="https://docs.unrealengine.com/en-US/InteractiveExperiences/GameplayAbilitySystem/index.html" title="Gameplay Ability System">Gameplay Ability System</a> is a built-in plugin for building data driven abilities. Users are expected to derived and modify <code>GameplayAbility</code> and <code>GameplayEffect</code> blueprint for custom logic. </p>
+<p><a href="https://docs.unrealengine.com/en-US/InteractiveExperiences/GameplayAbilitySystem/index.html" title="Gameplay Ability System">Gameplay Ability System</a> is a built-in plugin for building data driven abilities. Users are expected to derive and modify <code>GameplayAbility</code> and <code>GameplayEffect</code> blueprint for custom logic. </p>
 <p>Given a JSON like this:</p>
 <pre><code class="language-c++">// DataConfig/Tests/Fixture_AbilityAlpha.json
 {
@@ -2936,7 +2935,7 @@ static FDcResult _StringToGameplayTag(FDcDeserializeContext&amp; Ctx, const FStr
     &quot;InstancingPolicy&quot; : &quot;NonInstanced&quot;,
 }
 </code></pre>
-<p>Right click on a <code>GameplayAbility</code> blueprint asset and select <code>Load From JSON</code>， then select this file and confirm. It would correctly populate the fields with the values in JSON, as seen in the pic below:</p>
+<p>Right click on a <code>GameplayAbility</code> blueprint asset and select <code>Load From JSON</code>, then select this file and confirm. It would correctly populate the fields with the values in JSON, as seen in the pic below:</p>
 <p><img src="Extra/Images/DataConfigEditorExtra-LoadJsonIntoAbility.png" alt="DataConfigEditorExtra-LoadJsonIntoAbility" /></p>
 <p>Most of the logic is in <code>DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayAbility.cpp</code>:</p>
 <ul>
@@ -2945,7 +2944,7 @@ static FDcResult _StringToGameplayTag(FDcDeserializeContext&amp; Ctx, const FStr
 <li>We also reused many methods from previous examples to support <code>FGameplayTag</code> deserialization and Blueprint class look up by path.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="blueprint-nodes-1"><a class="header" href="#blueprint-nodes-1">Blueprint Nodes</a></h1>
-<p>We have a set of blueprint nodes that's have similar API as built-in <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/JsonBlueprintUtilities" title="JsonBlueprintUtilities">JsonBlueprintUtilities</a> plugin:</p>
+<p>We have a set of blueprint nodes that have similar API as built-in <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/JsonBlueprintUtilities" title="JsonBlueprintUtilities">JsonBlueprintUtilities</a> plugin:</p>
 <p><img src="Extra/./Images/DataConfigEngineExtra-BlueprintNodes.png" alt="Blueprint Nodes" /></p>
 <table><thead><tr><th>Category</th><th>Name</th><th>Usage</th></tr></thead><tbody>
 <tr><td>Dump</td><td>DataConfig Dump Object To JSON</td><td>Dump <code>UObject</code> to a JSON string.</td></tr>
@@ -3528,6 +3527,16 @@ You can do it in Visual Studio or with commands below:</p>
 <p><img src="Advanced/../Images/Integration-DataConfigAutomations.png" alt="Integration-DataConfigAutomations" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="unreal-engine-upgrades"><a class="header" href="#unreal-engine-upgrades">Unreal Engine Upgrades</a></h1>
 <p>DataConfig is committed to support multiple UE versions with no deprecations and warnings. On this page we'll document important upgrade and migration info.</p>
+<h1 id="ue57"><a class="header" href="#ue57">UE5.7</a></h1>
+<ul>
+<li><code>FindObject</code> series of functions deprecates <code>bExactClass</code> in favor of <code>EFindObjectFlags</code>.</li>
+<li>Many metadata fields like <code>BaseStruct</code>, <code>AllowedClasses</code> requires full long names: 
+<ul>
+<li>for example previously for instanced struct we can do this: <code>UPROPERTY(EditAnywhere, meta = (BaseStruct = &quot;DcStructShapeBase&quot;))</code>. Now it has to be using the full path starting with <code>/</code> like <code>UPROPERTY(EditAnywhere, meta = (BaseStruct = &quot;/Script/DataConfigExtra.DcStructShapeBase&quot;))</code>.</li>
+<li>See the full list in <code>LongPathNameMetaDataSpecifierValidator</code> in <code>UhtDefaultSpecifiers.cs</code>.</li>
+</ul>
+</li>
+</ul>
 <h1 id="ue56"><a class="header" href="#ue56">UE5.6</a></h1>
 <ul>
 <li><code>FString::Appendf</code> and series of functions now do compile time check on the format string, requires the format string to be a static constexpr.</li>
@@ -3647,6 +3656,10 @@ return Entry.Name == FName(TEXT(&quot;Enum&quot;));
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="175---2025-10-22"><a class="header" href="#175---2025-10-22">1.7.5 - 2025-10-22</a></h2>
+<ul>
+<li>Initial UE 5.7 support.</li>
+</ul>
 <h2 id="174---2025-5-15"><a class="header" href="#174---2025-5-15">1.7.4 - 2025-5-15</a></h2>
 <ul>
 <li>Initial UE 5.6 support.</li>
@@ -3842,7 +3855,7 @@ See: <a href="Formats/Property.html">Property</a></li>
 <li>Fix <code>TSet/TMap</code> serialization crashes.</li>
 <li>Fix soft object/class reference serialize to nil when it's not loaded.</li>
 <li>Fix pipe property class/object handlers.</li>
-<li>Fix <code>TObjectPtr&lt;&gt;</code> serialialzation and deserialization.</li>
+<li>Fix <code>TObjectPtr&lt;&gt;</code> serialization and deserialization.</li>
 <li>Fix <code>PeekReadDataPtr</code> on class property.</li>
 <li>Removed <code>FScopedStackedReader/FScopedStackedWriter</code> usage.</li>
 <li>Fix <code>HeuristicVerifyPointer</code> diagnostic.</li>
@@ -3945,7 +3958,7 @@ Now it only checks for <code>CPF_InstancedReference</code>.</li>
 </ul>
 </li>
 <li>Add <code>EDcDataEntry::Extension</code>.</li>
-<li>Add <code>FDcPropertyDatum</code> template constructor to directly construct one from a <code>FSturct*</code>.</li>
+<li>Add <code>FDcPropertyDatum</code> template constructor to directly construct one from a <code>FStruct*</code>.</li>
 <li><code>FPrettyPrintWriter</code> now print blobs with hash, previously it's pointer value.</li>
 <li><code>DcAutomationUtils::SerializeIntoJson/DeserializeIntoJson</code> -&gt; <code>SerializeInto/DeserializeFrom</code> as we're supporting other formats.</li>
 <li>Add <code>HeuristicVerifyPointer</code> to check common magic invalid pointers.</li>
@@ -4000,7 +4013,7 @@ SOFTWARE.
 </code></pre>
 <h2 id="attribution"><a class="header" href="#attribution">Attribution</a></h2>
 <p>If you find DataConfig useful in your project, consider credit us in your project with the full license above or the shorter snippets below. </p>
-<pre><code>DataConfig &lt;https//slowburn.dev/dataconfig&gt;
+<pre><code>DataConfig &lt;https://slowburn.dev/dataconfig&gt;
 MIT License, Copyright (c) 2021-2025 Chen Tao
 </code></pre>
 <p>There's also <a href="https://www.unrealengine.com/marketplace/en-US/product/dataconfig-json-asset" title="DataConfig JSON Asset">DataConfig JSON Asset</a> on UE Marketplace. It's a premium plugin for importing JSON to UE data assets.</p>

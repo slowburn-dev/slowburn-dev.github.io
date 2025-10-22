@@ -156,12 +156,12 @@
 <p>You should look at builtin implementation for references. Here's some general rules and caveats:</p>
 <ul>
 <li>
-<p><code>PeekRead()/PeekWrite()</code> should act like it's side-effect free.</p>
+<p><code>PeekRead()/PeekWrite()</code> should act like they're side-effect free.</p>
 <p>This means that it's OK to call <code>PeekRead()/PeekWrite()</code> multiple times. In comparison access methods like <code>ReadBool()/WriteBool()</code> consume the data and alternate internal state. Note that under the hood it might do anything. Both returns <code>FDcResult</code> so the peek can fail. The reason behind this is that calling <code>PeekRead()/PeekWrite()</code> is totally optional. In <code>FDcJsonReader::PeekRead()</code> we do parsing and cache the parsed result to follow this convention.</p>
 </li>
 <li>
 <p><code>CastByID()</code> does not respect inheritance hierarchy.</p>
-<p>We have this very minimal RTTI implemetantion that only allow casting to the exact type.</p>
+<p>We have this very minimal RTTI implementation that only allows casting to the exact type.</p>
 </li>
 <li>
 <p>Implement a subset of the data model.</p>
@@ -177,7 +177,7 @@
 </ul>
 <p>These are all talked about in details in the <a href="../Formats/index.html" title="Formats">formats section</a>. We'll go through other builtin Reader/Writers below.</p>
 <h2 id="fdcpipevisitor-and-fdcprettyprintwriter"><a class="header" href="#fdcpipevisitor-and-fdcprettyprintwriter"><code>FDcPipeVisitor</code> and <code>FDcPrettyPrintWriter</code></a></h2>
-<p><code>FDcPipeVisitor</code> takes a <code>FDcReader</code> and a <code>FDcWriter</code> then start peek-read-write loop until it peeks <code>EDcDataEntry::Ended</code> from reader or an error happens </p>
+<p><code>FDcPipeVisitor</code> takes a <code>FDcReader</code> and a <code>FDcWriter</code> then starts a peek-read-write loop until it peeks <code>EDcDataEntry::Ended</code> from reader or an error happens </p>
 <p>Then there's <code>FDcPrettyPrintWriter</code> that dumps everything that got write to it as string.</p>
 <p>Combining these two we get a way to dump arbitrary <code>FDcReader</code> into a string!. This is how built-in debug dump features are implemented:</p>
 <pre><code class="language-c++">// DataConfigCore/Private/DataConfig/Automation/DcAutomationUtils.cpp
@@ -194,7 +194,7 @@ void DumpToOutputDevice(...)
 }
 </code></pre>
 <p><code>FDcPipeVisitor</code> is a handy utility that we use it extensively through the code base for various cases. Try <code>FDcPipeVisitor</code> when you got a reader/writer pair.</p>
-<p>There's also <code>FNoopWriter</code> takes every write and do nothing with it.</p>
+<p>There's also <code>FNoopWriter</code> that takes every write and does nothing with it.</p>
 <h2 id="composition"><a class="header" href="#composition">Composition</a></h2>
 <p>Reader/Writers can also be composited and nested:</p>
 <ul>

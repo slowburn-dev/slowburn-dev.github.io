@@ -152,7 +152,7 @@
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigEditorExtra/Public/DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayAbility.h">DcDeserializeGameplayAbility.h</a></li>
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigEditorExtra/Private/DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayAbility.cpp">DcDeserializeGameplayAbility.cpp</a></li>
 </ul>
-<p><a href="https://docs.unrealengine.com/en-US/InteractiveExperiences/GameplayAbilitySystem/index.html" title="Gameplay Ability System">Gameplay Ability System</a> is a built-in plugin for building data driven abilities. Users are expected to derived and modify <code>GameplayAbility</code> and <code>GameplayEffect</code> blueprint for custom logic. </p>
+<p><a href="https://docs.unrealengine.com/en-US/InteractiveExperiences/GameplayAbilitySystem/index.html" title="Gameplay Ability System">Gameplay Ability System</a> is a built-in plugin for building data driven abilities. Users are expected to derive and modify <code>GameplayAbility</code> and <code>GameplayEffect</code> blueprint for custom logic. </p>
 <p>Given a JSON like this:</p>
 <pre><code class="language-c++">// DataConfig/Tests/Fixture_AbilityAlpha.json
 {
@@ -172,7 +172,7 @@
     &quot;InstancingPolicy&quot; : &quot;NonInstanced&quot;,
 }
 </code></pre>
-<p>Right click on a <code>GameplayAbility</code> blueprint asset and select <code>Load From JSON</code>， then select this file and confirm. It would correctly populate the fields with the values in JSON, as seen in the pic below:</p>
+<p>Right click on a <code>GameplayAbility</code> blueprint asset and select <code>Load From JSON</code>, then select this file and confirm. It would correctly populate the fields with the values in JSON, as seen in the pic below:</p>
 <p><img src="Images/DataConfigEditorExtra-LoadJsonIntoAbility.png" alt="DataConfigEditorExtra-LoadJsonIntoAbility" /></p>
 <p>Most of the logic is in <code>DataConfig/EditorExtra/Deserialize/DcDeserializeGameplayAbility.cpp</code>:</p>
 <ul>

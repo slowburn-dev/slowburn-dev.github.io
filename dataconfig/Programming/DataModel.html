@@ -272,7 +272,7 @@ FDcPropertyReader Reader{FDcPropertyDatum(&amp;SimpleStruct)};
 DC_TRY(Reader.ReadStructRoot(&amp;Struct));   // `FDcTestExampleSimple` Struct Root
 
     DC_TRY(Reader.ReadName(&amp;FieldName));  // 'StrField' as FName
-    DC_TRY(Reader.ReadString(&amp;StrValue)); // &quot;Foo STr&quot;
+    DC_TRY(Reader.ReadString(&amp;StrValue)); // &quot;Foo Str&quot;
 
     DC_TRY(Reader.ReadName(&amp;FieldName));  // 'IntField' as FName
     DC_TRY(Reader.ReadInt32(&amp;IntValue));  // 253

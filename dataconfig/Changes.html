@@ -148,6 +148,10 @@
                     <main>
                         <h1 id="changes"><a class="header" href="#changes">Changes</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="175---2025-10-22"><a class="header" href="#175---2025-10-22">1.7.5 - 2025-10-22</a></h2>
+<ul>
+<li>Initial UE 5.7 support.</li>
+</ul>
 <h2 id="174---2025-5-15"><a class="header" href="#174---2025-5-15">1.7.4 - 2025-5-15</a></h2>
 <ul>
 <li>Initial UE 5.6 support.</li>
@@ -343,7 +347,7 @@ See: <a href="Formats/Property.html">Property</a></li>
 <li>Fix <code>TSet/TMap</code> serialization crashes.</li>
 <li>Fix soft object/class reference serialize to nil when it's not loaded.</li>
 <li>Fix pipe property class/object handlers.</li>
-<li>Fix <code>TObjectPtr&lt;&gt;</code> serialialzation and deserialization.</li>
+<li>Fix <code>TObjectPtr&lt;&gt;</code> serialization and deserialization.</li>
 <li>Fix <code>PeekReadDataPtr</code> on class property.</li>
 <li>Removed <code>FScopedStackedReader/FScopedStackedWriter</code> usage.</li>
 <li>Fix <code>HeuristicVerifyPointer</code> diagnostic.</li>
@@ -446,7 +450,7 @@ Now it only checks for <code>CPF_InstancedReference</code>.</li>
 </ul>
 </li>
 <li>Add <code>EDcDataEntry::Extension</code>.</li>
-<li>Add <code>FDcPropertyDatum</code> template constructor to directly construct one from a <code>FSturct*</code>.</li>
+<li>Add <code>FDcPropertyDatum</code> template constructor to directly construct one from a <code>FStruct*</code>.</li>
 <li><code>FPrettyPrintWriter</code> now print blobs with hash, previously it's pointer value.</li>
 <li><code>DcAutomationUtils::SerializeIntoJson/DeserializeIntoJson</code> -&gt; <code>SerializeInto/DeserializeFrom</code> as we're supporting other formats.</li>
 <li>Add <code>HeuristicVerifyPointer</code> to check common magic invalid pointers.</li>

@@ -182,7 +182,7 @@
 <p>Runtime performance is <em>not</em> our top priority.</p>
 <p>We expect users to use DataConfig in an offline, editor only scenario. In this use case we favor some other aspects over runtime performance:</p>
 <ul>
-<li>Idiomatic. We follow <a href="https://docs.unrealengine.com/en-US/ProductionPipelines/DevelopmentSetup/CodingStandard/index.html" title="Epic C++ Coding StandardBlueprint Debugging in Unreal Engine">Unreal Engine C++ coding conventions</a> and keep core dependency to only <code>Core</code> and <code>CoreUObject</code>.</li>
+<li>Idiomatic. We follow <a href="https://docs.unrealengine.com/en-US/ProductionPipelines/DevelopmentSetup/CodingStandard/index.html" title="Epic C++ Coding Standard">Unreal Engine C++ coding conventions</a> and keep core dependency to only <code>Core</code> and <code>CoreUObject</code>.</li>
 <li>Friendly. When processing invalid data and invalid API usage DataConfig should not crash. It should fail explicitly with detailed context and diagnostics.</li>
 <li>Small code size / fast compile time. DataConfig tries not to expose template API. <code>TDcJsonReader</code> is explicit instantiated with its definition in private files.</li>
 <li>Light memory footprint. Our JSON parser does stream parsing and would <em>not</em> construct the loaded JSON document in memory at all.</li>

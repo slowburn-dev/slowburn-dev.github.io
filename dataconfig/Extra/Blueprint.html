@@ -147,7 +147,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="blueprint-serializationdeserialization"><a class="header" href="#blueprint-serializationdeserialization">Blueprint Serialization/Deserialization</a></h1>
-<p><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/reflection-system-in-unreal-engine" title="Unreal Engine Reflection System">The Property System</a> is so powerful that you can create new Blueprint Class/Struct, which is equivalent to C++ <code>UCLASS/USTRUCT</code> to some extents. In this example we'll show how to handle these in DataConfig. </p>
+<p><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/reflection-system-in-unreal-engine" title="Unreal Engine Reflection System">The Property System</a> is so powerful that you can create new Blueprint Class/Struct, which is equivalent to C++ <code>UCLASS/USTRUCT</code> to some extent. In this example we'll show how to handle these in DataConfig.</p>
 <p>The whole blueprint stuff depends on <code>Engine</code> module. This is also why we put related code into <code>DataConfigEngineExtra</code> module.</p>
 <h2 id="blueprint-class-and-object-references"><a class="header" href="#blueprint-class-and-object-references">Blueprint Class and Object references</a></h2>
 <p>Blueprint class are stored within <code>UBlueprint</code> typed assets. Note that we automatically unwrap the container in handlers.</p>
@@ -205,9 +205,9 @@ FString Str = TEXT(R&quot;(
     }
 )&quot;);
 </code></pre>
-<p>You can also reference on how to handle Blueprint enum in this example. It need some special care to convert between int value and the descriptive text set within the editor.</p>
+<p>You can also see how to handle Blueprint enums in this example. It needs some special care to convert between int value and the descriptive text set within the editor.</p>
 <h2 id="blueprint-struct-instance"><a class="header" href="#blueprint-struct-instance">Blueprint Struct Instance</a></h2>
-<p>Finally we're combined <code>FColor</code>, <code>FDcAnyStruct</code> and Blueprint struct into one single example:</p>
+<p>Finally we've combined <code>FColor</code>, <code>FDcAnyStruct</code> and Blueprint struct into one single example:</p>
 <p><img src="Images/DataConfigEditorExtra-BlueprintStruct.png" alt="DataConfigEditorExtra-BlueprintStruct" /></p>
 <pre><code class="language-c++">//DataConfigEngineExtra/Private/DataConfig/EngineExtra/SerDe/DcSerDeBlueprint.cpp
 FString Str = TEXT(R&quot;(

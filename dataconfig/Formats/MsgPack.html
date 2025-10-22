@@ -147,7 +147,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="msgpack"><a class="header" href="#msgpack">MsgPack</a></h1>
-<p><a href="https://msgpack.org/index.html" title="MsgPack">MsgPack</a> is an popular binary serialization format. It can be considered as a binary superset of JSON. Unreal Engine already supports <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Cbor" title="Cbor"><code>Cbor</code></a> module which is a format which is very similar to MsgPack.</p>
+<p><a href="https://msgpack.org/index.html" title="MsgPack">MsgPack</a> is a popular binary serialization format. It can be considered as a binary superset of JSON. Unreal Engine already supports <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Cbor" title="Cbor"><code>Cbor</code></a> module which is a format which is very similar to MsgPack.</p>
 <p>We choose to implement MsgPack as we're more familiar with it and also providing an alternative.</p>
 <h2 id="msgpack-readerwriter"><a class="header" href="#msgpack-readerwriter">MsgPack Reader/Writer</a></h2>
 <p>For the most part MsgPack reader/writer works just like their <a href="./Json.html">JSON counterpart</a>. There're just a few additional data types that belongs to this:</p>
@@ -203,7 +203,7 @@ like their JSON counterparts. </p>
 <table><thead><tr><th>EDcDataEntry</th><th>Serialized</th></tr></thead><tbody>
 <tr><td>Name</td><td><code>[uint32, uint32, int32]</code></td></tr>
 <tr><td>Text</td><td><code>[void*, void*, uint32]</code></td></tr>
-<tr><td>ObjectReference, ClassReference</td><td><code>void*</code></td></tr>
+<tr><td>ObjectReference, ClassReference,</td><td><code>void*</code></td></tr>
 <tr><td>SoftObjectReference, SoftClassReference</td><td><code>FString or void*</code></td></tr>
 <tr><td>WeakObjectReference</td><td><code>[int32, int32]</code></td></tr>
 <tr><td>LazyObjectReference</td><td><code>&lt;uuid as FIXEXT16&gt;</code></td></tr>

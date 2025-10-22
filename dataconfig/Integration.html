@@ -147,7 +147,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="integration"><a class="header" href="#integration">Integration</a></h1>
-<p>At the moment it supports these the engine versions below:</p>
+<p>At the moment it supports the following engine versions:</p>
 <ul>
 <li>UE 5.6</li>
 <li>UE 5.5</li>
@@ -182,10 +182,10 @@
       |- DataConfig.uplugin
 </code></pre>
 <ol start="3">
-<li><a href="#validate-integration">Validate DataConfig plugin is integrated corrrectly</a>.</li>
+<li><a href="#validate-integration">Validate DataConfig plugin is integrated correctly</a>.</li>
 </ol>
 <h3 id="generate-dataconfig-plugin-for-ue4ue5"><a class="header" href="#generate-dataconfig-plugin-for-ue4ue5">Generate DataConfig Plugin for UE4/UE5</a></h3>
-<p>DataConfig now uses separated <code>uplugin</code> files for UE4 and UE5 so that we can try out new features in UE5 without dropping support for UE4. We bundled scripts to generate clean plugins for UE4 and UE5. This is how the <a href="https://github.com/slowburn-dev/DataConfig/releases">DataConfig releases</a> are built.</p>
+<p>DataConfig now uses separate <code>uplugin</code> files for UE4 and UE5 so that we can try out new features in UE5 without dropping support for UE4. We bundled scripts to generate clean plugins for UE4 and UE5. This is how the <a href="https://github.com/slowburn-dev/DataConfig/releases">DataConfig releases</a> are built.</p>
 <pre><code class="language-shell">git clone https://github.com/slowburn-dev/DataConfig
 # requires python 3.6+
 python ./DataConfig/Misc/Scripts/make_dataconfig_ue4.py
@@ -193,7 +193,7 @@ python ./DataConfig/Misc/Scripts/make_dataconfig_ue54.py
 python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 </code></pre>
 <h3 id="dataconfigxxuplugin"><a class="header" href="#dataconfigxxuplugin"><code>DataConfigXX.uplugin</code></a></h3>
-<p>Ultimately we figured that we'll need multiple <code>.uplugin</code> files to support acrosss UE versions:</p>
+<p>Ultimately we figured that we'll need multiple <code>.uplugin</code> files to support across UE versions:</p>
 <table><thead><tr><th>Name</th><th>Version</th></tr></thead><tbody>
 <tr><td>DataConfig4.uplugin</td><td>4.25 - 4.27</td></tr>
 <tr><td>DataConfig54.uplugin</td><td>5.0 - 5.4</td></tr>
@@ -209,7 +209,7 @@ python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 <p>Delete <code>DataConfig4.uplugin</code>, and other <code>DataConfig5X.uplugin</code>.</p>
 </li>
 <li>
-<p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or you your project won't build</strong>.</p>
+<p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or your project won't build</strong>.</p>
 </li>
 </ol>
 <h3 id="manual-steps-for-ue4"><a class="header" href="#manual-steps-for-ue4">Manual Steps for UE4</a></h3>
@@ -221,7 +221,7 @@ python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 <p>Delete <code>DataConfig.uplugin</code>, then rename <code>DataConfig4.uplugin</code> to <code>DataConfig.uplugin</code>.</p>
 </li>
 <li>
-<p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or you your project won't build</strong>.</p>
+<p><strong>Delete <code>DataConfig/Source/DataConfigHeadless</code></strong> folder. <strong>This step is crucial or your project won't build</strong>.</p>
 </li>
 <li>
 <p>Additionally delete UE5 specific modules.</p>
@@ -244,13 +244,13 @@ python ./DataConfig/Misc/Scripts/make_dataconfig_ue5.py
 </ol>
 <h2 id="integrate-dataconfigcore-module"><a class="header" href="#integrate-dataconfigcore-module">Integrate <code>DataConfigCore</code> Module</a></h2>
 <p>DataConfig is packed into a plugin to bundle automation tests with a few assets. You're encouraged to integrate only the <code>DataConfigCore</code> module. It contains all core features with minimal dependencies. </p>
-<p>Most projects should has a editor module already setup. In this section we'll go through the steps of integrating <code>DataConfigCore</code> and build it with the project's <code>FooProjectEditor</code> module.</p>
+<p>Most projects should have an editor module already set up. In this section we'll go through the steps of integrating <code>DataConfigCore</code> and build it with the project's <code>FooProjectEditor</code> module.</p>
 <ol>
 <li>
 <p>Get a copy of this repository. Then copy <code>DataConfig/Source/DataConfigCore</code> into your project's <code>Source</code> directory.</p>
 </li>
 <li>
-<p>Edit <code>FooProjectEditor.Build.cs</code> add add <code>DataConfigCore</code> as an extra module:</p>
+<p>Edit <code>FooProjectEditor.Build.cs</code> and add <code>DataConfigCore</code> as an extra module:</p>
 <pre><code class="language-c++">using UnrealBuildTool;
 
 public class FooProjectEditor : ModuleRules

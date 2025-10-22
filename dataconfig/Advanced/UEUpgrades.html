@@ -148,6 +148,16 @@
                     <main>
                         <h1 id="unreal-engine-upgrades"><a class="header" href="#unreal-engine-upgrades">Unreal Engine Upgrades</a></h1>
 <p>DataConfig is committed to support multiple UE versions with no deprecations and warnings. On this page we'll document important upgrade and migration info.</p>
+<h1 id="ue57"><a class="header" href="#ue57">UE5.7</a></h1>
+<ul>
+<li><code>FindObject</code> series of functions deprecates <code>bExactClass</code> in favor of <code>EFindObjectFlags</code>.</li>
+<li>Many metadata fields like <code>BaseStruct</code>, <code>AllowedClasses</code> requires full long names: 
+<ul>
+<li>for example previously for instanced struct we can do this: <code>UPROPERTY(EditAnywhere, meta = (BaseStruct = &quot;DcStructShapeBase&quot;))</code>. Now it has to be using the full path starting with <code>/</code> like <code>UPROPERTY(EditAnywhere, meta = (BaseStruct = &quot;/Script/DataConfigExtra.DcStructShapeBase&quot;))</code>.</li>
+<li>See the full list in <code>LongPathNameMetaDataSpecifierValidator</code> in <code>UhtDefaultSpecifiers.cs</code>.</li>
+</ul>
+</li>
+</ul>
 <h1 id="ue56"><a class="header" href="#ue56">UE5.6</a></h1>
 <ul>
 <li><code>FString::Appendf</code> and series of functions now do compile time check on the format string, requires the format string to be a static constexpr.</li>

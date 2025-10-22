@@ -147,7 +147,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="base64-blob-serializationdeserialization"><a class="header" href="#base64-blob-serializationdeserialization">Base64 Blob Serialization/Deserialization</a></h1>
-<p>This demonstrates conversion between<code>TArray&lt;uint8&gt;</code> and Base64 encoded strings in JSON:</p>
+<p>This demonstrates conversion between <code>TArray&lt;uint8&gt;</code> and Base64 encoded strings in JSON:</p>
 <ul>
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra/Public/DataConfig/Extra/SerDe/DcSerDeBase64.h">DcSerDeBase64.h</a></li>
 <li><a href="https://github.com/slowburn-dev/DataConfig/tree/release/DataConfig/Source/DataConfigExtra/Private/DataConfig/Extra/SerDe/DcSerDeBase64.cpp">DcSerDeBase64.cpp</a></li>
@@ -170,8 +170,8 @@ FString Str = TEXT(R&quot;(
     }
 )&quot;);
 </code></pre>
-<p>Note that we're tagging the <code>BlobField</code> with <code>(meta = (DcExtraBase64))</code> to explicitly show that we' want this member to be converted into Base64.</p>
-<p>UE support <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Metadata/" title="Metadata Specifiers">arbitrary meta data in the <code>meta = ()</code> segment</a>. But beware that the meta data is only available when <code>WITH_EDITORDATA</code> flag is defined. In predicate we check for this <code>DcExtraBase64</code> like this:</p>
+<p>Note that we're tagging the <code>BlobField</code> with <code>(meta = (DcExtraBase64))</code> to explicitly show that we want this member to be converted into Base64.</p>
+<p>UE support <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Metadata/" title="Metadata Specifiers">arbitrary meta data in the <code>meta = ()</code> segment</a>. But beware that the meta data is only available when <code>WITH_EDITORDATA</code> flag is defined. In the predicate we check for this <code>DcExtraBase64</code> like this:</p>
 <pre><code class="language-c++">// DataConfigExtra/Private/DataConfig/Extra/SerDe/DcSerDeBase64.cpp
 EDcDeserializePredicateResult PredicateIsBase64Blob(FDcDeserializeContext&amp; Ctx)
 {
