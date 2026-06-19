@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+
+  
+<title>DataConfig UE5 and Beyond - slowburn.dev </title>
+<meta property="og:title" content="DataConfig UE5 and Beyond - slowburn.dev" />
+
+
+<meta name="description" content="Next step for DataConfig at the crossing between UE5 and UE6.">
+<meta property="og:description" content="Next step for DataConfig at the crossing between UE5 and UE6." />
+
+
+
+
+  <meta charset="utf-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@slowburndev" />
+  <meta name="twitter:creator" content="@slowburndev" />
+
+  <meta property="og:url" content="https://slowburn.dev/blog/dataconfig-ue5-ue6/" />
+
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+</head>
+<body>
+    
+<div class="container page">
+
+<h1>DataConfig UE5 and Beyond</h1>
+<span class="alt after-h1">2026-06-19</span>
+
+<p>Epic Games pushed UE 5.8.0 yesterday along with the UE6 announcement. We pushed the latest <a href="https://github.com/slowburn-dev/DataConfig/releases/tag/1.7.6">1.7.6</a> DataConfig and updated <a href="https://www.fab.com/listings/848d9282-e829-4125-82e6-bf9a21491823">DataConfig JSON Asset</a> with UE 5.8 support. So what's next for DataConfig? Here's the rough plan:</p>
+<ul>
+<li>DataConfig is considered <em>done</em> in development. That is, we consider all features we ever wanted in this project to have been implemented. If you find this concept novel, you'd be amazed that there's a versioning scheme called <a href="https://jtobin.io/kelvin-versioning">Kelvin Versioning</a> that counts releases down to 0, after which there are no more releases.</li>
+<li>UE 5.8 is likely the last major UE release. If that's the case <a href="https://github.com/slowburn-dev/DataConfig/releases/tag/1.7.6">DataConfig 1.7.6</a> would be the final codebase that works [from UE 4.25 to UE 5.8].</li>
+<li>When UE6 is out, we're likely to freshen up the codebase to only work in UE6. This is because we already have tons of <code>#ifdef</code>s to support multiple UE versions, and it'll be unmanageable with UE6 added. That said, there are likely no new major features to be added, so newer releases will have feature parity with <a href="https://github.com/slowburn-dev/DataConfig/releases/tag/1.7.6">1.7.6</a>. One of the reasons we spend the effort to support all these engine versions is that we want a clean and reliable way to get your UE data in and out of the engine.</li>
+</ul>
+<p>And that's it. See you in the future! (or maybe just when 5.9 hits).</p>
+
+
+<div class="footer">
+  <a href="/">slowburn.dev</a>
+</div>
+
+</div>
+
+
+    
+    
+</body>
+
+</html>
